@@ -1,0 +1,11 @@
+echo running phing install-clone
+phing install-clone
+
+sudo sed -i '/var\/www\/html/s/var\/www\/html/home\/ec2-user\/environment\/build/' $HTTP
+sudo sed -i "/var\/www/s/var\/www/home\/ec2-user\/environment/" $HTTP
+sudo sed -i "/User apache/s/apache/ec2-user/" $HTTP
+sudo sed -i "/Group apache/s/apache/ec2-user/" $HTTP
+sudo sed -i "/AllowOverride None/s/AllowOverride None/AllowOverride All/" $HTTP
+sudo sed -i "/AllowOverride none/s/AllowOverride none/AllowOverride All/" $HTTP
+sudo service httpd restart
+ 

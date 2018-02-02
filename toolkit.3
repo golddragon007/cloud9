@@ -1,0 +1,27 @@
+mv temp/* .
+rm -r temp/
+
+mkdir lib/custom
+mv lib/modules/* lib/custom/
+mv lib/custom/features/ lib/features/
+mv lib/custom lib/modules/
+mv lib/features lib/modules/
+mv RESOURCES/* resources/
+rmdir RESOURCES
+
+echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com">>$FILE
+echo "project.url.production = $URL">>$FILE
+echo "project.id = $SITE">>$FILE
+echo "project.name = Subsite $SITE">>$FILE
+echo "platform.package.version = $VERSION">>$FILE
+echo "db.host = 127.0.0.1">>$FILE
+echo "share.path = /tmp/cache">>$FILE
+echo "phpcs.reports = full">>$FILE
+echo "behat.formatter.name = pretty">>$FILE
+echo "db.dl.password = $ASDA">>$FILE
+echo 'db.dl.username = ${project.id}'>>$FILE
+echo 'db.name = ${project.id}'>>$FILE
+echo 'behat.base_url = ${project.url.base}'>>$FILE
+
+echo running phing build-platform
+phing build-platform
