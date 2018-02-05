@@ -15,4 +15,4 @@ sudo service mysqld start
 docker swarm init;docker stack deploy -c ../selenium.yml selenium
 sudo sed -i "/^Listen/s/ 80\$/ 8080/" /etc/httpd/conf/httpd.conf;sudo service httpd start;for x in httpd mysqld;do sudo chkconfig $x on;done
 sudo curl -sS https://getcomposer.org/installer|sudo php;sudo mv composer.phar /usr/local/bin/composer;sudo ln -s /usr/local/bin/composer /usr/bin/composer
-sudo sed -i /memory_limit/s/128M/256M/ /etc/php.ini
+#sudo sed -i /memory_limit/s/128M/256M/ /etc/php.ini
