@@ -1,3 +1,5 @@
+REPO=$([ $REPS = true ]&&echo reps-$SITE-refernce||echo $SITE-reference)
+
 git config --global user.name $USER
 git config --global user.email $EMAIL
 git clone https://github.com/ec-europa/$REPO.git
