@@ -1,5 +1,5 @@
 mv temp/* .;rm -r temp/
-if [ ! -d lib/modules/custom ];then mkdir lib/custom/&&mv lib/modules/* lib/custom&&mv lib/custom/features lib/features&&mv lib/custom lib/modules&&mv lib/features lib/modules;fi
+if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi
 mv RESOURCES/* resources/;rmdir RESOURCES
 
 ENVIRONMENT_ID=$(curl http://169.254.169.254/latest/meta-data/security-groups|cut -d\- -f4)
