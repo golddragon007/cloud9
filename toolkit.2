@@ -3,7 +3,6 @@ REPO=$([ $REPS = true ]&&echo reps-$SITE-reference||echo $SITE-reference)
 git config --global user.name $USER;git config --global user.email $EMAIL
 git clone https://github.com/ec-europa/$REPO.git
 
-#mv $REPO/* .;mv $REPO/.* .;rmdir $REPO/
 cd $REPO
 git checkout -b toolkit/upgrade
 rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/

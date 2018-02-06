@@ -18,5 +18,8 @@ echo 'db.dl.username = ${project.id}'>>$FILE
 echo 'db.name = ${project.id}'>>$FILE
 echo 'behat.base_url = ${project.url.base}'>>$FILE
 
+alias drush="$HOME/environment/$REPO/toolkit/drush -r build"
+alias phing="$HOME/environment/$REPO/toolkit/phing"
+
 echo running phing build-platform
 phing build-platform
