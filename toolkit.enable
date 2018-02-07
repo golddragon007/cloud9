@@ -1,0 +1,5 @@
+#!/bin/sh
+source $HOME/environment/$1.conf
+source $HOME/environment/cloud9/toolkit.0
+sudo sed -i "/build/s/environment.*build/environment\/$REPO\/build/" $HTTP
+sudo service httpd restart

@@ -1,0 +1,4 @@
+REPO=$([ $REPS = true ]&&echo reps-$SITE-reference||echo $SITE-reference)
+ENVIRONMENT_ID=$(curl http://169.254.169.254/latest/meta-data/security-groups|cut -d\- -f4)
+alias drush="$HOME/environment/$REPO/toolkit/drush -r build"
+alias phing="$HOME/environment/$REPO/toolkit/phing"

@@ -2,7 +2,6 @@ mv temp/* .;rm -r temp/
 if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi
 mv RESOURCES/* resources/;rmdir RESOURCES
 
-ENVIRONMENT_ID=$(curl http://169.254.169.254/latest/meta-data/security-groups|cut -d\- -f4)
 echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com">>$FILE
 echo "project.url.production = $URL">>$FILE
 echo "project.id = $SITE">>$FILE
@@ -18,8 +17,6 @@ echo 'db.dl.username = ${project.id}'>>$FILE
 echo 'db.name = ${project.id}'>>$FILE
 echo 'behat.base_url = ${project.url.base}'>>$FILE
 
-alias drush="$HOME/environment/$REPO/toolkit/drush -r build"
-alias phing="$HOME/environment/$REPO/toolkit/phing"
 
 echo running phing build-platform
 phing build-platform
