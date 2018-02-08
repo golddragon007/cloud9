@@ -1,5 +1,7 @@
 phing install-clone
 
+sed -i "/ec2-user/s/\/home\/ec2-user\/environment\/$REPO\/build\///" build/sites/default/settings.php
+
 sudo sed -i "/build/s/environment.*build/environment\/$REPO\/build/" $HTTP
 
 sudo sed -i "/var\/www\/html/s/var\/www\/html/home\/ec2-user\/environment\/$REPO\/build/" $HTTP

@@ -1,6 +1,8 @@
-set +e;mv temp/* .;rmdir temp/;set -e
+set +e
+mv temp/* .;rmdir temp/;
 if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi
 mv RESOURCES/* resources/;rmdir RESOURCES
+set -e
 
 echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com">>$FILE
 echo "project.url.production = $URL">>$FILE
