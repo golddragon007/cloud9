@@ -1,4 +1,4 @@
-mv temp/* .;rm -r temp/
+set +e;mv temp/* .;rmdir temp/;set -e
 if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi
 mv RESOURCES/* resources/;rmdir RESOURCES
 
@@ -17,8 +17,4 @@ echo 'db.dl.username = ${project.id}'>>$FILE
 echo 'db.name = ${project.id}'>>$FILE
 echo 'behat.base_url = ${project.url.base}'>>$FILE
 
-
-echo running phing build-platform
-for x in httpd mysqld;do sudo service $x stop;done
-phing build-platform
-for x in mysqld httpd;do sudo service $x start;done
+for x in httpd mysqld;do sudo service $x stop;done;phing build-platform;for x in mysqld httpd;do sudo service $x start;done

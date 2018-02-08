@@ -1,10 +1,9 @@
-
 git config --global user.name $USER;git config --global user.email $EMAIL
-git clone https://github.com/ec-europa/$REPO.git
+git clone https://$GITHUB_USER:$GITHUB_PASS@github.com/ec-europa/$REPO.git
 
 cd $REPO
 git checkout -b toolkit/upgrade
-rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/
+set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;set -e
 
 echo running composer create-project ec-europa/subsite temp dev-master
 composer create-project ec-europa/subsite temp dev-master
