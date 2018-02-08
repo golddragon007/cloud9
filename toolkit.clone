@@ -1,6 +1,4 @@
 #!/bin/sh
 set -e
 DIR=$HOME/environment/cloud9
-CONF=$HOME/environment/$1.conf
-[ ! -f $CONF ]&&source $DIR/toolkit.0||source $CONF
-for x in {1..5};do source $DIR/toolkit.$x;done
+for x in {0..5};do source $DIR/toolkit.$x;done
