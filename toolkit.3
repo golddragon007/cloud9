@@ -1,9 +1,4 @@
-set +e
-mv temp/* .;rmdir temp/;
-if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi
-mv RESOURCES/* resources/;rmdir RESOURCES
-set -e
-
+set +e;mv temp/* .;rmdir temp/;if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi;mv RESOURCES/* resources/;rmdir RESOURCES;set -e
 echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com">>$FILE
 echo "project.url.production = $URL">>$FILE
 echo "project.id = $SITE">>$FILE
@@ -14,9 +9,7 @@ echo "share.path = /tmp/cache">>$FILE
 echo "phpcs.reports = full">>$FILE
 echo "behat.formatter.name = pretty">>$FILE
 echo "db.dl.password = $ASDA">>$FILE
-
 echo 'db.dl.username = ${project.id}'>>$FILE
 echo 'db.name = ${project.id}'>>$FILE
 echo 'behat.base_url = ${project.url.base}'>>$FILE
-
 for x in httpd mysqld;do sudo service $x stop;done;phing build-platform;for x in mysqld httpd;do sudo service $x start;done
