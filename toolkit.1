@@ -1,4 +1,5 @@
 if [ ! -f ../selenium.yml ];then
+echo HISTSIZE=1000000>>../.bashrc;HISTFILESIZE=2000000>>../.bashrc;HISTTIMEFORMAT="%F %T ">>../.bashrc
 touch ../selenium.yml
 echo 'version: "3"'>>../selenium.yml
 echo 'services:'>>../selenium.yml
