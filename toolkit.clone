@@ -1,4 +1,0 @@
-#!/bin/sh
-set -e
-DIR=$HOME/environment/cloud9
-for x in {0..5};do source $DIR/toolkit.$x;done

@@ -1,3 +1,17 @@
-git clone https://$GITHUB_USER:$GITHUB_PASS@github.com/ec-europa/$REPO.git;cd $REPO;git checkout -b toolkit/upgrade
+cd $DIR;[ -d $REPO ]&&rm -rf $REPO;git clone https://$GITHUB_USER:$GITHUB_PASS@github.com/ec-europa/$REPO.git;cd $REPO;git checkout -b toolkit/upgrade
 set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;set -e
 composer create-project ec-europa/subsite temp dev-master
+set +e;mv temp/* .;rmdir temp/;if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi;mv RESOURCES/* resources/;rmdir RESOURCES;set -e
+echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com">>$FILE
+echo "project.url.production = $URL">>$FILE
+echo "project.id = $SITE">>$FILE
+echo "project.name = Subsite $SITE">>$FILE
+echo "platform.package.version = $VERSION">>$FILE
+echo "db.host = 127.0.0.1">>$FILE
+echo "share.path = /tmp/cache">>$FILE
+echo "phpcs.reports = full">>$FILE
+echo "behat.formatter.name = pretty">>$FILE
+echo "db.dl.password = $ASDA">>$FILE
+echo 'db.dl.username = ${project.id}'>>$FILE
+echo 'db.name = ${project.id}'>>$FILE
+echo 'behat.base_url = ${project.url.base}'>>$FILE
