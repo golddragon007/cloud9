@@ -1,3 +1,4 @@
+[ -d $DIR/cloud9/conf.d ]||mkdir -p $DIR/cloud9/conf.d
 KONF=$DIR/cloud9/conf.d/cloud9.conf
 if [ -f $KONF ];then source $KONF;else
 read -p "USER (Name Surname) = " USER;USER=${USER:-NOUSER};echo USER=\"$USER\">>$KONF
