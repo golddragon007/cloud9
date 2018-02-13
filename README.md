@@ -1,8 +1,8 @@
 # cloud9
 
-AWS Cloud9
+# AWS Cloud9
 
-Instructions:
+# Instructions:
 
 git clone https://github.com/ec-europa/cloud9
 
