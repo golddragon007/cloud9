@@ -3,8 +3,7 @@ KONF=$DIR/cloud9/conf.d/cloud9.conf
 if [ -f $KONF ];then source $KONF;else
 read -p "USER (Name Surname) = " USER;USER=${USER:-NOUSER};echo USER=\"$USER\">>$KONF
 read -p "EMAIL (user@domain) = " EMAIL;EMAIL=${EMAIL:-"NOUSER@NOMAIL"};echo EMAIL=$EMAIL>>$KONF
-read -p "GITHUB_USER (Github username) = " GITHUB_USER;echo GITHUB_USER=$GITHUB_USER>>$KONF
-read -p "GITHUB_PASS (Github password) = " GITHUB_PASS;echo GITHUB_PASS=$GITHUB_PASS>>$KONF
+read -p "GITHUB_PASS (Github pssword) = " GITHUB_PASS;echo GITHUB_PASS=$GITHUB_PASS>>$KONF
 read -p "HTTP (Apache configuration file: /etc/httpd/conf/httpd.conf) = " HTTP;HTTP=${HTTP:-/etc/httpd/conf/httpd.conf};echo HTTP=$HTTP>>$KONF
 read -p "FILE (Developer configuration file: build.develop.props) = " FILE;FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$KONF
 read -p "REGION_ID (AWS region Ireland: eu-west-1) = " REGION_ID;REGION_ID=${REGION_ID:-eu-west-1};echo REGION_ID=$REGION_ID>>$KONF
