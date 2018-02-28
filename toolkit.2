@@ -1,4 +1,6 @@
-cd $DIR;[ -d $REPO ]&&rm -rf $REPO;while ! git clone https://github.com/ec-europa/$REPO.git;do echo;echo Please try again\:;done;cd $REPO;git checkout -b toolkit/upgrade
+cd $DIR;[ -d $REPO ]&&rm -rf $REPO
+[ $2 == clone ]&&(while ! git clone https://github.com/ec-europa/$REPO.git;do echo;echo Please try again\:;done;cd $REPO;git checkout -b toolkit/upgrade)
+cd $DIR;[ -d $REPO ]||mkdir $REPO;cd $REPO
 set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;set -e
 composer create-project ec-europa/subsite temp dev-master --no-interaction
 set +e;mv temp/* .;rmdir temp/;if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi;mv RESOURCES/* resources/;rmdir RESOURCES;set -e
