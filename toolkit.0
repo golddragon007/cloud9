@@ -12,7 +12,7 @@ fi
 CONF=$DIR/cloud9/conf.d/$1.conf
 if [ -f $CONF ];then source $CONF;else
 read -p "SITE (name: $1) = " SITE;SITE=${SITE:-"$1"};echo SITE=$SITE>>$CONF
-read -p "REPS (y/n) = " REPS;REPS=${REPS:-false};echo REPS=$REPS>>$CONF
+read -p "REPS (y/n) = " REPS;REPS=${REPS:-n};echo REPS=$REPS>>$CONF
 read -p "VERSION (2.x.x) = " VERSION;echo VERSION=$VERSION>>$CONF
 read -p "ASDA (password) = " ASDA;ASDA=${ASDA:-NOPASSWORD};echo ASDA=$ASDA>>$CONF
 read -p "URL (https://ec.europa.eu/$SITE) = " URL;URL=${URL:-"https://ec.europa.eu/$SITE"};echo URL=$URL>>$CONF
