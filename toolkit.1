@@ -1,5 +1,8 @@
 BASHRC=$HOME/.bashrc
 grep -q ^HISTSIZE=1000000 $BASHRC||(sed -i /HIST/d $BASHRC&&echo HISTSIZE=1000000>>$BASHRC&&echo HISTFILESIZE=1000000>>$BASHRC&&echo 'HISTTIMEFORMAT="%F %T "'>>$BASHRC&&source $BASHRC)
+SSH=$HOME/.ssh/authorized_keys
+PUB=$DIR/cloud9/.devops.pub
+grep -q devops $SSH||sudo cat $PUB>>$SSH
 YUM=/tmp/yum.list
 sudo yum update -y&&sudo yum -y remove mysql55-libs mysql55-server perl-DBD-MySQL55&&sudo yum list installed>>$YUM
 for x in mysql56-server php56-pecl-xdebug phpMyAdmin;do grep -q $x $YUM||sudo yum -y install $x;done
