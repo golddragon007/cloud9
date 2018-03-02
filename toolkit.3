@@ -8,3 +8,4 @@ sudo sed -i "/Group apache/s/apache/ec2-user/" $HTTP
 sudo sed -i "/AllowOverride None/s/AllowOverride None/AllowOverride All/" $HTTP
 sudo sed -i "/AllowOverride none/s/AllowOverride none/AllowOverride All/" $HTTP
 sudo service httpd restart
+sudo service httpd stop
