@@ -27,3 +27,5 @@ CLONE means to download an already existing subsite
 PURGE means to delete a previously downloaded subsite
 
 ENABLE means to link the APACHE server to a specific subsite
+
+If you still have any question please put a comment in this ticket: https://webgate.ec.europa.eu/CITnet/jira/browse/FPFISSUPP-1622
