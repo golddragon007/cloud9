@@ -10,11 +10,15 @@ Create a new environment with the name of your ECAS username and choose the EC2 
 
 Once created the environment open a terminal and type the following commands:
 
+######################################################
+
 git clone https://github.com/ec-europa/cloud9
 
 cd cloud9
 
 ./toolkit.sh nameofthesubsite clean|clone|purge|enable
+
+######################################################
 
 CLEAN means a fresh clean install of a new subsite
 
