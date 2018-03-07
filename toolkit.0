@@ -4,7 +4,7 @@ if [ -f $KONF ];then source $KONF;else
 read -p "GITHUB USER (Name Surname) = " USER;USER=${USER:-NOUSER};echo USER=\"$USER\">>$KONF
 read -p "GITHUB EMAIL (user@domain) = " EMAIL;EMAIL=${EMAIL:-"NOUSER@NOMAIL"};echo EMAIL=$EMAIL>>$KONF
 read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};echo GITHUB_USER=$GITHUB_USER>>$KONF
-read -s -p "GITHUB_PASS (Github password) = " GITHUB_PASS;GITHUB_PASS=${GITHUB_PASS:-NOPASSWORD};echo GITHUB_PASS=$GITHUB_PASS>>$KONF
+read -s -p "GITHUB_PASS (Github password) = " GITHUB_PASS;echo;GITHUB_PASS=${GITHUB_PASS:-NOPASSWORD};echo GITHUB_PASS=$GITHUB_PASS>>$KONF
 read -p "HTTP (default Apache configuration file: /etc/httpd/conf/httpd.conf) = " HTTP;HTTP=${HTTP:-/etc/httpd/conf/httpd.conf};echo HTTP=$HTTP>>$KONF
 read -p "FILE (default Developer configuration file: build.develop.props) = " FILE;FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$KONF
 read -p "REGION_ID (default AWS region Ireland: eu-west-1) = " REGION_ID;REGION_ID=${REGION_ID:-eu-west-1};echo REGION_ID=$REGION_ID>>$KONF
@@ -16,7 +16,7 @@ if [ -f $CONF ];then source $CONF;else
 read -p "SITE (default name: $1) = " SITE;SITE=${SITE:-"$1"};echo SITE=$SITE>>$CONF
 read -p "REPS (y/n) = " REPS;REPS=${REPS:-n};echo REPS=$REPS>>$CONF
 read -p "VERSION (2.x.x) = " VERSION;echo VERSION=$VERSION>>$CONF
-read -s -p "ASDA (password) = " ASDA;ASDA=${ASDA:-NOPASSWORD};echo ASDA=$ASDA>>$CONF
+read -s -p "ASDA (password) = " ASDA;echo;ASDA=${ASDA:-NOPASSWORD};echo ASDA=$ASDA>>$CONF
 read -p "URL (default https://ec.europa.eu/$SITE) = " URL;URL=${URL:-"https://ec.europa.eu/$SITE"};echo URL=$URL>>$CONF
 read -p "PHP (default memory limit: 256M) = " PHP;PHP=${PHP:-256M};echo PHP=$PHP>>$CONF
 REPO=$([ $REPS = y ]&&echo reps-$SITE-reference||echo $SITE-reference);echo REPO=$REPO;echo REPO=$REPO>>$CONF
