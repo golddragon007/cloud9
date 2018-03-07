@@ -1,4 +1,4 @@
-cd $DIR/$REPO;for x in httpd mysqld;do sudo service $x stop;done;phing build-platform;for x in mysqld httpd;do sudo service $x start;done;rm resources/composer.lock;phing build-subsite-dev;phing install-$2
+cd $DIR/$REPO;for x in httpd mysqld;do sudo service $x stop;done;phing build-platform;for x in mysqld;do sudo service $x start;done;rm resources/composer.lock;phing build-subsite-dev;phing install-$2
 sed -i "/ec2-user/s/\/home\/ec2-user\/environment\/$REPO\/build\///" build/sites/default/settings.php
 sudo sed -i "/build/s/environment.*build/environment\/$REPO\/build/" $HTTP
 sudo sed -i "/var\/www\/html/s/var\/www\/html/home\/ec2-user\/environment\/$REPO\/build/" $HTTP
@@ -7,5 +7,3 @@ sudo sed -i "/User apache/s/apache/ec2-user/" $HTTP
 sudo sed -i "/Group apache/s/apache/ec2-user/" $HTTP
 sudo sed -i "/AllowOverride None/s/AllowOverride None/AllowOverride All/" $HTTP
 sudo sed -i "/AllowOverride none/s/AllowOverride none/AllowOverride All/" $HTTP
-sudo service httpd restart
-sudo service httpd stop
