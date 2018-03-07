@@ -1,5 +1,5 @@
 cd $DIR;[ -d $REPO ]&&rm -rf $REPO
-[ $2 == clone ]&&(while ! git clone https://github.com/ec-europa/$REPO.git;do echo;echo Please try again\:;done;cd $REPO;git checkout -b toolkit/upgrade)
+[ $2 == clone ]&&(while ! git clone https://$GITHUB_USER:$GITHUB_PASS@github.com/ec-europa/$REPO.git;do echo;echo Please try again\:;read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};echo GITHUB_USER=$GITHUB_USER>>$KONF;read -ps "GITHUB_PASS (Github password) = " GITHUB_PASS;GITHUB_PASS=${GITHUB_PASS:-NOPASSWORD};echo GITHUB_PASS=$GITHUB_PASS>>$KONF;done;cd $REPO;git checkout -b toolkit/upgrade)
 cd $DIR;[ -d $REPO ]||mkdir $REPO;cd $REPO
 set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;set -e
 composer create-project ec-europa/subsite temp dev-master --no-interaction
