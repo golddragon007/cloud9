@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e;trap "echo Something went wrong... the script $0 has been aborted" ERR
 DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/$1.conf
-if [ -f $KONF ];then source $KONF;else
+if [ ! -f $KONF ];then
 read -p "SITE (default name: $1) = " SITE;SITE=${SITE:-"$1"};echo SITE=$SITE>>$KONF
 read -p "REPS (y/n) = " REPS;REPS=${REPS:-n};echo REPS=$REPS>>$KONF
 read -p "VERSION (2.x.x) = " VERSION;echo VERSION=$VERSION>>$KONF
