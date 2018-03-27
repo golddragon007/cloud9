@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e;trap "echo Something went wrong... the script $0 has been aborted" ERR
 DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/cloud9.conf
-case $2 in
-configure) $CLOUD/system.sh;$CLOUD/native.sh;$CLOUD/configure.sh $1;;
+case $1 in
+configure) $CLOUD/system.sh;$CLOUD/native.sh;$CLOUD/configure.sh $2;;
 clean) $CLOUD/install.sh;;
-clone) $CLOUD/clone.sh $1;$CLOUD/install.sh $1;;
-purge) source $CONF/$1.conf;rm -rf $DIR/$REPO $CONF/$1.conf;; 
-enable) source $CONF/$1.conf;sudo sed -i "/build/s/environment.*build/environment\/$REPO\/build/" $HTTP;sudo service httpd restart;echo You can access your website through this URL\:;echo;awk '/^project.url.base/{print $3}' $DIR/$REPO/$FILE;;
+clone) $CLOUD/clone.sh $2;$CLOUD/install.sh $2;;
+purge) source $CONF/$2.conf;rm -rf $DIR/$REPO $CONF/$2.conf;; 
+enable) source $CONF/$2.conf;sudo sed -i "/build/s/environment.*build/environment\/$REPO\/build/" $HTTP;sudo service httpd restart;echo You can access your website through this URL\:;echo;awk '/^project.url.base/{print $3}' $DIR/$REPO/$FILE;;
 disable) sudo service httpd stop;;
 esac
