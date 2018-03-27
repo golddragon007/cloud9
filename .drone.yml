@@ -4,4 +4,10 @@ pipeline:
     commands:
       - python -m py_compile my_script.py
 
-  
+  build-test:
+    image: python:2.7
+    commands:
+      - apt-get update --yes
+      - apt-get install zip --yes
+      - pip install pipenv
+      - ./createPackage.sh
