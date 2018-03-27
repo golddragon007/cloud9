@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e;trap "echo Something went wrong... the script $0 has been aborted" ERR
+set -e
 DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/cloud9.conf
 case $1 in
 configure) $CLOUD/system.sh;$CLOUD/native.sh;$CLOUD/configure.sh $2;;

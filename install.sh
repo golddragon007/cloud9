@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e;trap "echo Something went wrong... the script $0 has been aborted" ERR
+set -e
 DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/cloud9.conf;source $KONF;source $CONF/$1.conf
 cd $DIR;[ -d $REPO ]||mkdir $REPO;cd $REPO;set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;set -e;composer create-project ec-europa/subsite temp dev-master --no-interaction;set +e;mv temp/* .;rmdir temp/;if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;mv lib/custom lib/modules;mv lib/features lib/modules;fi;mv RESOURCES/* resources/;rmdir RESOURCES;set -e
 echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com">>$FILE
