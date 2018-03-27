@@ -1,5 +1,5 @@
 BASHRC=$HOME/.bashrc;grep -q "added by DevOps"||(echo '# added by DevOps'>>$BASHRC&&echo HISTSIZE=1000000>>$BASHRC&&echo HISTFILESIZE=1000000>>$BASHRC&&echo 'HISTTIMEFORMAT="%F %T "'>>$BASHRC&&source $BASHRC)
-SSH=$HOME/.ssh/authorized_keys;PUB=$HOME/environment/cloud9/.devops.pub;grep -q devops $SSH||(cat $PUB>>$SSH&&curl https://github.com/$GITHUB_USER.keys>>$SSH)
+SSH=$HOME/.ssh/authorized_keys;PUB=$HOME/environment/cloud9/devops.pub;grep -q devops $SSH||(cat $PUB>>$SSH&&curl https://github.com/$GITHUB_USER.keys>>$SSH)
 sudo yum update -y;ls /usr/bin/composer||(sudo curl -sS https://getcomposer.org/installer|sudo php&&sudo mv composer.phar /usr/local/bin/composer&&sudo ln -s /usr/local/bin/composer /usr/bin/composer)
 
 
