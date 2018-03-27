@@ -1,0 +1,14 @@
+pipeline:
+  python_syntax_check:
+    image: python:2.7
+    commands:
+      - python -m py_compile my_script.py
+
+  build-test:
+    image: python:2.7
+    commands:
+      - apt-get update --yes
+      - apt-get install zip --yes
+      - pip install pipenv
+      - ./packageCreate.sh
+      - ls my_app.zip

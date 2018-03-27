@@ -1,2 +1,3 @@
-conf.d/
-build.develop.props
+*.pyc
+*.zip
+*.old
