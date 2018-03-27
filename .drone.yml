@@ -10,4 +10,5 @@ pipeline:
       - apt-get update --yes
       - apt-get install zip --yes
       - pip install pipenv
-      - ./createPackage.sh
+      - ./packageCreate.sh
+      - ls my_app.zip

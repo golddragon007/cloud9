@@ -26,6 +26,9 @@ if [ ! -z $(ls -A "${VIRTUAL_ENV}/lib64/python2.7/site-packages/") ]; then
 fi
 
 # On cloud9, site-package is empty... use dist-packages
+# https://stackoverflow.com/questions/9387928/whats-the-difference-between-dist-packages-and-site-packages
+# dist-packages is a Debian-specific convention that is also present in its derivatives, like Ubuntu.
+# Modules are installed to dist-packages when they come from the Debian package manager into this location.
 if [ ! -z $(ls -A "${VIRTUAL_ENV}/lib/python2.7/dist-packages/") ]; then
     cd "${VIRTUAL_ENV}/lib/python2.7/dist-packages/" || exit 1
     zip -r $ZIP_FILE . || exit 1
