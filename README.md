@@ -16,7 +16,7 @@ git clone https://github.com/ec-europa/cloud9
 
 cd cloud9
 
-./toolkit.sh nameofthesubsite clean|clone|purge|enable|disable
+./toolkit.sh [ nameofthesubsite clean|clone|purge|enable|disable ]
 
 ######################################################
 
@@ -29,5 +29,7 @@ PURGE means to delete a previously downloaded subsite
 ENABLE means to link the APACHE server to a specific subsite
 
 DISABLE means to stop the APACHE server for any subsite
+
+NOTHING as a parameter means that you want to play with the platform or install your own staff (for example through Docker images)
 
 If you still have any question please put a comment in this ticket: https://webgate.ec.europa.eu/CITnet/jira/browse/FPFISSUPP-1622
