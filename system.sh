@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/sh -x
 set -e
-BASHRC=$HOME/.bashrc;grep -q "added by DevOps"||(echo '# added by DevOps'>>$BASHRC;echo HISTSIZE=1000000>>$BASHRC;echo HISTFILESIZE=1000000>>$BASHRC;echo 'HISTTIMEFORMAT="%F %T "'>>$BASHRC;source $BASHRC)
+BASHRC=$HOME/.bashrc;grep -q "added by DevOps" $BASHRC||(echo '# added by DevOps'>>$BASHRC;echo HISTSIZE=1000000>>$BASHRC;echo HISTFILESIZE=1000000>>$BASHRC;echo 'HISTTIMEFORMAT="%F %T "'>>$BASHRC;source $BASHRC)
 CLOUD=$HOME/environment/cloud9;CONF=$CLOUD/conf.d;[ -d $CONF ]||mkdir -p $CONF;KONF=$CONF/cloud9.conf
 sudo sysctl -p $CLOUD/sysctl.conf 
 SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||cat $PUB>>$SSH

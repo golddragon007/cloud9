@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 set -e
 DIR=$HOME/environment
 case $2 in

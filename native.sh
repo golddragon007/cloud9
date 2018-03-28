@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 set -e
 DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/cloud9.conf
 YUM=/tmp/yum.list;sudo yum update -y;sudo yum -y remove mysql55-libs mysql55-server perl-DBD-MySQL55;sudo yum list installed>>$YUM;for x in mysql56-server php56-pecl-xdebug phpMyAdmin;do grep -q $x $YUM||sudo yum -y install $x;done
