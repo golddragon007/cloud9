@@ -9,5 +9,5 @@ pipeline:
     commands:
       - apt-get update --yes
       - apt-get install zip --yes
-      - ./packageCreate.sh
+      - ./lambdaPackageCreate.sh
       - ls my_app.zip
