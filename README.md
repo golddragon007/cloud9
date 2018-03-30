@@ -1,3 +1,7 @@
+<a href="https://drone.fpfis.eu/ec-europa/cloud9">
+  <img src="https://drone.fpfis.eu/api/badges/ec-europa/cloud9/status.svg?branch=master" alt="build status">
+</a>    
+
 # AWS Cloud9
 
 ## Instructions:
