@@ -1,3 +1,7 @@
+<a href="https://drone.fpfis.eu/ec-europa/cloud9">
+  <img src="https://drone.fpfis.eu/api/badges/ec-europa/cloud9/status.svg?branch=lambda/resizeEC2Volume" alt="build status">
+</a>
+
 # AWS Cloud9
 
 Lambda scripts to manage cloud9 instances
