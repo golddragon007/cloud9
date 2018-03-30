@@ -4,14 +4,28 @@ pipeline:
     commands:
         - for i in $(ls *.sh);do sh -n $i; done
         
-  test_init_script:
+  run_init_script:
     image: fpfis/fpfis-base
     commands:
         - ./toolkit.sh
-        
+      
+  test_devops_key:
+    image: fpfis/fpfis-base
+    commands:
+      - grep -q "devops@ec" ~/.ssh/authorized_keys
+      
+  test_git_config:
+    image: fpfis/fpfis-base
+    commands:
+      - git config --global user.name
+      - git config --global user.email
+      
   test_default_commands:
     image: fpfis/fpfis-base
     commands:
       - composer --version
+      
+  test_default_aliases: 
       - git st
-      - ll *
+      - ll
+
