@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-  
+
 ec2Ress = boto3.resource('ec2')
 ec2 = boto3.client('ec2')
 
@@ -25,7 +25,7 @@ def lambda_handler(event, context):
   volumes = {}
   for response in ec2.get_paginator('describe_volumes').paginate():
     volumes.update([(volume['VolumeId'], volume) for volume in response['Volumes']])
-      
+
   for volume in volumes.values():
     curTags = boto3_tag_list_to_ansible_dict(volume.get('Tags', []))
     curSize = volume.get('Size')
@@ -33,7 +33,7 @@ def lambda_handler(event, context):
     
     sizeFixed = curTags.get('Size Fixed', curTags.get('SizeFixed', False))
     
-    if "aws-cloud9" in name: 
+    if "aws-cloud9" in name and "UNUSED aws-cloud9" not in name:
     #if "b5b64f4ad6b5747b1eb02d4ee" in name:
       if sizeFixed != False:
         # Size fixed manually, skipped
@@ -72,7 +72,7 @@ def lambda_handler(event, context):
             #  logger.error("Volume {0} filesystem of EC2 Instance failed".format(name) )
             #  totalFSError += 1
           else:
-            logger.error("Volume {0} failed: Target {1}Go, Current Size: {1}. Responde: {2}".format(name, EBS_SIZEcurSize, checkVolume.get('Size'),response))
+            logger.error("Volume {0} failed: Target {1}Go, Current Size: {2}. Responde: {3}".format(name, EBS_SIZE,curSize, response))
   
   logger.info("Volume resizing Finished. totalVolumeDone: {0}. totalVolumeError: {1}. totalVolumeSkipped: {2},totalFSDone: {3},totalFSError: {4}".format(totalDone, totalError, totalSkipped,totalFSDone,totalFSError) )
 
