@@ -3,6 +3,7 @@ pipeline:
     image: fpfis/fpfis-base
     commands:
       - for i in $(ls *.sh);do sh -n $i; done
+      - ./tests/testMaxLineSize.sh .
 
   run_init_script:
     image: fpfis/fpfis-base
@@ -30,4 +31,3 @@ pipeline:
     commands:
       - git st
       - ll
-
