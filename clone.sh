@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 set -e
 DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/cloud9.conf;source $KONF;source $CONF/$1.conf
 cd $DIR;[ -d $REPO ]&&rm -rf $REPO

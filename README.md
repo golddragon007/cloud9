@@ -1,8 +1,6 @@
-# cloud9
-
 # AWS Cloud9
-
-# Instructions:
+ 
+ ## Instructions:
 
 Acces AWS Cloud9 through THIS(Ireland) link: https://eu-west-1.console.aws.amazon.com/cloud9
 
@@ -10,26 +8,37 @@ Create a new environment with the name of your ECAS username and choose the EC2 
 
 Once created the environment open a terminal and type the following commands:
 
-######################################################
-
+### Init environment:
+ ```
 git clone https://github.com/ec-europa/cloud9
-
 cd cloud9
+./toolkit.sh [ -h | -s | -d ]
+ ```
+* -h 		prints the README file
+* -s 		prepares the environment and configures the basic system
+* -d 		stops the Apache server for any subsite
 
-./toolkit.sh [ clean|clone|purge|enable|disable|platform ] [ nameofthesubsite ]
+### Manage websites:
+ ```
+./toolkit.sh [ -n | -c | -r | -e ] SUBSITE
+ ```
+* -n SUBSITE 	installs a new clean subsite
+* -c SUBSITE 	clones an already existing subsite
+* -e SUBSITE 	links the Apache server to an installed subsite
+* -r SUBSITE 	deletes a previously installed subsite
 
-######################################################
+### Examples:
+ ```
+./toolkit.sh -h
+./toolkit.sh -c romania
+./toolkit.sh -c sport
+./toolkit.sh -e sport
+./toolkit.sh -e romania
+./toolkit.sh -d
+./toolkit.sh -r romania
+./toolkit.sh -n romania2
+ ```
 
-CLEAN means a fresh clean install of a new subsite ( f.e.: ./toolkit.sh clean romania )
-
-CLONE means to download an already existing subsite ( f.e.: ./toolkit.sh clone romania )
-
-PURGE means to delete a previously downloaded subsite ( f.e.: ./toolkit.sh purge romania )
-
-ENABLE means to link the APACHE server to a specific subsite ( f.e.: ./toolkit.sh enable romania )
-
-DISABLE means to stop the APACHE server for any subsite ( f.e.: ./toolkit.sh disable romania )
-
-PLATFORM as a parameter means that you want to play with the platform or install your own staff ( f.e.: ./toolkit.sh platform )
-
-If you still have any question please put a comment in this ticket: https://webgate.ec.europa.eu/CITnet/jira/browse/FPFISSUPP-1622
+ ### Help:
+ 
+ If you still have any question please [create JIRA ticket](https://webgate.ec.europa.eu/CITnet/jira/secure/CreateIssue!default.jspa?pid=68600) or [contact devops](https://platform-ec-europa.slack.com/messages/C2NTVJA7P/).
