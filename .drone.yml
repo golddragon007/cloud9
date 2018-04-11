@@ -7,7 +7,8 @@ pipeline:
   run_init_script:
     image: fpfis/fpfis-base
     commands:
-      - ./toolkit.sh
+      - ./toolkit.sh -h
+      - ./toolkit.sh -s
 
   test_devops_key:
     image: fpfis/fpfis-base
@@ -17,6 +18,7 @@ pipeline:
   test_git_config:
     image: fpfis/fpfis-base
     commands:
+      - git st
       - git config --global user.name
       - git config --global user.email
 
@@ -24,9 +26,10 @@ pipeline:
     image: fpfis/fpfis-base
     commands:
       - composer --version
+      - drone --version
+      - docker --version
 
   test_default_aliases: 
     image: fpfis/fpfis-base
     commands:
-      - git st
       - ll
