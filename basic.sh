@@ -12,7 +12,7 @@ read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTP
 FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$CONF
 #read -p "REGION_ID (default AWS region Ireland: eu-west-1) = " REGION_ID;REGION_ID=${REGION_ID:-eu-west-1};echo REGION_ID=$REGION_ID>>$CONF
 REGION_ID=${REGION_ID:-eu-west-1};echo REGION_ID=$REGION_ID>>$CONF
-ENVIRONMENT_ID=$(curl http://169.254.169.254/latest/meta-data/security-groups|cut -d\- -f4);echo ENVIRONMENT_ID=$ENVIRONMENT_ID;echo ENVIRONMENT_ID=$ENVIRONMENT_ID>>$CONF
+ENVIRONMENT_ID=$(curl http://169.254.169.254/latest/meta-data/security-groups|awk -F'-InstanceSecurityGroup' '{print $1}'|rev|cut -d- -f1|rev);echo ENVIRONMENT_ID=$ENVIRONMENT_ID;echo ENVIRONMENT_ID=$ENVIRONMENT_ID>>$CONF
 DIR=$HOME/environment;echo DIR=$DIR>>$CONF
 git config --global user.name $USER;git config --global user.email $EMAIL
 git config --global alias.st 'status'
