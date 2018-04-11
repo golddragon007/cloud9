@@ -3,33 +3,18 @@ pipeline:
     image: fpfis/fpfis-base
     commands:
       - for i in $(ls *.sh);do sh -n $i; done
+      - ./tests/testMaxLineSize.sh .
 
   run_init_script:
-    image: fpfis/fpfis-base
+    image: centos
+    privileged: true
     commands:
+      - yum install sudo php git -y
+      - mkdir ~/.ssh/
+      - touch ~/.ssh/authorized_keys
       - ./toolkit.sh -h
-      - ./toolkit.sh -s
+      - printf "%s\n" gervasek test "test@example.com" "" "" | ./toolkit.sh -s
+      - ./tests/toolkitTests.sh
+    when:
+      status: [ success, failure ]
 
-  test_devops_key:
-    image: fpfis/fpfis-base
-    commands:
-      - grep -q "devops@ec" ~/.ssh/authorized_keys
-
-  test_git_config:
-    image: fpfis/fpfis-base
-    commands:
-      - git st
-      - git config --global user.name
-      - git config --global user.email
-
-  test_default_commands:
-    image: fpfis/fpfis-base
-    commands:
-      - composer --version
-      - drone --version
-      - docker --version
-
-  test_default_aliases: 
-    image: fpfis/fpfis-base
-    commands:
-      - ll
