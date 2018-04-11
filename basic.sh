@@ -7,7 +7,7 @@ SSH=$HOME/.ssh/authorized_keys;grep -q User $SSH||(echo "#User key:">>$SSH;curl 
 read -p "GITHUB USER (Name Surname) = " USER;USER=${USER:-NOUSER};echo USER=\"$USER\">>$CONF
 read -p "GITHUB EMAIL (user@domain) = " EMAIL;EMAIL=${EMAIL:-"NOUSER@NOMAIL"};echo EMAIL=$EMAIL>>$CONF
 read -p "PHP (default memory limit: 256M) = " PHP;PHP=${PHP:-256M};echo PHP=$PHP>>$CONF
-read -p "HTTP (default Apache configuration file: /etc/httpd/conf/httpd.conf) = " HTTP;HTTP=${HTTP:-/etc/httpd/conf/httpd.conf};echo HTTP=$HTTP>>$CONF
+read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTPD;HTTPD=${HTTPD:-/etc/httpd/conf.d};echo HTTPD=$HTTPD>>$CONF
 #read -p "FILE (default Developer configuration file: build.develop.props) = " FILE;FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$CONF
 FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$CONF
 #read -p "REGION_ID (default AWS region Ireland: eu-west-1) = " REGION_ID;REGION_ID=${REGION_ID:-eu-west-1};echo REGION_ID=$REGION_ID>>$CONF
