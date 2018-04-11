@@ -16,7 +16,7 @@ Once created the environment open a terminal and type the following commands:
 ```
 git clone https://github.com/ec-europa/cloud9
 cd cloud9
-./toolkit.sh [ -h | -s | -d ]
+./cloud9.sh [ -h | -s | -d ]
  ```
 * -h 		prints the README file
 * -s 		prepares the environment and configures the basic system
@@ -24,23 +24,23 @@ cd cloud9
 
 ### Manage websites:
 ```
-./toolkit.sh [ -n | -c | -r | -e ] SUBSITE
+./cloud9.sh [ -n | -c | -r | -e ] SUBSITE
 ```
-* -n SUBSITE 	installs a new clean subsite
-* -c SUBSITE 	clones an already existing subsite
+* -n SUBSITE 	installs a new clean subsite using the new toolkit
+* -c SUBSITE 	clones an already existing subsite using the new toolkit
 * -e SUBSITE 	links the Apache server to an installed subsite
 * -r SUBSITE 	deletes a previously installed subsite
 
 ### Examples:
 ```
-./toolkit.sh -h
-./toolkit.sh -c romania
-./toolkit.sh -c sport
-./toolkit.sh -e sport
-./toolkit.sh -e romania
-./toolkit.sh -d
-./toolkit.sh -r romania
-./toolkit.sh -n romania2
+./cloud9.sh -h
+./cloud9.sh -c romania
+./cloud9.sh -c sport
+./cloud9.sh -e sport
+./cloud9.sh -e romania
+./cloud9.sh -d
+./cloud9.sh -r romania
+./cloud9.sh -n romania2
 ```
 
 ### Help:
