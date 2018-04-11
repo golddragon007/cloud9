@@ -1,9 +1,9 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;[-d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
+CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
 [ -f $CONF ]&&mv $CONF $CONF.OLD
 read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};echo GITHUB_USER=$GITHUB_USER>>$CONF
-SSH=$HOME/.ssh/authorized_keys;grep -q User $SSH||(echo "#User key:">>$SSH;curl https://github.com/$GITHUB_USER.keys>>$SSH)
+SSH=$HOME/.ssh/authorized_keys;grep -q User $SSH||(echo "#User key:">>$SSH;curl https://github.com/$GITHUB_USER.keys>>$SSH);echo "Your public keys have been downloaded from Github. Please edit $SSH if necessary.";echo
 read -p "GITHUB USER (Name Surname) = " USER;USER=${USER:-NOUSER};echo USER=\"$USER\">>$CONF
 read -p "GITHUB EMAIL (user@domain) = " EMAIL;EMAIL=${EMAIL:-"NOUSER@NOMAIL"};echo EMAIL=$EMAIL>>$CONF
 read -p "PHP (default memory limit: 256M) = " PHP;PHP=${PHP:-256M};echo PHP=$PHP>>$CONF
@@ -23,3 +23,4 @@ git config --global alias.df 'diff'
 git config --global alias.dc 'diff --cached'
 git config --global alias.lg 'log -p'
 git config --global alias.bra 'branch -a'
+git config --global credential.helper 'cache --timeout=3600'
