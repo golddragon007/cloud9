@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
-BASHRC=$HOME/.bashrc;grep -q "added by DevOps" $BASHRC||(echo '# added by DevOps'>>$BASHRC;echo HISTSIZE=1000000>>$BASHRC;echo HISTFILESIZE=1000000>>$BASHRC;echo 'HISTTIMEFORMAT="%F %T "'>>$BASHRC;source $BASHRC)
-CLOUD=$HOME/environment/cloud9;CONF=$CLOUD/conf.d;[ -d $CONF ]||mkdir -p $CONF;KONF=$CONF/cloud9.conf
-sudo sysctl -p $CLOUD/sysctl.conf 
+CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
+BASH=bashrc.conf;echo 'FILE='$BASHRC';grep -q $FILE $HOME/.bashrc||echo "source \$HOME/.$FILE"|tee -a $HOME/.bashrc'|sudo tee /etc/profile.d/$BASH;cp $CLOUD/$BASH $HOME/.$BASH;source $CLOUD/$BASH
+SYS=sysctl.conf;sudo cp $SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $CLOUD/$SYS 
 SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
 BIN=/usr/bin;LOCAL=/usr/local/bin;sudo yum update -y;ls $BIN/composer||(sudo curl -sS https://getcomposer.org/installer|sudo php;sudo mv composer.phar $LOCAL/composer;sudo ln -s $LOCAL/composer $BIN/composer)
 #crontab -l|grep -q growpart||(echo "* * * * * sudo growpart /dev/xvda 1;sudo resize2fs /dev/xvda1"|sudo tee -a /var/spool/cron/ec2-user;sudo chown ec2-user. /var/spool/cron/ec2-user;sudo chmod 600 /var/spool/cron/ec2-user)
