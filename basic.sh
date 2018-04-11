@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;-d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
+CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;[-d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
 [ -f $CONF ]&&mv $CONF $CONF.OLD
 read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};echo GITHUB_USER=$GITHUB_USER>>$CONF
 SSH=$HOME/.ssh/authorized_keys;grep -q User $SSH||(echo "#User key:">>$SSH;curl https://github.com/$GITHUB_USER.keys>>$SSH)
