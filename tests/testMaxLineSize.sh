@@ -26,5 +26,5 @@ for file in $(/bin/ls ${PATH}/*.sh)
   done < $file
 done
 
-echo "Done"
+echo "Done. $i files tested."
 exit $return

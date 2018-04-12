@@ -49,6 +49,7 @@ fi
 
 cp $CLOUD_DIR/bashrc.d/* $HOME/.bashrc.d/
 echo -ne "$GREEN[OK] Bashrc updated$NOCOLOR\n"
+source ~/.bashrc
 
 # ----- VIM CONFIG -----
 grep -q "Added by devops" ~/.vimrc

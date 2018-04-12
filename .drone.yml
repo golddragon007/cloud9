@@ -3,7 +3,7 @@ pipeline:
     image: fpfis/fpfis-base
     commands:
       - for i in $(ls *.sh);do sh -n $i; done
-      - for i in $(ls bashrc/*.sh);do sh -n $i; done
+      - for i in $(ls bashrc.d/*.sh);do sh -n $i; done
 
   run_init_script:
     image: fpfis/fpfis-base
