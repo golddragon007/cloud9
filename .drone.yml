@@ -8,7 +8,10 @@ pipeline:
   run_init_script:
     image: fpfis/fpfis-base
     commands:
-      - ./initCloud9.sh
+      - yum install sudo git vim -y
+      - mkdir ~/.ssh
+      - touch ~/.ssh/authorized_keys
+      - printf "%s\n" "Firstname Lastname" "fisrtname.lastname@mail.com" | ./initCloud9.sh
       - grep -q "devops@ec" ~/.ssh/authorized_keys
       - git config --global user.name
       - git config --global user.email
