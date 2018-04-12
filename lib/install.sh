@@ -23,5 +23,5 @@ echo 'behat.base_url = ${project.url.base}'>>$FILE
 cd $DIR/$REPO;for x in httpd mysqld;do sudo service $x stop;done;phing build-platform;
 	for x in mysqld;do sudo service $x start;done;rm resources/composer.lock;phing build-subsite-dev;phing install-$2
 sed -i "/ec2-user/s/\/home\/ec2-user\/environment\/$REPO\/build\///" build/sites/default/settings.php
-HTTP=$HTTPD/$SITE.conf;sudo cp $LIB/ports.conf $HTTPD;sudo cp $CLOUD/httpd.conf $HTTP;
+HTTP=$HTTPD/$SITE.conf;sudo cp $LIB/ports.conf $HTTPD;sudo cp $LIB/httpd.conf $HTTP;
 	sudo sed -i "s/SITE/$SITE/" $HTTP;sudo sed -i "s@DIR@$DIR@" $HTTP;sudo sed -i "s/REPO/$REPO/" $HTTP
