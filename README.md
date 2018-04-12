@@ -30,7 +30,7 @@ then you have this option which will install ONLY Docker, Drone and Git:
 ```
 
 In case you are developer who wants to use the new toolkit to create or download an existing subsite
-then you need this option which will install Apache, PHP composer, MySQL, Xdebug, Selenium and other stuff:
+then you need this option which will install Apache, PHP composer, MySQL, Xdebug, Selenium, Docker, Drone, Git and some other stuff:
 ```
 ./cloud9.sh -s
 ```
