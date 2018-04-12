@@ -27,6 +27,7 @@ sudo yum update -y
 sudo yum install $PACKETS_DEFAULT -y
 sudo yum install $PACKETS_LAMP_ -y
 echo -ne "$GREEN[OK] Default packet installed$NOCOLOR\n"
+PHP_BIN=$(type -p php) 
 
 # ----- BASH RC DIRECTORY -----
 grep -q "Added by devops" ~/.bashrc
@@ -99,18 +100,18 @@ echo -ne "$GREEN[OK] Git configuration$NOCOLOR\n"
 
 # ----- Composer -----
 if [ ! -f $BIN/composer ];then
-	sudo curl -sS https://getcomposer.org/installer|sudo php
+	sudo curl --silent -sS https://getcomposer.org/installer|sudo $PHP_BIN
 	sudo mv composer.phar $BIN_LOCAL/composer
 	sudo ln -s $BIN_LOCAL/composer $BIN/composer
 fi
 echo -ne "$GREEN[OK] Composer installed$NOCOLOR\n"
 
 # ----- Drone cli -----
-curl http://downloads.drone.io/release/linux/amd64/drone.tar.gz|tar zx;sudo install -t /usr/local/bin drone;rm drone
+curl --silent http://downloads.drone.io/release/linux/amd64/drone.tar.gz|tar zx;sudo install -t /usr/local/bin drone;rm -Rf drone
 echo -ne "$GREEN[OK] Drone cli installed$NOCOLOR\n"
 
 # ----- Drush 8.1.15 -----
-curl https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar -L --output drush.phar
+curl --silent https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar -L --output drush.phar
 
 chmod +x drush.phar
 sudo mv drush.phar $BIN_LOCAL/drush
