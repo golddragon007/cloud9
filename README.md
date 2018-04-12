@@ -3,12 +3,12 @@
 </a>    
 
 # AWS Cloud9
-
+ 
 ## Instructions:
 
-Acces AWS Cloud9 through THIS(Ireland) link: https://eu-west-1.console.aws.amazon.com/cloud9
+Access AWS Cloud9 through THIS (Ireland) link: https://eu-west-1.console.aws.amazon.com/cloud9
 
-Create a new environment with the name of your AWS username and choose the EC2 t2.[small|medium|large] machine
+Create a new environment with the name of your ECAS username and choose the EC2 t2.[small|medium|large] machine
 
 Once created the environment open a terminal and type the following commands:
 
@@ -16,22 +16,38 @@ Once created the environment open a terminal and type the following commands:
 ```
 git clone https://github.com/ec-europa/cloud9
 cd cloud9
-./toolkit.sh
-```
+./cloud9.sh [ -h | -m | -s | -p | -d ]
+ ```
+* -h 		prints the README file
+* -m		minimal environment with Docker, Git and Drone (ideal to develop the platform)
+* -s 		prepares the environment and configures the basic system for using the new toolkit (ideal to develop subsites)
+* -p 		prepares the environment and configures the basic system for using PHP composer
+* -d 		stops the Apache server for any subsite
 
-### Manage website:
+### Manage websites:
 ```
-git clone https://github.com/ec-europa/cloud9
-cd cloud9
-./toolkit.sh [ nameofthesubsite clean|clone|purge|enable|disable ]
+./cloud9.sh [ -n | -c | -r | -e ] SUBSITE
 ```
-* CLEAN means a fresh clean install of a new subsite
-* CLONE means to download an already existing subsite
-* PURGE means to delete a previously downloaded subsite
-* ENABLE means to link the APACHE server to a specific subsite
-* DISABLE means to stop the APACHE server for any subsite
+* -n SUBSITE 	installs a new clean subsite using the new toolkit
+* -c SUBSITE 	clones an already existing subsite using the new toolkit
+* -e SUBSITE 	links the Apache server to an installed subsite
+* -r SUBSITE 	deletes a previously installed subsite
 
+### Examples:
+```
+./cloud9.sh -h
+./cloud9.sh -m
+./cloud9.sh -p
+./cloud9.sh -s
+./cloud9.sh -c romania
+./cloud9.sh -c sport
+./cloud9.sh -e sport
+./cloud9.sh -e romania
+./cloud9.sh -d
+./cloud9.sh -r romania
+./cloud9.sh -n romania2
+```
 
 ### Help:
-
+ 
 If you still have any question please [create JIRA ticket](https://webgate.ec.europa.eu/CITnet/jira/secure/CreateIssue!default.jspa?pid=68600) or [contact devops](https://platform-ec-europa.slack.com/messages/C2NTVJA7P/).

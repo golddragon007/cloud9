@@ -1,5 +1,5 @@
-#!/bin/sh -x
+#!/bin/sh
 set -e
-DIR=$HOME/environment;CLOUD=$DIR/cloud9;CONF=$CLOUD/conf.d;KONF=$CONF/cloud9.conf;source $KONF;source $CONF/$1.conf
+CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;source $CONF;source $CONFD/$1.conf
 cd $DIR;[ -d $REPO ]&&rm -rf $REPO
-git clone $HTTPS||(while ! git clone $HTTPS;do echo;echo Please try again\:;done);cd $REPO;git checkout -b toolkit/upgrade
+git clone $HTTPS;cd $REPO;git checkout -b $BRANCH
