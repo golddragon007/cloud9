@@ -3,18 +3,21 @@ pipeline:
     image: fpfis/fpfis-base
     commands:
       - for i in $(ls *.sh);do sh -n $i; done
-      - ./tests/testMaxLineSize.sh .
+      - for i in $(ls bashrc.d/*.sh);do sh -n $i; done
 
   run_init_script:
     image: centos
-    privileged: true
     commands:
-      - yum install sudo php git -y
-      - mkdir ~/.ssh/
+      - yum install sudo git php vim -y
+      - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
-      - ./cloud9.sh -h
-      - printf "%s\n" gervasek test "test@example.com" "" "" | ./cloud9.sh -s
-      - ./tests/toolkitTests.sh
-    when:
-      status: [ success, failure ]
-
+      - touch ~/.vimrc
+      - printf "%s\n" "Firstname Lastname" "fisrtname.lastname@mail.com" | ./initCloud9.sh
+      - grep -q "devops@ec" ~/.ssh/authorized_keys
+      - git config --global user.name
+      - git config --global user.email
+      - source ~/.bashrc
+      - ll ~/.vimrc.devops
+      - composer --version
+      - drush --version
+      - git st
