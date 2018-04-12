@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
+LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
+CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
 if ! $(grep -q PHP $CONF);then
 read -p "PHP (default memory limit: 256M) = " PHP;PHP=${PHP:-256M};echo PHP=$PHP>>$CONF
 fi

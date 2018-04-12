@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/$1.conf;DIR=$HOME/environment;
+LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
+CONFD=$CLOUD/conf.d;CONF=$CONFD/$1.conf;DIR=$HOME/environment;
 if [ ! -f $CONF ];then
 read -p "SITE (default name: $1) = " SITE;SITE=${SITE:-"$1"};echo SITE=$SITE>>$CONF
 read -p "REPS (y/n) = " REPS;REPS=${REPS:-n};echo REPS=$REPS>>$CONF

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
-LIB=$CLOUD/lib
+LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
+CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
 BASH=bashrc.conf;
 	STRING='FILE='$BASH';grep -q $FILE $HOME/.bashrc||echo "source \$HOME/.$FILE"|tee -a $HOME/.bashrc';
 	echo "$STRING"|sudo tee /etc/profile.d/$BASH;

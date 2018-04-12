@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;source $CONF;source $CONFD/$1.conf
+LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
+CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;source $CONF;source $CONFD/$1.conf
 cd $DIR;[ -d $REPO ]||mkdir $REPO;cd $REPO;set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;
 	mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;
 	set -e;composer create-project ec-europa/subsite temp dev-master --no-interaction;set +e;mv temp/* .;rmdir temp/;
