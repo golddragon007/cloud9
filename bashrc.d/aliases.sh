@@ -7,3 +7,5 @@ alias diff='colordiff -b -B -r --exclude=.svn --exclude=.git'
 alias hgrep='history | grep'
 
 alias cdenv="cd ~/environment/"
+
+alias cloud9GetPublicIP="curl http://169.254.169.254/latest/meta-data/public-ipv4 && echo ''"
