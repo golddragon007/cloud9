@@ -4,12 +4,14 @@
 # PATH
 BIN=/usr/bin
 BIN_LOCAL=/usr/local/bin
-CLOUD=$(dirname "$(readlink -f "$0")");
+CLOUD_DIR=$(dirname "$(readlink -f "$0")");
 
 # CONFIG
 DRUSH_VERSION="8.1.15" # Current drush version in production
-MYSQL_VERSION="56"
+MYSQL_VERSION="55"
 PHP_VERSION="56"
+PACKETS_LAMP_="mysql${MYSQL_VERSION} php${PHP_VERSION} php${PHP_VERSION}-pecl-xdebug phpMyAdmin"
+PACKETS_DEFAULT="htop locate"
 
 NOCOLOR='\e[0m'
 GREEN='\e[0;32m'
@@ -19,11 +21,17 @@ usage="Initialise cloud9 environement for developers (bashrc, composer...)\n
 Syntax : $(basename $0) [ARGS]\n
 \t-?,-h, --help\t\tPrint this message\n
 "
+echo "Start devops init..."
+# ----- Update and install default package -----
+sudo yum update -y
+sudo yum install $PACKETS_DEFAULT -y
+sudo yum install $PACKETS_LAMP_ -y
+echo -ne "$GREEN[OK] Default packet installed$NOCOLOR\n"
 
 # ----- BASH RC DIRECTORY -----
-cp ~/.bashrc ~/.bashrc.old
 grep -q "Added by devops" ~/.bashrc
 if [[ "$?" != "0" ]]; then
+  cp ~/.bashrc ~/.bashrc.old
 	mkdir -p $HOME/.bashrc.d
 cat >> $HOME/.bashrc << EOL
 
@@ -39,15 +47,23 @@ fi
 EOL
 fi
 
-cp $CLOUD/bashrc.d/* $HOME/.bashrc.d/
+cp $CLOUD_DIR/bashrc.d/* $HOME/.bashrc.d/
 echo -ne "$GREEN[OK] Bashrc updated$NOCOLOR\n"
 
 # ----- VIM CONFIG -----
-cp $CLOUD/conf.default/.vimrc $HOME/
+grep -q "Added by devops" ~/.vimrc
+if [[ "$?" != "0" ]]; then
+  cp ~/.vimrc ~/.vimrc.old
+cat >> $HOME/.vimrc << EOL
 
-# ----- Update and install default package -----
-sudo yum update -y
-sudo yum install locate php${PHP_VERSION}-pecl-xdebug phpMyAdmin -y
+# Added by devops
+if filereadable(glob("~/.vimrc.devops"))
+    source ~/.vimrc.devops
+endif
+EOL
+fi
+cp $CLOUD_DIR/conf.default/.vimrc.devops $HOME/
+echo -ne "$GREEN[OK] Vim configuration copied$NOCOLOR\n"
 
 # ----- Enable xdebug -----
 DEBUG=/etc/php-5.6.d/15-xdebug.ini;
@@ -58,7 +74,7 @@ echo -ne "$GREEN[OK] Default packet installed$NOCOLOR\n"
 
 # ----- Devops SSH Key -----
 SSH=$HOME/.ssh/authorized_keys
-PUB=$CLOUD/devops.pub
+PUB=$CLOUD_DIR/devops.pub
 grep -q devops $SSH || (echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
 echo -ne "$GREEN[OK] Devops key copied$NOCOLOR\n"
 
@@ -99,3 +115,5 @@ chmod +x drush.phar
 sudo mv drush.phar $BIN_LOCAL/drush
 
 echo -ne "$GREEN[OK] Drush $DRUSH_VERSION installed$NOCOLOR\n"
+
+echo "Init done."
