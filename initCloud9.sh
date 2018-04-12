@@ -40,27 +40,27 @@ EOL
 fi
 
 cp $CLOUD/bashrc.d/* $HOME/.bashrc.d/
-echo "$GREEN[OK] Bashrc updated$NOCOLOR"
+echo -ne "$GREEN[OK] Bashrc updated$NOCOLOR\n"
 
 # ----- VIM CONFIG -----
 cp $CLOUD/conf.default/.vimrc $HOME/
 
 # ----- Update and install default package -----
 sudo yum update -y
-sudo yum install "mysql${MYSQL_VERSION}-server" php${PHP_VERSION}-pecl-xdebug phpMyAdmin -y
+sudo yum install locate php${PHP_VERSION}-pecl-xdebug phpMyAdmin -y
 
 # ----- Enable xdebug -----
 DEBUG=/etc/php-5.6.d/15-xdebug.ini;
 if ! $(grep -q "^xdebug.remote_enable = 1" $DEBUG);then
 	sudo sed -i /^xdebug.remote_enable/d $DEBUG;sudo sed -i "/^;xdebug.remote_enable/axdebug.remote_enable = 1" $DEBUG
 fi
-echo "$GREEN[OK] Default packet installed$NOCOLOR"
+echo -ne "$GREEN[OK] Default packet installed$NOCOLOR\n"
 
 # ----- Devops SSH Key -----
 SSH=$HOME/.ssh/authorized_keys
 PUB=$CLOUD/devops.pub
 grep -q devops $SSH || (echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
-echo "$GREEN[OK] Devops key copied$NOCOLOR"
+echo -ne "$GREEN[OK] Devops key copied$NOCOLOR\n"
 
 # ----- Git default configuration -----
 read -p "GITHUB NAME (Name Surname) = " GITHUB_NAME
@@ -78,25 +78,24 @@ git config --global alias.lg 'log -p'
 git config --global alias.bra 'branch -a'
 git config --global credential.helper 'cache --timeout=3600'
 
-echo "$GREEN[OK] Git configuration$NOCOLOR"
+echo -ne "$GREEN[OK] Git configuration$NOCOLOR\n"
 
 # ----- Composer -----
 if [ ! -f $BIN/composer ];then
 	sudo curl -sS https://getcomposer.org/installer|sudo php
-	sudo mv composer.phar BIN_LOCAL/composer
+	sudo mv composer.phar $BIN_LOCAL/composer
 	sudo ln -s $BIN_LOCAL/composer $BIN/composer
 fi
-echo "$GREEN[OK] Composer installed$NOCOLOR"
+echo -ne "$GREEN[OK] Composer installed$NOCOLOR\n"
 
 # ----- Drone cli -----
 curl http://downloads.drone.io/release/linux/amd64/drone.tar.gz|tar zx;sudo install -t /usr/local/bin drone;rm drone
-echo "$GREEN[OK] Drone cli installed$NOCOLOR"
+echo -ne "$GREEN[OK] Drone cli installed$NOCOLOR\n"
 
 # ----- Drush 8.1.15 -----
 curl https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar -L --output drush.phar
-php drush.phar core-status
 
 chmod +x drush.phar
-sudo mv drush.phar $LOCAL/drush
+sudo mv drush.phar $BIN_LOCAL/drush
 
-echo "$GREEN[OK] Drush $DRUSH_VERSION installed$NOCOLOR"
+echo -ne "$GREEN[OK] Drush $DRUSH_VERSION installed$NOCOLOR\n"
