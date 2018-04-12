@@ -1,17 +1,17 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
+CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;LIB=$CLOUD/lib
 getopts ":hdmpsc:n:e:r:" ACTION
 case "$ACTION" in
-h) cat $CLOUD/README.md;;
+h) cat $LIB/README.md;;
 d) sudo service httpd stop;;
-m) $CLOUD/system.sh;$CLOUD/minimal.sh;;
-p) $CLOUD/system.sh;$CLOUD/minimal.sh;$CLOUD/lamp.sh;;
-s) $CLOUD/system.sh;$CLOUD/minimal.sh;$CLOUD/lamp.sh;$CLOUD/basic.sh;$CLOUD/native.sh;;
-c) [ ! -f $CONF ]&&$CLOUD/system.sh;$CLOUD/minimal.sh;$CLOUD/lamp.sh;$CLOUD/basic.sh;$CLOUD/native.sh;
-	$CLOUD/configure.sh $OPTARG;$CLOUD/clone.sh $OPTARG;$CLOUD/install.sh $OPTARG clone;;
-n) [ ! -f $CONF ]&&$CLOUD/system.sh;$CLOUD/minimal.sh;$CLOUD/lamp.sh;$CLOUD/basic.sh;$CLOUD/native.sh;
-	$CLOUD/configure.sh $OPTARG;$CLOUD/install.sh $OPTARG clean;;
+m) $LIB/system.sh;$LIB/minimal.sh;;
+p) $LIB/system.sh;$LIB/minimal.sh;$LIB/lamp.sh;;
+s) $LIB/system.sh;$LIB/minimal.sh;$LIB/lamp.sh;$LIB/basic.sh;$LIB/native.sh;;
+c) [ ! -f $CONF ]&&$LIB/system.sh;$LIB/minimal.sh;$LIB/lamp.sh;$LIB/basic.sh;$LIB/native.sh;
+	$LIB/configure.sh $OPTARG;$LIB/clone.sh $OPTARG;$LIB/install.sh $OPTARG clone;;
+n) [ ! -f $CONF ]&&$LIB/system.sh;$LIB/minimal.sh;$LIB/lamp.sh;$LIB/basic.sh;$LIB/native.sh;
+	$LIB/configure.sh $OPTARG;$LIB/install.sh $OPTARG clean;;
 e) source $CONF;source $CONFD/$OPTARG.conf;sudo service httpd restart;
 	echo You can access your website through this URL\:;awk '/^project.url.base/{print $3}' $DIR/$REPO/$FILE;;
 r) source $CONF;source $CONFD/$OPTARG.conf;rm -rf $DIR/$REPO $CONFD/$OPTARG.conf;;

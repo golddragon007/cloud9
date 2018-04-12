@@ -1,11 +1,12 @@
 #!/bin/sh
 set -e
 CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
+LIB=$CLOUD/lib
 BASH=bashrc.conf;
 	STRING='FILE='$BASH';grep -q $FILE $HOME/.bashrc||echo "source \$HOME/.$FILE"|tee -a $HOME/.bashrc';
 	echo "$STRING"|sudo tee /etc/profile.d/$BASH;
-	cp $CLOUD/$BASH $HOME/.$BASH;source $CLOUD/$BASH
-SYS=sysctl.conf;sudo cp $SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $CLOUD/$SYS 
+	cp $LIB/$BASH $HOME/.$BASH;source $LIB/$BASH
+SYS=sysctl.conf;sudo cp $LIB/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $LIB/$SYS 
 SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
 curl http://downloads.drone.io/release/linux/amd64/drone.tar.gz|tar zx;sudo install -t /usr/local/bin drone;rm drone
 [ -f $CONF ]&&mv $CONF $CONF.OLD
