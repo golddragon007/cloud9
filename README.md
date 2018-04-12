@@ -21,7 +21,7 @@ cd cloud9
 * -h 		prints the README file
 * -m		minimal environment with Docker, Git and Drone (ideal to develop the platform)
 * -s 		prepares the environment and configures the basic system for using the new toolkit (ideal to develop subsites)
-* -p 		prepares the environment and configures the basic system for using PHP composer
+* -p 		prepares a basic LAMP stack with Apache, MySQL and PHP composer
 * -d 		stops the Apache server for any subsite
 
 ### Manage websites:
