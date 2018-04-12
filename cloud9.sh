@@ -5,7 +5,7 @@ getopts ":hdmpsc:n:e:r:" ACTION
 case "$ACTION" in
 h) cat $CLOUD/README.md;;
 d) sudo service httpd stop;;
-m) $CLOUD/minimal.sh;$CLOUD/system.sh;;
+m) $CLOUD/system.sh;$CLOUD/minimal.sh;;
 p) $CLOUD/system.sh;$CLOUD/lamp.sh;;
 s) $CLOUD/system.sh;$CLOUD/lamp.sh;$CLOUD/basic.sh;$CLOUD/native.sh;;
 c) [ ! -f $CONF ]&&$CLOUD/system.sh;$CLOUD/lamp.sh;$CLOUD/basic.sh;$CLOUD/native.sh;
