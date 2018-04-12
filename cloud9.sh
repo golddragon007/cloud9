@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
-getopts ":mshde:r:c:n:" ACTION
+getopts ":hdmpsc:n:e:r:" ACTION
 case "$ACTION" in
 h) cat $CLOUD/README.md;;
 d) sudo service httpd stop;;
