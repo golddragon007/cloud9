@@ -45,12 +45,6 @@ The last available option is equivalent to the latter but with Xdebug and some o
 ```
 ./initCloud9.sh
 ```
-This last script initCloud9.sh will:
-- configure git
-- add SSH devops key
-- Install composer
-- Install drone cli
-- Install linux packages
 
 ## Advanced scripts:
 
