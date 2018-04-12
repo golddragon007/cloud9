@@ -55,7 +55,7 @@ This last script initCloud9 will:
 ## Advanced scripts:
 
 Scripts to manage Cloud9 environement services and drupal website (using toolkit) are provided.
-Basically you have two options to clone (c) or create a new (n) subsite with toolkit:
+Basically you have two options to clone (c) or to create a new (n) subsite with toolkit:
 ```
 ./cloud9.sh -c NAMEOFTHESUBSITE
 ./cloud9.sh -n NAMEOFTHESUBSITE
