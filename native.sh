@@ -6,3 +6,4 @@ DEBUG=/etc/php-5.6.d/15-xdebug.ini;grep -q "^xdebug.remote_enable = 1" $DEBUG||(
 PHP=$(grep PHP $CONF|cut -d= -f2);sudo sed -i "/memory_limit/s/=.*$/= $PHP/" /etc/php.ini
 for x in httpd mysqld;do sudo chkconfig $x on;sudo service $x stop;done
 ls $HOME/environment/cloud9/conf.d/selenium.yml||(cd $HOME/environment/cloud9/conf.d;touch selenium.yml;echo 'version: "3"'>>selenium.yml;echo 'services:'>>selenium.yml;echo '        selenium:'>>selenium.yml;echo '                image: selenium/standalone-chrome'>>selenium.yml;echo '                ports:'>>selenium.yml;echo '                        - "4444:4444"'>>selenium.yml;docker swarm init;docker stack deploy -c selenium.yml selenium)
+BIN=/usr/bin;LOCAL=/usr/local/bin;sudo yum update -y;ls $BIN/composer||(sudo curl -sS https://getcomposer.org/installer|sudo php;sudo mv composer.phar $LOCAL/composer;sudo ln -s $LOCAL/composer $BIN/composer)
