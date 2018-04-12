@@ -12,7 +12,31 @@ Create a new environment with the name of your ECAS username and choose the EC2 
 
 Once created the environment open a terminal and type the following commands:
 
-### Init environment:
+
+
+## Init script:
+
+The initialization of the Cloud9 environement is mandatory for all users on all environements.
+
+The initCloud9 will:
+- configure git
+- add SSH devops key
+- Install composer
+- Install drone cli
+- Install linux packages
+
+```
+git clone https://github.com/ec-europa/cloud9
+cd cloud9
+./initCloud9.sh
+```
+
+## Advanced scripts:
+
+Scripts to manage Cloud9 environement and to drupal website using toolkit are provided.
+
+### Configure environment:
+
 ```
 git clone https://github.com/ec-europa/cloud9
 cd cloud9
@@ -48,6 +72,6 @@ cd cloud9
 ./cloud9.sh -n romania2
 ```
 
-### Help:
+## Help:
  
 If you still have any question please [create JIRA ticket](https://webgate.ec.europa.eu/CITnet/jira/secure/CreateIssue!default.jspa?pid=68600) or [contact devops](https://platform-ec-europa.slack.com/messages/C2NTVJA7P/).
