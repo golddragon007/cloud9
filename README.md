@@ -12,21 +12,47 @@ Create a new environment with the name of your ECAS username and choose the EC2 
 
 ## Init script:
 
-The initialization of the Cloud9 environement is mandatory for all users on all environements.
+The initialization of the Cloud9 environment is mandatory for all users.
 
-The initCloud9 will:
+Once created the environment open a terminal and type the following commands:
+```
+git clone https://github.com/ec-europa/cloud9
+cd cloud9
+```
+
+There are four different ways to initialize your machine.
+Now I am going to explain which choice might be more convenient to you:
+
+In case you are member of the core team interested in setting up a minimal configuration WITHOUT Apache, PHP and MySQL
+then you have this option which will install ONLY Docker, Drone and Git:
+```
+./cloud9.sh -m
+```
+
+In case you are developer who wants to use the new toolkit to create or download an existing subsite
+then you need this option which will install Apache, PHP composer, MySQL, Xdebug, Selenium and other stuff:
+```
+./cloud9.sh -s
+```
+
+In case you are a developer who only needs a basic LAMP stack
+then you have this option which will install Apache, PHP composer, MySQL, Docker, Drone and Git:
+```
+./cloud9.sh -p
+```
+
+The last option is equivalent to the latter but with Xdebug and some other configuration files for completion:
+```
+./initCloud9.sh
+```
+
+This last script initCloud9 will:
 - configure git
 - add SSH devops key
 - Install composer
 - Install drone cli
 - Install linux packages
 
-Once created the environment open a terminal and type the following commands:
-```
-git clone https://github.com/ec-europa/cloud9
-cd cloud9
-./initCloud9.sh
-```
 
 ## Advanced scripts:
 
