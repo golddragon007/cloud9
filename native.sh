@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
-YUM=/tmp/yum.list;sudo yum update -y;sudo yum -y remove mysql55*;sudo yum list installed>>$YUM;for x in mysql56-server php56 phpMyAdmin;do grep -q $x $YUM||sudo yum -y install $x;done
+YUM=/tmp/yum.list;sudo yum update -y;sudo yum -y remove mysql55*;sudo yum list installed>>$YUM;for x in mysql56-server php56 php56-pecl-xdebug phpMyAdmin;do grep -q $x $YUM||sudo yum -y install $x;done
 DEBUG=/etc/php-5.6.d/15-xdebug.ini;grep -q "^xdebug.remote_enable = 1" $DEBUG||(sudo sed -i /^xdebug.remote_enable/d $DEBUG;sudo sed -i "/^;xdebug.remote_enable/axdebug.remote_enable = 1" $DEBUG)
 PHP=$(grep PHP $CONF|cut -d= -f2);sudo sed -i "/memory_limit/s/=.*$/= $PHP/" /etc/php.ini
 for x in httpd mysqld;do sudo chkconfig $x on;sudo service $x stop;done
