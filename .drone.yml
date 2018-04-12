@@ -12,8 +12,8 @@ pipeline:
       - yum install sudo php git -y
       - mkdir ~/.ssh/
       - touch ~/.ssh/authorized_keys
-      - ./toolkit.sh -h
-      - printf "%s\n" gervasek test "test@example.com" "" "" | ./toolkit.sh -s
+      - ./cloud9.sh -h
+      - printf "%s\n" gervasek test "test@example.com" "" "" | ./cloud9.sh -s
       - ./tests/toolkitTests.sh
     when:
       status: [ success, failure ]

@@ -13,3 +13,4 @@ git config --global user.email
 composer --version
 drone --version
 docker --version
+
