@@ -23,7 +23,7 @@ cd cloud9
 There are four different ways to initialize your machine.
 Now I am going to explain which choice might be more convenient to you:
 
-In case you are member of the core team interested in setting up a minimal configuration WITHOUT Apache, PHP and MySQL
+In case you are member of the core team interested in setting up a minimal configuration WITHOUT Apache, PHP or MySQL
 then you have this option which will install ONLY Docker, Drone and Git:
 ```
 ./cloud9.sh -m
