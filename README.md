@@ -30,7 +30,7 @@ cd cloud9
 
 ## Advanced scripts:
 
-Scripts to manage Cloud9 environement and to drupal website using toolkit are provided.
+Scripts to manage Cloud9 environement services and drupal website (using toolkit) are provided.
 
 ### Configure environment:
 
