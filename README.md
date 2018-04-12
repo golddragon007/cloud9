@@ -41,11 +41,10 @@ then you have this option which will install Apache, PHP composer, MySQL, Docker
 ./cloud9.sh -p
 ```
 
-The last option is equivalent to the latter but with Xdebug and some other configuration files for completion:
+The last available option is equivalent to the latter but with Xdebug and some other configuration files for completion:
 ```
 ./initCloud9.sh
 ```
-
 This last script initCloud9 will:
 - configure git
 - add SSH devops key
@@ -53,10 +52,15 @@ This last script initCloud9 will:
 - Install drone cli
 - Install linux packages
 
-
 ## Advanced scripts:
 
 Scripts to manage Cloud9 environement services and drupal website (using toolkit) are provided.
+Basically you have two options to clone (c) or create a new (n) subsite with toolkit:
+```
+./cloud9.sh -c NAMEOFTHESUBSITE
+./cloud9.sh -n NAMEOFTHESUBSITE
+```
+Below you have a better description of each option as well as other available features.
 
 ### Configure environment:
 
