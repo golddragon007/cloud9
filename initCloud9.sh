@@ -58,7 +58,7 @@ if [[ "$?" != "0" ]]; then
   cp ~/.vimrc ~/.vimrc.old
 cat >> $HOME/.vimrc << EOL
 
-# Added by devops
+" Added by devops
 if filereadable(glob("~/.vimrc.devops"))
     source ~/.vimrc.devops
 endif
