@@ -16,7 +16,7 @@ Once created the environment open a terminal and type the following commands:
 ```
 git clone https://github.com/ec-europa/cloud9
 cd cloud9
-./cloud9.sh [ -h | -s | -d ]
+./cloud9.sh [ -h | -m | -s | -p | -d ]
  ```
 * -h 		prints the README file
 * -m		minimal environment with Docker, Git and Drone (ideal to develop the platform)
