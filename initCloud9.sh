@@ -10,7 +10,7 @@ CLOUD_DIR=$(dirname "$(readlink -f "$0")");
 DRUSH_VERSION="8.1.15" # Current drush version in production
 MYSQL_VERSION="55"
 PHP_VERSION="56"
-PACKETS_LAMP_="mysql${MYSQL_VERSION} php${PHP_VERSION} php${PHP_VERSION}-pecl-xdebug phpMyAdmin"
+PACKETS_LAMP="mysql${MYSQL_VERSION} phpMyAdmin"
 PACKETS_DEFAULT="htop locate"
 
 NOCOLOR='\e[0m'
@@ -25,7 +25,7 @@ echo "Start devops init..."
 # ----- Update and install default package -----
 sudo yum update -y
 sudo yum install $PACKETS_DEFAULT -y
-sudo yum install $PACKETS_LAMP_ -y
+sudo yum install $PACKETS_LAMP -y
 echo -ne "$GREEN[OK] Default packet installed$NOCOLOR\n"
 PHP_BIN=$(type -p php) 
 
@@ -66,13 +66,6 @@ EOL
 fi
 cp $CLOUD_DIR/conf.default/.vimrc.devops $HOME/
 echo -ne "$GREEN[OK] Vim configuration copied$NOCOLOR\n"
-
-# ----- Enable xdebug -----
-DEBUG=/etc/php-5.6.d/15-xdebug.ini;
-if ! $(grep -q "^xdebug.remote_enable = 1" $DEBUG);then
-	sudo sed -i /^xdebug.remote_enable/d $DEBUG;sudo sed -i "/^;xdebug.remote_enable/axdebug.remote_enable = 1" $DEBUG
-fi
-echo -ne "$GREEN[OK] Default packet installed$NOCOLOR\n"
 
 # ----- Devops SSH Key -----
 SSH=$HOME/.ssh/authorized_keys
