@@ -8,6 +8,7 @@ def lambda_handler(event, context):
   logger.info("Stopping EC2 instance of Cloud9...")
   totalStopped = 0
   totalSkipped = 0
+  totalFailed = 0
   
   filters = [{
       'Name': 'tag:Name',
@@ -22,13 +23,18 @@ def lambda_handler(event, context):
   instances = ec2.instances.filter(Filters=filters)
  
   for instance in instances:
-    result = stopEC2Instance(instance)
-    if result:
-      totalStopped += 1;
-    else:
+    tagNeverStop = ['lambda:neverstop', 'lambda:Never Stop']
+    lambdaNeverStop = [tag['Value'] for tag in instance.tags if tag['Key'].lower() in tagNeverStop ]
+    if lambdaNeverStop:
       totalSkipped += 1;
+    else :
+      result = stopEC2Instance(instance)
+      if result:
+        totalStopped += 1;
+      else:
+        totalFailed += 1;
     
-  logger.info("EC2 instance of Cloud9 stopped. totalStopped: {0}. totalSkipped: {1}.".format(totalStopped, totalSkipped))
+  logger.info("EC2 instance of Cloud9 stopped. totalStopped: {0}. totalFailed: {1}. totalSkipped: {2}.".format(totalStopped, totalFailed, totalSkipped))
 
   return 'Done'
 
