@@ -29,10 +29,10 @@ then you have this option which will install ONLY Docker, Drone and Git:
 ./cloud9.sh -m
 ```
 
-In case you are developer who wants to use the new toolkit to create or download an existing SUBSITE
+In case you are developer who wants to use the new TOOLKIT to create or download an existing subsite
 then you need this option which will install Apache, PHP composer, MySQL, Xdebug, Selenium, Docker, Drone, Git and some other stuff:
 ```
-./cloud9.sh -s
+./cloud9.sh -t
 ```
 
 In case you are a developer who only needs a basic LAMP stack
@@ -61,11 +61,11 @@ Below you have a better description of each option as well as other available fe
 ```
 git clone https://github.com/ec-europa/cloud9
 cd cloud9
-./cloud9.sh [ -h | -m | -s | -p | -d ]
+./cloud9.sh [ -h | -m | -t | -p | -d ]
  ```
 * -h 		prints the README file
 * -m		minimal environment with Docker, Git and Drone (ideal to develop the platform)
-* -s 		prepares the environment and configures the basic system for using the new toolkit (ideal to develop subsites)
+* -t 		prepares the environment and configures the basic system for using the new toolkit (ideal to develop subsites)
 * -p 		prepares a basic LAMP stack with Apache, MySQL and PHP composer
 * -d 		stops the Apache server for any subsite
 
@@ -83,7 +83,7 @@ cd cloud9
 ./cloud9.sh -h
 ./cloud9.sh -m
 ./cloud9.sh -p
-./cloud9.sh -s
+./cloud9.sh -t
 ./cloud9.sh -c romania
 ./cloud9.sh -c sport
 ./cloud9.sh -e sport
