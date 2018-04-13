@@ -1,5 +1,12 @@
 #!/bin/sh
 # initialise cloud9 environement for developers
+# - bashrc.d
+# - .vimrc
+# - Devops SSH Key
+# - Git config
+# - composer
+# - drush
+# - drone cli
 
 # PATH
 BIN=/usr/bin
@@ -10,7 +17,7 @@ CLOUD_DIR=$(dirname "$(readlink -f "$0")");
 DRUSH_VERSION="8.1.15" # Current drush version in production
 MYSQL_VERSION="55"
 PHP_VERSION="56"
-PACKETS_LAMP="mysql${MYSQL_VERSION} phpMyAdmin"
+PACKETS_LAMP="mysql${MYSQL_VERSION}"
 PACKETS_DEFAULT="htop locate"
 
 NOCOLOR='\e[0m'
