@@ -2,6 +2,10 @@
 set -e
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
+if ! $(grep -q FILE $CONF);then
+read -p "FILE (default Developer configuration file: build.develop.props) = " FILE
+        FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$CONF
+fi
 YUM=/tmp/yum.list;sudo yum update -y;sudo yum -y remove mysql55*;yum list installed>$YUM;
 	for x in php56-pecl-xdebug phpMyAdmin;do grep -q $x $YUM||sudo yum -y install $x;done
 DEBUG=/etc/php-5.6.d/15-xdebug.ini;
@@ -16,4 +20,3 @@ if [ ! -f $HOME/environment/cloud9/conf.d/selenium.yml ];then
 	set +e;docker swarm leave --force;sudo service docker restart;set -e
 	docker swarm init;docker stack deploy -c selenium.yml selenium
 fi
-for x in httpd mysqld;do sudo service $x stop;done
