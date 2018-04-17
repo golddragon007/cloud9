@@ -3,7 +3,7 @@ set -e
 CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;LIB=$CLOUD/lib
 getopts ":hdmptc:n:e:r:" ACTION
 case "$ACTION" in
-h) cat $LIB/README.md;;
+h) cat README.md;;
 d) sudo service httpd stop;;
 m) $LIB/system.sh;$LIB/minimal.sh;;
 p) $LIB/system.sh;$LIB/minimal.sh;$LIB/lamp.sh;;
