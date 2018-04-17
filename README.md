@@ -41,11 +41,6 @@ then you have this option which will install Apache, PHP composer, MySQL, Docker
 ./cloud9.sh -p
 ```
 
-The last available option is equivalent to the latter but with Xdebug and some other configuration files for completion:
-```
-./initCloud9.sh
-```
-
 ## Advanced scripts:
 
 Scripts to manage Cloud9 environement services and drupal website (using toolkit) are provided.
