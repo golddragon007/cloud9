@@ -38,7 +38,8 @@ then you have this option which will install Apache, PHP composer, MySQL, Docker
 ./cloud9.sh -p
 ```
 
-Alternatively you can use the following script to set up the machine:
+Alternatively you can use the following script to set up the machine. 
+It installs Drone and Drush and configures the editor VI and some other stuff:
 ```
 ./initCloud9.sh
 ```
