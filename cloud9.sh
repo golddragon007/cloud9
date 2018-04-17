@@ -16,5 +16,5 @@ e) source $CONF;source $CONFD/$OPTARG.conf;sudo service httpd restart;
 	echo You can access your website through this URL\:;awk '/^project.url.base/{print $3}' $DIR/$REPO/$FILE;;
 r) source $CONF;source $CONFD/$OPTARG.conf;rm -rf $DIR/$REPO $CONFD/$OPTARG.conf;;
 :) echo "The option -$OPTARG requires the name of the subsite as an argument";;
-\?) echo "Invalid option: -$OPTARG";;
+\?) echo "Invalid option: -$OPTARG";echo "Please use -h option to get help";;
 esac
