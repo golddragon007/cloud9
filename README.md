@@ -39,7 +39,7 @@ then you have this option which will install Apache, PHP composer, MySQL, Docker
 ```
 
 Alternatively you can use the following script to set up the machine. 
-It installs Drone and Drush and configures the editor VI and some other stuff:
+It installs Drone and Drush and customizes some stuff (like vi editor and git):
 ```
 ./initCloud9.sh
 ```
