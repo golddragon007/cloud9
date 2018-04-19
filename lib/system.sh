@@ -9,7 +9,7 @@ BASH=bashrc.conf;
 SYS=sysctl.conf;sudo cp $LIB/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $LIB/$SYS 
 SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
 if ! $(crontab -l|grep -q growpart);then
-	echo "* * * * * sudo growpart /dev/xvda 1;sudo resize2fs /dev/xvda1"|sudo tee -a /var/spool/cron/ec2-user;
+	echo "0 * * * * sudo growpart /dev/xvda 1;sudo resize2fs /dev/xvda1"|sudo tee -a /var/spool/cron/ec2-user;
 	sudo chown ec2-user. /var/spool/cron/ec2-user;
 	sudo chmod 600 /var/spool/cron/ec2-user
 fi
