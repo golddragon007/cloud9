@@ -6,9 +6,9 @@
  
 ## Instructions:
 
-Access AWS Cloud9 through THIS (Ireland) link: https://eu-west-1.console.aws.amazon.com/cloud9
+Access AWS Cloud9 through this (IRELAND) link: https://eu-west-1.console.aws.amazon.com/cloud9
 
-Create a new environment with the name of your AWS/ECAS/LDAP username and choose the EC2 t2.medium machine
+Create a new environment with the NAME of your AWS/ECAS/LDAP username and choose the EC2 t2.MEDIUM machine
 
 ## Init script:
 
