@@ -23,7 +23,7 @@ cd cloud9
 
 ## Other useful options:
 
-In case you are member of the CORE team interested in setting up a MINIMAL configuration WITHOUT Apache, PHP or MySQL
+In case you are a member of the CORE team interested in setting up a MINIMAL configuration WITHOUT Apache, PHP or MySQL
 then you have this option which will install ONLY Docker, Drone and Git:
 ```
 ./cloud9.sh -m
@@ -58,7 +58,7 @@ Below you have a better description of each option as well as other available fe
 * -t 		prepares the environment and configures the basic system for using the new toolkit (ideal to develop subsites)
 * -p 		prepares a basic LAMP stack with Apache, MySQL and PHP composer
 * -d 		stops the Apache server for any subsite
-* -a		returns the public IP of the virtual machine
+* -a		returns the public IP address of the virtual machine
 * -z		resizes the filesystem if more space is available
 
 ```
