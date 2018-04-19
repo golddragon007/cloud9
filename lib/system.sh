@@ -8,11 +8,6 @@ BASH=bashrc.conf;
 	cp $LIB/$BASH $HOME/.$BASH;source $LIB/$BASH
 SYS=sysctl.conf;sudo cp $LIB/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $LIB/$SYS 
 SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
-if ! $(crontab -l|grep -q growpart);then
-	echo "0 * * * * sudo growpart /dev/xvda 1;sudo resize2fs /dev/xvda1"|sudo tee -a /var/spool/cron/ec2-user;
-	sudo chown ec2-user. /var/spool/cron/ec2-user;
-	sudo chmod 600 /var/spool/cron/ec2-user
-fi
 echo "$LIB/ip.sh"|sudo tee -a /etc/rc.local
 [ -f $CONF ]&&mv $CONF $CONF.OLD
 read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};

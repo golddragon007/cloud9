@@ -51,13 +51,15 @@ Basically you have two options to CLONE (c) or to create a NEW (n) subsite with 
 Below you have a better description of each option as well as other available features.
 
 ```
-./cloud9.sh [ -h | -m | -t | -p | -d ]
+./cloud9.sh [ -h | -m | -t | -p | -d | -a | -z ]
  ```
 * -h 		prints the README file
 * -m		minimal environment with Docker, Git and Drone (ideal to develop the platform)
 * -t 		prepares the environment and configures the basic system for using the new toolkit (ideal to develop subsites)
 * -p 		prepares a basic LAMP stack with Apache, MySQL and PHP composer
 * -d 		stops the Apache server for any subsite
+* -a		returns the public IP of the virtual machine
+* -z		resizes the filesystem if more space is available
 
 ```
 ./cloud9.sh [ -n | -c | -r | -e ] SUBSITE
