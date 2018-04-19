@@ -9,9 +9,17 @@ YUM=/tmp/yum.list;sudo yum update -y;sudo yum -y remove mysql55*;yum list instal
 	for x in php56 mysql56-server;do grep -q $x $YUM||sudo yum -y install $x;done
 PHP=$(grep PHP $CONF|cut -d= -f2);sudo sed -i "/memory_limit/s/=.*$/= $PHP/" /etc/php.ini
 BIN=/usr/bin;LOCAL=/usr/local/bin;
-	if [ ! -f $BIN/composer ];then
-	sudo curl -sS https://getcomposer.org/installer|sudo php;sudo mv composer.phar $LOCAL/composer;
-	sudo ln -s $LOCAL/composer $BIN/composer
+	PACK=composer
+	if [ ! -f $BIN/$PACK ];then
+	URL=https://get$PACK.org/installer 
+	sudo curl -sS https://get$PACK.org/installer|sudo php;
+	sudo mv $PACK.phar $LOCAL/$PACK;sudo ln -s $LOCAL/$PACK $BIN/$PACK
+	fi
+	PACK=drush
+	if [ ! -f $BIN/$PACK ];then
+	URL=https://github.com/$PACK-ops/$PACK/releases/download/8.1.15/$PACK.phar
+	curl --silent $URL -L --output $PACK.phar;chmod +x $PACK.phar;
+	sudo mv $PACK.phar $LOCAL/$PACK;sudo ln -s $LOCAL/$PACK $BIN/$PACK
 	fi
 if ! $(grep -q HTTPD $CONF);then
 read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTPD
