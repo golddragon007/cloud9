@@ -25,4 +25,4 @@ if ! $(grep -q HTTPD $CONF);then
 read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTPD
 	HTTPD=${HTTPD:-/etc/httpd/conf.d};echo HTTPD=$HTTPD>>$CONF
 fi
-for x in httpd mysqld;do sudo chkconfig $x on;sudo service $x restart;done
+for x in httpd mysqld;do sudo chkconfig $x on;done
