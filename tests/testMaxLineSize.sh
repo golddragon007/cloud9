@@ -21,7 +21,7 @@ for file in $(/bin/ls ${PATH}/*.sh)
   i=1
   while IFS= read -r line || [ -n "$line" ];
   do 
-      [ "${#line}" -gt $MAX_LENGTH ] && printf "[%s] Line %s exceded max lenght\n" "$file" "$i";return=119
+      [ "${#line}" -gt $MAX_LENGTH ] && printf "[%s] Line %s exceded max lenght\n" "$file" "$i" && return=119
       ((i++))
   done < $file
 done

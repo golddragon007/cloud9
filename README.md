@@ -8,7 +8,7 @@
 
 Access AWS Cloud9 through THIS (Ireland) link: https://eu-west-1.console.aws.amazon.com/cloud9
 
-Create a new environment with the name of your ECAS username and choose the EC2 t2.[small|medium|large] machine
+Create a new environment with the name of your AWS/ECAS/LDAP username and choose the EC2 t2.medium machine
 
 ## Init script:
 
@@ -30,7 +30,7 @@ then you have this option which will install ONLY Docker, Drone and Git:
 ```
 
 In case you are a developer who only needs a basic LAMP stack
-then you have this option which will install Apache, PHP composer, Drush, MySQL, Docker, Drone and Git:
+then you have this option which will install Apache, MySQL, PHP composer, Drush, Docker, Drone and Git:
 ```
 ./cloud9.sh -p
 ```
@@ -41,7 +41,7 @@ then you have this option which will clone an existing subsite and all the neces
 ./cloud9.sh -c NAMEOFTHESUBSITE
 ```
 
-## Advanced features:
+### Advanced features:
 
 Basically you have two options to CLONE (c) or to create a NEW (n) subsite with TOOLKIT:
 ```
