@@ -3,23 +3,11 @@ pipeline:
     image: fpfis/fpfis-base
     commands:
       - for i in $(ls *.sh);do sh -n $i; done
-      - for i in $(ls bashrc.d/*.sh);do sh -n $i; done
 
   run_init_script:
     image: centos
     commands:
-      - yum install sudo git php vim -y
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
-      - touch ~/.vimrc
-      - printf "%s\n" "Firstname Lastname" "fisrtname.lastname@mail.com" | ./cloud9.sh -p
+      - ./cloud9.sh
       - grep -q "devops@ec" ~/.ssh/authorized_keys
-      - git config --global user.name
-      - git config --global user.email
-      - mysql --version
-      - httpd -v
-      - drone --version
-      - php -v
-      - composer --version
-      - drush --version
-      - git st
