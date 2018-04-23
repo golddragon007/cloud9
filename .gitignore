@@ -2,3 +2,4 @@
 *.zip
 *.old
 build
+lambda_config.ini

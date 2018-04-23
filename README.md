@@ -11,7 +11,7 @@ Lambda scripts to manage cloud9 instances
 
 Python scripts 2.7 with dependances.
 
-lambdaFunction.py: enlarge EC2 volume and file system for Cloud9 environements.
+lambda_function.py: Check users who have more than 1 cloud9 environement and send Slack message.
 
 
 ## Cloud9
