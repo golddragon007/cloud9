@@ -5,7 +5,7 @@ import os.path
 
 import logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
   cloud9 = boto3.client('cloud9')
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
   
 
 def sendSlackMessage (message) :
-  CONFIGFILE= os.path.dirname(os.path.realpath(__file__)) + "/lambda_config.ini"
+  CONFIGFILE=  os.path.dirname(__file__) + "/lambda_config.ini"
   if not os.path.isfile(CONFIGFILE):
     logger.error("Config file not fount at '{0}'".format(CONFIGFILE))
     return False
