@@ -8,7 +8,11 @@
 
 Access AWS Cloud9 through this (IRELAND) link: https://eu-west-1.console.aws.amazon.com/cloud9
 
-Create a new environment with the NAME of your AWS/ECAS/LDAP username and choose the EC2 t2.MEDIUM machine
+The Account alias is: digit-d1-nexteuropa-dev
+
+And the IAM user name is that assigned to you by your SCRUM master. Most probably: devs-XXX being XXX your ECAS/LDAP username.
+
+Create a new environment with the name of your IAM username (devs-XXX) and choose the EC2 t2.MEDIUM machine
 
 ## Init script:
 
