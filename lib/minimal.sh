@@ -1,6 +1,6 @@
 #!/bin/sh -x
 set -e
-sudo yum -y remove '*mysql*' '*php*' '*httpd*' '*nodejs*' 'kernel-*' nano '*emacs*' '*rpc*';sudo yum -y update
+sudo yum -y remove '*mysql*' '*php*' '*httpd*' '*nodejs*' kernel-tools kernel-headers nano '*emacs*' '*rpc*';sudo yum -y update
 BIN=/usr/bin;LOCAL=/usr/local/bin;
 	TOOL=drone;
 	if [ ! -f $BIN/$TOOL ];then
