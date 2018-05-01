@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 set -e
 sudo yum -y remove '*mysql*' '*php*' '*httpd*' '*nodejs*' '*kernel*' nano '*emacs*' '*rpc*';sudo yum -y update
 BIN=/usr/bin;LOCAL=/usr/local/bin;
@@ -12,6 +12,6 @@ BIN=/usr/bin;LOCAL=/usr/local/bin;
 	if [ ! -f $BIN/$TOOL ];then
 		COMPOSE=1.21.1
 		URL="https://github.com/docker/compose/releases/download/$COMPOSE/$TOOL-$(uname -s)-$(uname -m)"
-		sudo curl -L $URL -o $LOCAL/$TOOL;
+		sudo curl -L $URL -o $LOCAL/$TOOL;sudo chmod +x $LOCAL/$TOOL
 		sudo ln -s $LOCAL/$TOOL $BIN/$TOOL
 	fi
