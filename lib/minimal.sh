@@ -4,7 +4,7 @@ sudo yum -y remove '*mysql*' '*php*' '*httpd*' '*nodejs*' '*kernel*' nano '*emac
 BIN=/usr/bin;LOCAL=/usr/local/bin;
 	TOOL=drone;
 	if [ ! -f $BIN/$TOOL ];then
-		curl -L https://github.com/drone/drone-cli/releases/download/v0.8.5/$TOOL_linux_amd64.tar.gz|tar zx;
+		curl -L https://github.com/drone/drone-cli/releases/download/v0.8.5/drone_linux_amd64.tar.gz|tar zx;
 		sudo install -t $LOCAL $TOOL;rm $TOOL;
 		sudo ln -s $LOCAL/$TOOL $BIN/$TOOL;$TOOL --version
 	fi
