@@ -7,7 +7,7 @@ BASH=bashrc.conf;
 	echo "$STRING"|sudo tee /etc/profile.d/$BASH;
 	cp $LIB/$BASH $HOME/.$BASH;source $LIB/$BASH
 SYS=sysctl.conf;sudo cp $LIB/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $LIB/$SYS 
-SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH)
+SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH);ssh -V
 echo "$LIB/ip.sh"|sudo tee -a /etc/rc.local
 [ -f $CONF ]&&mv $CONF $CONF.OLD
 read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};
@@ -32,3 +32,4 @@ git config --global alias.dc 'diff --cached'
 git config --global alias.lg 'log -p'
 git config --global alias.bra 'branch -a'
 git config --global credential.helper 'cache --timeout=3600'
+git --version
