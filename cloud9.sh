@@ -5,7 +5,7 @@ $LIB/pubkey.sh;getopts ":hazdmpxtc:n:e:r:" ACTION
 case "$ACTION" in
 h) cat README.md;;
 a) grep IP= $CONF;;
-z) sudo growpart /dev/xvda 1;sudo resize2fs /dev/xvda1;;
+z) $LIB/resize.sh;;
 d) sudo service httpd stop;;
 m) $LIB/system.sh;$LIB/ip.sh;$LIB/minimal.sh;;
 p) $LIB/system.sh;$LIB/ip.sh;$LIB/minimal.sh;$LIB/lamp.sh;;
