@@ -30,7 +30,7 @@ cd cloud9
 ./cloud9.sh
 ```
 
-## Other useful options:
+## Init script for specific purposes:
 
 In case you are a member of the CORE team interested in setting up a MINIMAL configuration WITHOUT Apache, PHP or MySQL
 then you have this option which will install ONLY Docker, Drone and Git:
@@ -50,7 +50,7 @@ then you have this option which will clone an existing subsite and all the neces
 ./cloud9.sh -c NAMEOFTHESUBSITE
 ```
 
-### Advanced features:
+### Other useful options:
 
 Basically you have two options to CLONE (c) or to create a NEW (n) subsite with TOOLKIT:
 ```
