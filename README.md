@@ -50,7 +50,7 @@ then you have this option which will clone an existing subsite and all the neces
 ./cloud9.sh -c NAMEOFTHESUBSITE
 ```
 
-### Other useful options:
+## Other useful options:
 
 Basically you have two options to CLONE (c) or to create a NEW (n) subsite with TOOLKIT:
 ```
@@ -78,7 +78,7 @@ Below you have a better description of each option as well as other available fe
 * -e SUBSITE 	links the Apache server to an installed subsite
 * -r SUBSITE 	deletes a previously installed subsite
 
-### Examples:
+## Examples:
 
 ```
 ./cloud9.sh -h
@@ -94,6 +94,6 @@ Below you have a better description of each option as well as other available fe
 ./cloud9.sh -n romania2
 ```
 
-### Help:
+## Help:
  
 If you still have any question please [create JIRA ticket](https://webgate.ec.europa.eu/CITnet/jira/secure/CreateIssue!default.jspa?pid=68600) or [contact devops](https://platform-ec-europa.slack.com/messages/C2NTVJA7P/).
