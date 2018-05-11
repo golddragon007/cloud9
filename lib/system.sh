@@ -2,11 +2,28 @@
 set -e
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
-BASH=bashrc.conf;
-	FILE=bashrc.conf;grep -q $FILE $HOME/.bashrc||echo "source \$HOME/.$FILE"|tee -a $HOME/.bashrc
-	cp $LIB/$BASH $HOME/.$BASH;source $LIB/$BASH
-SYS=sysctl.conf;sudo cp $LIB/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $LIB/$SYS 
-SSH=$HOME/.ssh/authorized_keys;PUB=$CLOUD/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH);ssh -V
+# ----- BASH RC DIRECTORY -----
+grep -q "Added by devops" ~/.bashrc
+VAL=$?
+if [[ "$VAL" != "0" ]]; then
+  cp ~/.bashrc ~/.bashrc.old
+  mkdir -p $HOME/.bashrc.d
+cat >> $HOME/.bashrc << EOL
+
+# Added by devops
+if [ -d ~/.bashrc.d ]; then
+  for i in ~/.bashrc.d/*.sh; do
+    if [ -r \$i ]; then
+      . \$i
+    fi
+  done
+  unset i
+fi
+EOL
+fi
+cp $CLOUD/conf.default/bashrc.d/* $HOME/.bashrc.d/;source $HOME/.bashrc
+SYS=sysctl.conf;sudo cp $CONFDEFAULT/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $CONFDEFAULT/$SYS
+SSH=$HOME/.ssh/authorized_keys;PUB=$CONFDEFAULT/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH);ssh -V
 echo "$LIB/ip.sh"|sudo tee -a /etc/rc.local
 [ -f $CONF ]&&mv $CONF $CONF.OLD
 read -p "GITHUB_USER (Github username) = " GITHUB_USER;GITHUB_USER=${GITHUB_USER:-NOUSER};
