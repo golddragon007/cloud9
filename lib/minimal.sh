@@ -2,7 +2,6 @@
 set -e
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 sudo yum -y remove '*mysql*' '*php*' '*httpd*' '*nodejs*' kernel-tools kernel-headers nano '*emacs*' '*rpc*';sudo yum -y update
-(SIZE=20G;while :;do lsblk|grep -q $SIZE&&$LIB/resize.sh&&break;sleep 60;done)&
 BIN=/usr/bin;LOCAL=/usr/local/bin;
 	TOOL=drone;
 	if [ ! -f $BIN/$TOOL ];then
