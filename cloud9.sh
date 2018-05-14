@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;LIB=$CLOUD/lib
+CLOUD=$(dirname "$(readlink -f "$0")");CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;LIB=$CLOUD/lib;export CONFDEFAULT="$CLOUD/conf.default";
 $LIB/pubkey.sh;getopts ":hazdmpxtc:n:e:r:" ACTION
 case "$ACTION" in
 h) cat README.md;;
