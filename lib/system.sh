@@ -3,8 +3,7 @@ set -e
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d;[ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
 # ----- BASH RC DIRECTORY -----
-grep -q "Added by devops" ~/.bashrc
-VAL=$?
+grep -q "Added by devops" ~/.bashrc && VAL=$?
 if [[ "$VAL" != "0" ]]; then
   cp ~/.bashrc ~/.bashrc.old
   mkdir -p $HOME/.bashrc.d
