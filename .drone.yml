@@ -7,11 +7,9 @@ pipeline:
   run_init_script:
     image: centos
     commands:
-      - yum -y update
-      - yum provides php56
       - yum install -y git sudo openssh-clients which
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
       - grep -q "devops@ec" ~/.ssh/authorized_keys
-      - echo -e "\n\n\n\n\n"|./cloud9.sh -t
+      - echo -e "\n\n\n\n\n"|./cloud9.sh -p
