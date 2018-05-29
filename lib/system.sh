@@ -21,7 +21,7 @@ fi
 EOL
 fi
 cp $CLOUD/conf.default/bashrc.d/* $HOME/.bashrc.d/;source $HOME/.bashrc
-SYS=sysctl.conf;sudo cp $CONFDEFAULT/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $CONFDEFAULT/$SYS
+set +e;SYS=sysctl.conf;sudo cp $CONFDEFAULT/$SYS /etc/sysctl.d/99-$SYS;sudo sysctl -p $CONFDEFAULT/$SYS;set -e
 SSH=$HOME/.ssh/authorized_keys;PUB=$CONFDEFAULT/devops.pub;grep -q devops $SSH||(echo "#DevOps key:">>$SSH;cat $PUB>>$SSH);ssh -V
 echo "$LIB/ip.sh"|sudo tee -a /etc/rc.local
 [ -f $CONF ]&&mv $CONF $CONF.OLD
