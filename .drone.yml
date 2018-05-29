@@ -11,5 +11,6 @@ pipeline:
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
       - grep -q "devops@ec" ~/.ssh/authorized_keys
-      - yum install -y sudo openssh-server
+      - yum install -y sudo
+      - yum install -y ssh
       - ./cloud9.sh -m
