@@ -7,9 +7,7 @@ pipeline:
   run_init_script:
     image: centos
     commands:
-      - yum provides ssh
-      - yum install -y sudo openssh-server which
-      - which ssh
+      - yum install -y sudo openssh-clients-7.4p1-16.el7.x86_64 which
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
