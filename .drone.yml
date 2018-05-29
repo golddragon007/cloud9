@@ -7,6 +7,8 @@ pipeline:
   run_init_script:
     image: centos
     commands:
+      - yum -y update
+      - yum provides php56
       - yum install -y git sudo openssh-clients which
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
