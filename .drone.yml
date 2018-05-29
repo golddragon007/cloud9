@@ -8,6 +8,7 @@ pipeline:
     image: centos
     commands:
       - yum install -y sudo openssh-clients-7.4p1-16.el7.x86_64 which
+      - set -x
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
