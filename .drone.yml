@@ -9,7 +9,7 @@ pipeline:
     commands:
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
-      - ./cloud9.sh -h
+      - ./cloud9.sh
       - grep -q "devops@ec" ~/.ssh/authorized_keys
       - yum install -y sudo
-      - echo -e "\n\n\n\n\n\n"|./cloud9.sh -t
+      - ./cloud9.sh -t
