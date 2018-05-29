@@ -7,9 +7,9 @@ pipeline:
   run_init_script:
     image: centos
     commands:
-      - yum install -y git sudo openssh-clients which
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
       - grep -q "devops@ec" ~/.ssh/authorized_keys
+      - yum install -y git sudo openssh-clients which
       - echo -e "\n\n\n"|./cloud9.sh -m
