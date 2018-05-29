@@ -7,6 +7,7 @@ pipeline:
   run_init_script:
     image: centos
     commands:
+      - yum update -y
       - yum install -y sudo openssh-server
       - ls -l /usr/bin/ss*
       - mkdir ~/.ssh
