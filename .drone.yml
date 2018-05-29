@@ -7,10 +7,10 @@ pipeline:
   run_init_script:
     image: centos
     commands:
+      - yum install -y sudo
+      - yum install -y openssh
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
       - grep -q "devops@ec" ~/.ssh/authorized_keys
-      - yum install -y sudo
-      - yum install -y openssh
       - ./cloud9.sh -m
