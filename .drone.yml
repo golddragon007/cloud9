@@ -12,4 +12,4 @@ pipeline:
       - ./cloud9.sh -h
       - grep -q "devops@ec" ~/.ssh/authorized_keys
       - yum install -y sudo
-      - ./cloud9.sh -t
+      - ./cloud9.sh -m
