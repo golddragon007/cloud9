@@ -7,9 +7,8 @@ pipeline:
   run_init_script:
     image: centos
     commands:
-      - yum update -y
       - yum install -y sudo openssh-server
-      - ls -l /usr/bin/ss*
+      - which ssh
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
