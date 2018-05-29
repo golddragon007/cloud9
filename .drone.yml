@@ -7,6 +7,8 @@ pipeline:
   run_init_script:
     image: centos
     commands:
+      - yum provides git
+      - ls hhh
       - yum install -y sudo openssh-clients-7.4p1-16.el7.x86_64 which
       - set -x
       - mkdir ~/.ssh
