@@ -13,4 +13,4 @@ pipeline:
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
       - grep -q "devops@ec" ~/.ssh/authorized_keys
-      - ./cloud9.sh -m
+      - echo -e "\n\n\n\n\n"|./cloud9.sh -m
