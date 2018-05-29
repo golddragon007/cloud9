@@ -7,7 +7,7 @@ pipeline:
   run_init_script:
     image: centos
     commands:
-      - yum install -y sudo openssh-server
+      - yum install -y sudo openssh-server which
       - which ssh
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
