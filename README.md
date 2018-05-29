@@ -94,6 +94,9 @@ Below you have a better description of each option as well as other available fe
 ./cloud9.sh -n romania2
 ```
 
+## Videos:
+* [How to create a new environment](https://youtu.be/vdkMAjPbSYw)
+
 ## Help:
  
 If you still have any question please [create JIRA ticket](https://webgate.ec.europa.eu/CITnet/jira/secure/CreateIssue!default.jspa?pid=68600) or [contact devops](https://platform-ec-europa.slack.com/messages/C2NTVJA7P/).
