@@ -7,8 +7,8 @@ pipeline:
   run_init_script:
     image: centos
     commands:
-      - yum install -y sudo
-      - yum install -y openssh
+      - yum install -y sudo openssh
+      - ls -l /usr/bin/ss*
       - mkdir ~/.ssh
       - touch ~/.ssh/authorized_keys
       - ./cloud9.sh -h
