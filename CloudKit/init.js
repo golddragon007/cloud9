@@ -1,4 +1,6 @@
-// Add a custom top-level menu to the menu bar.
+// A custom top-level menu to the menu bar.
+
+
 // Add commands and dividers to this menu.
 var menuCaption = "CloudKit"; // Menu caption.
 var menus = services["menus"]; // Access the menu bar.
@@ -9,16 +11,56 @@ var fs = services["fs"];
 // Set the top-level menu caption.
 menus.setRootMenu(menuCaption, 900, plugin);
 
-menus.addItemByPath(menuCaption + "/Docker", new MenuItem({}), 100, plugin);
 
-menus.addItemByPath(menuCaption + "/Docker/Generate dokcer-compose.yml", new MenuItem({
-  onclick: generateDockerComposeFile
+menus.addItemByPath(menuCaption + "/Configure", new MenuItem({}), 50, plugin);
+menus.addItemByPath(menuCaption + "/Configure/Install docker profile", new MenuItem({
+  onclick: installProfile.bind(null, "docker")
 }), 100, plugin);
+menus.addItemByPath(menuCaption + "/Configure/Install lamp profile", new MenuItem({
+  onclick: installProfile.bind(null, "lamp")
+}), 101, plugin);
 
-menus.addItemByPath(menuCaption + "/Test", new MenuItem({
-  onclick: test
-}), 100, plugin);
 
+//-----------------//
+// Menu function   //
+//-----------------//
+
+function installProfile (profile){
+  cmd = ["sudo","salt-call","state.apply","profiles." + profile,"--local","-l", "info"]
+  
+  var runner={
+      "cmd": cmd,
+      "info": "Started `" + cmd.join (' ') + "`",
+      "env": {},
+      "selector": ""
+  }
+  var optionTab = {
+    editorType : "output", 
+    active     : true,
+    demandExisting : true,
+    title  : "Install profile",
+    document   : {output : {id : "salt"}}
+  }
+  if (pane = services["tabManager"].findPane( "pane1" )){
+    optionTab['pane'] = pane
+  }
+  // Start runner
+  process = services["run"].run (runner,{},"salt", function(err) {
+    if (err) throw err;
+    // Open output tab
+    services["tabManager"].open(optionTab, function(){});
+  })
+}
+
+
+
+//-----------------//
+// Utils function  //
+//-----------------//
+
+function updateInitScript(string){
+  return services["settings"].setJson("user/config/init.js",string)
+}
 
 function getArgs(func) {
   // First match everything inside the function argument parens.
@@ -34,48 +76,6 @@ function getArgs(func) {
   });
 }
 
-function test() {
-  services["dialog.info"].show("Results")
-}
-
-function generateDockerComposeFile() {
-  const DOCKER_COMPOPOSE_SRC="~/environment/cloud9/conf.default/CloudKit/docker/docker-compose.yml"
-  console.log(services)
-  // Create a file dialog.
-  var fileDialog = services["dialog.file"];
-
-  fileDialog.show(
-    "Specify the file name and choose a path",
-    "docker-compose.yml",
-    function() {
-      fileDialog.hide();
-      filepath = "~/environment/" + fileDialog.directory + "/" + fileDialog.filename
-      fs.exists(filepath, (exists) => {
-        if (exists) {
-          services["dialog.fileoverwrite"].show(
-            "Cannot create file",
-            "Overwrite ?",
-            "The target file '" + filepath + "' already exist",
-            function() {
-              copyAndOpenFile(DOCKER_COMPOPOSE_SRC, filepath)
-            },
-            function() {
-              return
-            }, {}
-          );
-        } else {
-          copyAndOpenFile(DOCKER_COMPOPOSE_SRC, filepath)
-        }
-      });
-    },
-    function() {
-      // User chose the Cancel button.
-      //services["dialog.alert"].show("Results", "File info", "You chose Cancel.");
-      //fileDialog.hide();
-    }
-
-  );
-}
 
 function copyAndOpenFile(source, target) {
   var path = require('path');
