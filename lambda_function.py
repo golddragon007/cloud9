@@ -43,22 +43,25 @@ def tagEC2Instances(event, context):
    
   for instance in instances:
     EC2_InstanceName = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name'][0]
-    EC2_Cloud9EnvId = [tag['Value'] for tag in instance.tags if tag['Key'] == 'aws:cloud9:environment'][0]
-    
     logger.debug("Start renaming for `" + EC2_InstanceName + "`")
     
-    EC2_Cloud9 = cloud9.describe_environments(environmentIds=[EC2_Cloud9EnvId])["environments"][0]
-    EC2_Cloud9Name = EC2_Cloud9['name']
-    newName = EC2InstanceNamePattern.format(Cloud9Name=EC2_Cloud9Name, Cloud9EnvId=EC2_Cloud9EnvId)
+    EC2_Cloud9EnvId = [tag['Value'] for tag in instance.tags if tag['Key'] == 'aws:cloud9:environment']
     
-    if EC2_InstanceName != newName:
-      totalDone += 1;
-      instance.create_tags(DryRun=debugMode, Tags=[{'Key': 'Name', 'Value': newName}])
-      logger.debug("EC2 instance `" + EC2_InstanceName + "`: renamed to `" + newName + "`")
+    if  len(EC2_Cloud9EnvId) > 0:
+      EC2_Cloud9 = cloud9.describe_environments(environmentIds=[EC2_Cloud9EnvId[0]])["environments"][0]
+      EC2_Cloud9Name = EC2_Cloud9['name']
+      newName = EC2InstanceNamePattern.format(Cloud9Name=EC2_Cloud9Name, Cloud9EnvId=EC2_Cloud9EnvId)
+
+      if EC2_InstanceName != newName:
+        totalDone += 1;
+        instance.create_tags(DryRun=debugMode, Tags=[{'Key': 'Name', 'Value': newName}])
+        logger.debug("EC2 instance `" + EC2_InstanceName + "`: renamed to `" + newName + "`")
+      else:
+        totalSkipped += 1;
+        logger.debug("EC2 instance `" + EC2_InstanceName + "`: name OK, renaming skipped" )
     else:
       totalSkipped += 1;
-      logger.debug("EC2 instance `" + EC2_InstanceName + "`: name OK, renaming skipped" )
-
+      logger.debug("EC2 instance `" + EC2_InstanceName + "`: not attached to cloud9 environment, renaming skipped" )
   logger.info("End of renameEC2Instances. totalRenameDone: {0}. totalRenameSkipped: {1}".format(totalDone, totalSkipped) )    
 
   return True
