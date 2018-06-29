@@ -48,7 +48,8 @@ def tagEC2Instances(event, context):
     EC2_Cloud9EnvId = [tag['Value'] for tag in instance.tags if tag['Key'] == 'aws:cloud9:environment']
     
     if  len(EC2_Cloud9EnvId) > 0:
-      EC2_Cloud9 = cloud9.describe_environments(environmentIds=[EC2_Cloud9EnvId[0]])["environments"][0]
+      EC2_Cloud9EnvId = EC2_Cloud9EnvId[0]
+      EC2_Cloud9 = cloud9.describe_environments(environmentIds=[EC2_Cloud9EnvId])["environments"][0]
       EC2_Cloud9Name = EC2_Cloud9['name']
       newName = EC2InstanceNamePattern.format(Cloud9Name=EC2_Cloud9Name, Cloud9EnvId=EC2_Cloud9EnvId)
 
