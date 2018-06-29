@@ -9,28 +9,21 @@ Lambda scripts to manage cloud9 instances
 ## Instructions:
 
 
-Python scripts 2.7 with dependances.
+Python scripts 2.7 without dependances.
 
-lambdaFunction.py: enlarge EC2 volume and file system for Cloud9 environements.
+lambdaFunction.py: enlarge EC2 volume of Cloud9 environement.
+Script triggered by [CloudWatch Event](./cloudWatch.event)
+
+## Developement
+
+Script can be developed and tested on AWS Console > Lambda.
 
 
-## Cloud9
+## Deployement 
 
-Cloud9 can be used to develop and upload Lambda functions : https://docs.aws.amazon.com/cloud9/latest/user-guide/lambda-functions.html
-
-
-## Manual Deployement 
-
-Create zip package:
-
+Script can be deployed on AWS Console > Lambda or using AWS CLI:
 ```
-pip2.7 install -r requirements.txt -t build
-cp lambda_function.py ./build/
-cd build
-zip -r my_app.zip .
-```
-
-Upload zip to lambda function:
-```
+zip -r my_app.zip lambda_function.py
 aws lambda update-function-code --function-name "MyLambdaFunctionName" --zip-file fileb://my_app.zip
 ```
+

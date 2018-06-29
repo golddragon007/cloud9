@@ -10,5 +10,4 @@ pipeline:
       - apt-get update --yes
       - apt-get install zip --yes
       - ./lambdaPackageCreate.sh
-      - ls build/paramiko
       - ls my_app.zip
