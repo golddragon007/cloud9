@@ -5,7 +5,7 @@ ZIP_FILE="my_app.zip"
 lambdaFunctionName=$1
 if [ "$lambdaFunctionName" = "" ] ; then
     echo "ERROR: mising arg1 (lambdaFunctionName)"
-    functions_list=$(aws lambda list-functions | grep FunctionName | cut -d ":" -f2)
+    functions_list=$(aws lambda list-functions --output json | grep FunctionName | cut -d ":" -f2)
     echo "Available functions:" $functions_list
     exit 11
 fi
@@ -15,5 +15,5 @@ if [ ! -f $ZIP_FILE ] ; then
   exit 12
 fi
 
-aws lambda update-function-code --function-name "$lambdaFunctionName" --zip-file fileb://$ZIP_FILE
+aws lambda update-function-code --function-name "$lambdaFunctionName" --zip-file fileb://$ZIP_FILE --output json
 

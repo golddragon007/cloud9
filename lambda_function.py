@@ -21,10 +21,9 @@ def lambda_handler(event, context):
     if (event['detail']['result'] != "available"):
       logger.error("Volume not ready")
     else:
+      # Get volume from event
       ressources = event['resources'][0]
       arn,volumeID = ressources.split(":volume/")
-      
-      # Get volume from event
       volume = ec2R.Volume(volumeID)
       logger.info("Volume {0} start resize".format(volumeID) )
       
@@ -67,4 +66,6 @@ def lambda_handler(event, context):
             return True
           else:
             logger.error("Volume {0} failed: Target {1}Go, Current Size: {2}. Responde: {3}".format(volumeID, EBS_SIZE,curSize, response))
+      else:
+        logger.info("Volume {0} skipped: not cloud9 environment".format(volumeID))
   return False

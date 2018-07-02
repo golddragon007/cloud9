@@ -27,3 +27,10 @@ zip -r my_app.zip lambda_function.py
 aws lambda update-function-code --function-name "MyLambdaFunctionName" --zip-file fileb://my_app.zip
 ```
 
+Using scripts:
+```
+# Create package
+./lambdaPackageCreate.sh
+# Upload package
+./lambdaPackageUpload.sh resizeEC2Volume
+```
