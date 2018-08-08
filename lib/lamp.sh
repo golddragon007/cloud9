@@ -27,3 +27,4 @@ if ! $(grep -q HTTPD $CONF);then
 read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTPD
 	HTTPD=${HTTPD:-/etc/httpd/conf.d};echo HTTPD=$HTTPD>>$CONF
 fi
+sudo sed -i "/\[mysqld\]/s/$/\\nmax_allowed_packet=64M/" /etc/my.cnf
