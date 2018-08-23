@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+VERSION=2.5.62
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d;CONF=$CONFD/$1.conf;DIR=$HOME/environment;
 if [ ! -f $CONF ];then
