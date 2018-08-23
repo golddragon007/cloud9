@@ -20,9 +20,7 @@ The initialization of the Cloud9 environment is MANDATORY for all users.
 Once created the environment open a terminal and type the following commands:
 
 ```
-git clone https://github.com/ec-europa/cloud9
-cd cloud9
-./install.sh
+curl https://raw.githubusercontent.com/ec-europa/cloud9/master/install.sh | bash 
 ```
 
 
