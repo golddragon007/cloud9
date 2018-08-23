@@ -1,0 +1,57 @@
+{
+  "_comment" : "Simple Packer Template using Amazon Linux AMI 2018.03",
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "eu-west-1",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "aws-cloud9-packer-template-*",
+        "root-device-type": "ebs"
+      },
+      "most_recent": true
+    },
+    "instance_type": "t2.small",
+    "ssh_username": "ec2-user",
+    "force_deregister":"true",
+    "force_delete_snapshot": "true",
+    "ami_name": "aws-cloud9-packer-build-{{user `profile`}}",
+    "ami_description": "drone build {{user `Version`}}",
+    "security_group_id" : "sg-004f43eec5a463676"
+  }],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./salt",
+      "destination": "/home/ec2-user/salt"
+    },
+    {
+      "type": "file",
+      "source": "./pillar",
+      "destination": "/home/ec2-user/pillar"
+    },
+    {
+      "type": "file",
+      "source": "./test/aws-install-salt.sh",
+      "destination": "/tmp/aws-install-salt.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "/tmp/aws-install-salt.sh"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./test/scripts/aws-{{user `profile`}}.sh",
+      "destination": "/tmp/aws-{{user `profile`}}.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "/tmp/aws-{{user `profile`}}.sh"
+      ]
+    }
+  ]
+}
+

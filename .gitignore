@@ -1,2 +1,6 @@
 conf.d/
 build.develop.props
+build.hwm
+build.pwd
+build.pwi
+pillar/default.sls

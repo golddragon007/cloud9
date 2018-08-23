@@ -1,0 +1,68 @@
+#!/bin/bash
+FRP_VERSION={{ salt['pillar.get']('frp:version') }}
+INSTANCE_NAME=`curl http://169.254.169.254/latest/meta-data/security-groups | sed -r "s@aws-cloud9-(.*)-[a-z0-9]{32}-InstanceSecurityGroup-.*@\1@g" | head -n 1`
+
+{% raw %}
+if [[ ${#INSTANCE_NAME} -gt 4 ]]
+{% endraw %}
+then
+  # Create dir
+  mkdir -p /opt/frp
+
+  # Generate frp config
+  echo '[common]
+server_addr = {{ salt['pillar.get']('frp:host') }}
+server_port = {{ salt['pillar.get']('frp:port') }}
+privilege_token = {{ salt['pillar.get']('frp:token') }}
+['${INSTANCE_NAME}']
+type = http
+local_ip = 127.0.0.1
+local_port = 8080
+use_encryption = false
+use_compression = true
+subdomain = '${INSTANCE_NAME} > /opt/frp/frpc.ini
+
+  if [ ! -d /opt/frp/current ]
+  then
+    # Install supervisord
+    yum install supervisor -y
+    if [[ $? -ne 0 ]]; then exit 1; fi
+    pip install supervisor
+    if [[ $? -ne 0 ]]; then exit 1; fi
+
+    # Generate frp config for supervisord
+    echo '[program:frpc]
+command=/opt/frp/current/frpc -c /opt/frp/frpc.ini
+autostart=true
+autorestart=true
+user=frp
+log_stdout=true
+log_sterr=true
+logfile=/var/log/supervisor/frpc.log
+logfile_maxbytes=10MB
+logfile_backups=5' >> /etc/supervisord.conf
+    sed -ri "s@(daemon supervisord)@\1 -c /etc/supervisord.conf@" /etc/init.d/supervisord
+
+    # Create frp user
+    useradd -M -s /bin/false frp
+    chown -R frp: /opt/frp/
+
+    # Start supervisord/frp
+    chkconfig supervisord on
+  fi
+
+  # Install frp & dependancies
+  if [ ! -d /opt/frp/${FRP_VERSION} ]
+  then
+    wget -q https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz -O /opt/frp/frp.tar.gz
+    cd /opt/frp
+    tar xf frp.tar.gz
+    mv frp_${FRP_VERSION}_linux_amd64 ${FRP_VERSION}
+    ln -sfn ${FRP_VERSION} current
+    rm -f frp.tar.gz
+    rm -f current/frps* current/frpc.* frp.tar.gz
+    /etc/init.d/supervisord restart
+  fi
+else
+    exit 255
+fi
