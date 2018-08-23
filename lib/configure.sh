@@ -12,8 +12,8 @@ if [ ! -f $CONF ];then
 	echo VERSION=$VERSION>>$CONF
 read -p "ASDA (password: please leave it blank ONLY for a new subsite) = " ASDA;
 	ASDA=${ASDA:-NOPASSWORD};echo ASDA=$ASDA>>$CONF
-#read -p "URL (default https://ec.europa.eu/$SITE) = " URL;URL=${URL:-"https://ec.europa.eu/$SITE"};
-	echo URL=$URL>>$CONF
+#read -p "URL (default https://ec.europa.eu/$SITE) = " URL;
+	URL=${URL:-"https://ec.europa.eu/$SITE"};echo URL=$URL>>$CONF
 REP0=$([ $REPS = y ]&&echo reps-$SITE-reference||echo $SITE-reference);#read -p "REPO (default $REP0) = " REPO;
 	REPO=${REPO:-"$REP0"};echo REPO=$REPO>>$CONF
 #read -p "GITHUB REPO (https://github.com/ec-europa/$REPO.git change the default if necessary) = " HTTPS;
