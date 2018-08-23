@@ -40,3 +40,27 @@ sudo salt-call state.apply profiles.lamp
 ```
 sudo salt-call state.apply profiles.docker
 ```
+
+## Script for building subsite
+
+### Get old scripts
+```
+git clone https://github.com/ec-europa/cloud9
+cd cloud9
+```
+
+### Usage
+Basically you have two options to CLONE (c) or to create a NEW (n) subsite with TOOLKIT:
+```
+./cloud9.sh [ -h | -n | -c ]
+ ```
+
+* -n SUBSITE 	installs a new clean subsite using the new toolkit
+* -c SUBSITE 	clones an already existing subsite using the new toolkit
+
+### Example
+
+```
+./cloud9.sh -c NAMEOFTHESUBSITE
+./cloud9.sh -n NAMEOFTHESUBSITE
+```
