@@ -28,6 +28,7 @@ echo "You have just configured your environment with the following values:";echo
 echo
 echo "If there is something you want to change (version, URL, repository...)"
 echo "then before continuing with the process"
-echo "please edit the following configuration file: $CONF" 
+echo "please edit the following configuration file:"
+echo "$CONF" 
 echo
 read -p "Press ENTER when the file configuration is ready and you want to continue" ENTER;echo
