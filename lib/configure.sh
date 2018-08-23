@@ -23,7 +23,8 @@ REP0=$([ $REPS = y ]&&echo reps-$SITE-reference||echo $SITE-reference);#read -p 
 alias drush="$DIR/$REPO/toolkit/drush -r build";echo alias $(alias drush)>>$CONF
 alias phing="$DIR/$REPO/toolkit/phing";echo alias $(alias phing)>>$CONF
 fi
-echo "You have just configured your environment with the following values:";cat $CONF
+echo
+echo "You have just configured your environment with the following values:";echo;cat $CONF
 echo
 echo "If there is something you want to change (version, URL, repository...)"
 echo "then before continuing with the process"
