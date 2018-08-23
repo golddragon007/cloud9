@@ -10,7 +10,6 @@ getopts ":hazdmpxtc:n:e:r:" ACTION
 case "$ACTION" in
 h) cat README.md;;
 c) if [ ! -f $CONF ]; then
-echo "lalalal---------------------"
      $LIB/system.sh
      $LIB/ip.sh
   fi

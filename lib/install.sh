@@ -1,15 +1,31 @@
 #!/bin/sh -x
 set -e
-LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
-CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf;source $CONF;source $CONFD/$1.conf
+LIB=$(dirname "$(readlink -f "$0")")
+CLOUD=$LIB/..;
+CONFD=$CLOUD/conf.d
+CONF=$CONFD/cloud9.conf
+source $CONF
+source $CONFD/$1.conf
 cd $DIR;[ -d $REPO ]||mkdir $REPO;cd $REPO;set +e;rm *;mkdir RESOURCES;mv resources/patches RESOURCES/;
-	mv resources/site.make RESOURCES/;mv resources/composer.json RESOURCES/;rm -r docs/ resources/ src/ tests/;
-	set -e;composer create-project ec-europa/subsite temp dev-master --no-interaction;set +e;mv temp/* .;rmdir temp/;
-	if [ ! -d lib/modules/custom ];then mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;
-	mv lib/custom lib/modules;mv lib/features lib/modules;fi;mv RESOURCES/* resources/;rmdir RESOURCES;set -e
+mv resources/site.make RESOURCES/
+mv resources/composer.json RESOURCES/
+rm -r docs/ resources/ src/ tests/;
+set -e
+composer create-project ec-europa/subsite temp dev-master --no-interaction
+set +e
+mv temp/* .
+rmdir temp/
+if [ ! -d lib/modules/custom ];then 
+	mkdir lib/custom/;mv lib/modules/* lib/custom;mv lib/custom/features lib/features;
+	mv lib/custom lib/modules;mv lib/features lib/modules;
+fi;
+mv RESOURCES/* resources/
+rmdir RESOURCES
+set -e
 read -p "FILE (default Developer configuration file: build.develop.props) = " FILE
-FILE=${FILE:-build.develop.props};echo FILE=$FILE>>$CONF
-echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com/$SITE">>$FILE
+FILE=${FILE:-build.develop.props}
+echo FILE=$FILE>>$CONF
+echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com/$REPO/$SITE">>$FILE
 echo "project.url.production = $URL">>$FILE
 echo "project.id = $SITE">>$FILE
 echo "project.name = Subsite $SITE">>$FILE
