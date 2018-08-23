@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 set -e
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d;CONF=$CONFD/$1.conf;DIR=$HOME/environment;
