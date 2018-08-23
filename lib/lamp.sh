@@ -3,7 +3,8 @@ set -e
 LIB=$(dirname "$(readlink -f "$0")");CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d;CONF=$CONFD/cloud9.conf
 if ! $(grep -q PHP $CONF);then
-read -p "PHP (default memory limit: 256M) = " PHP;PHP=${PHP:-256M};echo PHP=$PHP>>$CONF
+#read -p "PHP (default memory limit: 256M) = " PHP;
+	PHP=${PHP:-256M};echo PHP=$PHP>>$CONF
 fi
 YUM=/tmp/yum.list;sudo yum update -y;sudo yum -y remove mysql55*;yum list installed>$YUM;
 	for x in php56 mysql56-server;do grep -q $x $YUM||sudo yum -y install $x;done
@@ -25,6 +26,6 @@ BIN=/usr/bin;LOCAL=/usr/local/bin;
 	sudo mv $PACK.phar $LOCAL/$PACK;sudo ln -s $LOCAL/$PACK $BIN/$PACK;$PACK --version
 	fi
 if ! $(grep -q HTTPD $CONF);then
-read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTPD
+#read -p "HTTPD (default Apache configuration folder: /etc/httpd/conf.d) = " HTTPD
 	HTTPD=${HTTPD:-/etc/httpd/conf.d};echo HTTPD=$HTTPD>>$CONF
 fi
