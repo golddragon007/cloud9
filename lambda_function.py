@@ -48,7 +48,6 @@ def lambda_handler(event, context):
         message += unichr(8226) + " User '%s' have %s environements: %s\n" % (username,len(Cloud9ByOwners[Cloud9ByOwner]),', '.join(env))
         logger.info ("User '{0}' have multiple environments: {1}".format(username,', '.join(env)))
   message = "Only 1 Cloud9 environment is allowed by user. Please clean up your environments:\n" + message
-  message += "Environement will be deleted automatically."
   logger.debug ("Message: {0}".format(message))
   logger.info ("Send slack message...")
   result = sendSlackMessage(message)
