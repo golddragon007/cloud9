@@ -11,7 +11,7 @@ Lambda scripts to manage cloud9 instances
 
 Python scripts 2.7 without dependances.
 
-lambdaFunction.py: enlarge EC2 volume of Cloud9 environement.
+lambdaFunction.py: enlarge EC2 volume of Cloud9 environement. Skip resize if 'noEBSresize' present on C9 description.
 Script triggered by [CloudWatch Event](./cloudWatch.event)
 
 ## Developement

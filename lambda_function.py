@@ -1,6 +1,7 @@
 import boto3
 ec2R = boto3.resource('ec2')
 ec2 = boto3.client('ec2')
+c9 = boto3.client('cloud9')
 from botocore.exceptions import ClientError
 
 import logging
@@ -40,6 +41,12 @@ def lambda_handler(event, context):
       for tags in ec2instance.tags:
         if tags["Key"] == 'aws:cloud9:environment':
           isC9 = True
+          # if 'noebsresize' is present on description, don't resize volume
+          response = c9.describe_environments(environmentIds=[tags["Value"]])
+          c9env  = response['environments'][0]
+          if "noebsresize" in c9env['description'].lower():
+            logger.info("Volume {0} skipped: 'noebsresize' found on C9 description".format(volumeID))
+            return False
           break;
           
       if isC9:
