@@ -22,7 +22,7 @@ fi;
 mv RESOURCES/* resources/
 rmdir RESOURCES
 set -e
-read -p "FILE (default Developer configuration file: build.develop.props) = " FILE
+#read -p "FILE (default Developer configuration file: build.develop.props) = " FILE
 FILE=${FILE:-build.develop.props}
 echo FILE=$FILE>>$CONF
 echo "project.url.base = https://$ENVIRONMENT_ID.vfs.cloud9.$REGION_ID.amazonaws.com/$REPO/$SITE">>$FILE
