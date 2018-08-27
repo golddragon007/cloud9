@@ -4,7 +4,7 @@ LIB=$(dirname "$(readlink -f "$0")")
 CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d
 [ -d $CONFD ]||mkdir -p $CONFD;CONF=$CONFD/cloud9.conf
-sudo cp $LIB/sysctl.conf /etc/sysctl.d/perf.conf&&sudo sysctl -p $LIB/perf.conf
+sudo cp $LIB/sysctl.conf /etc/sysctl.d/perf.conf&&sudo sysctl -p $LIB/sysctl.conf
 
 [ -f $CONF ]&&mv $CONF $CONF.OLD
 read -p "GITHUB_USER (Github username) = " GITHUB_USER
