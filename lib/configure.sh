@@ -5,6 +5,7 @@ CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d
 CONF=$CONFD/$1.conf
 DIR=$HOME/environment
+VERSION=2.5.62
 if [ ! -f $CONF ];then
 #read -p "SITE (default name: $1) = " SITE;
 	SITE=${SITE:-"$1"};echo SITE=$SITE>>$CONF
