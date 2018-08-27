@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 set -e
 LIB=$(dirname "$(readlink -f "$0")")
 CLOUD=$LIB/..
