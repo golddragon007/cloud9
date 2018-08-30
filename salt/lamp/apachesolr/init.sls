@@ -12,7 +12,7 @@ ApacheSolr:
     - detach: True
     - force: True
     - port_bindings:
-      - 8082:8983
+      - 8983:8983
     - restart_policy: always
 
 /etc/httpd/conf.d/apachesolr.conf:
