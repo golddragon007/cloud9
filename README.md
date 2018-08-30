@@ -23,7 +23,6 @@ Once created the environment open a terminal and type the following commands:
 curl https://raw.githubusercontent.com/ec-europa/cloud9/master/install.sh | bash 
 ```
 
-
 ## Configure environemnt
 
 Services/libraries of profiles are described at  <https://webgate.ec.europa.eu/fpfis/wikis/display/MULTISITE/AWS+Cloud9+-+Configure+Cloud9+IDE>
