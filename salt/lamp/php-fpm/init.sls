@@ -1,7 +1,7 @@
 {% set php_version = salt['pillar.get']('php:version','56') %}
 
 fpm-stack-installed:
-  pkg.installed:
+  pkg.latest:
     - name: php{{ php_version }}-fpm
 
 php-fpm:
@@ -11,7 +11,7 @@ php-fpm:
       - pkg: php{{ php_version }}-fpm
     
 fpm-extensions-installed:
-  pkg.installed:
+  pkg.latest:
     - pkgs:
       - php{{ php_version }}-cli
 {% for extension in  salt['pillar.get']('php-fpm:extensions', {}) %}
