@@ -25,7 +25,7 @@ MailDev:
 
 ssmtp:
   pkg:
-    - installed
+    - latest
 
 /etc/ssmtp/ssmtp.conf:
   file.managed:

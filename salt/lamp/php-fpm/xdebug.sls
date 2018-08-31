@@ -1,7 +1,7 @@
 {% set php_version = salt['pillar.get']('php:version','56') %}
 
 xdebug-installed:
-  pkg.installed:
+  pkg.latest:
     - name: php{{ php_version }}-pecl-xdebug
 
 /etc/php.d/15-xdebug.ini:

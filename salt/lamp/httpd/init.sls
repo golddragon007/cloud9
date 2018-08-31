@@ -1,10 +1,10 @@
 httpd24-tools:
   pkg:
-    - installed
+    - latest
     
 httpd24:
   pkg:
-    - installed
+    - latest
     
 httpd:
   service.running:
