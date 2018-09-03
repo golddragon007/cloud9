@@ -41,7 +41,6 @@ ssh-keys:
     - Tiago-FM
     - anthosz
     - rvanhoudt
-    - vojenfr
     - secobau
   absent:
     - vojenfr

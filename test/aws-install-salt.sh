@@ -11,6 +11,9 @@ sudo yum install salt-minion -y
 # Set minion_id
 echo "aws-test" | sudo tee /etc/salt/minion_id
 
+# Fix: https://github.com/saltstack/salt/issues/47258
+sudo grep -q "service: rh_service" /etc/salt/minion || echo -e "providers:\n  service: rh_service" | sudo tee -a /etc/salt/minion
+
 # Link local sources
 sudo ln -s /home/ec2-user/pillar /srv/pillar
 sudo ln -s /home/ec2-user/salt /srv/salt

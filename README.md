@@ -1,6 +1,6 @@
 # AWS Cloud9
 
-[![Drone](https://drone.fpfis.eu/api/badges/ec-europa/cloud9/status.svg?branch=test)](https://drone.fpfis.eu/ec-europa/cloud9)
+[![Drone](https://drone.fpfis.eu/api/badges/ec-europa/cloud9/status.svg?branch=master)](https://drone.fpfis.eu/ec-europa/cloud9)
 
 ## Instructions:
 

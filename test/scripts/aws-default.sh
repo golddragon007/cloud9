@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
+source $HOME/.bash_profile
+
 sudo salt-call state.apply commands.expandFS --local
 sudo salt-call state.apply --local
 
