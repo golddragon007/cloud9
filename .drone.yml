@@ -5,30 +5,34 @@ pipeline:
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - cp pillar/default.sls.sample pillar/default.sls
+      - ls -la salt
       - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=default test/aws.json
     when:
-      event: [push]
+      event: [ push , pull_request ]
+      refspec: "*:master"
+      branch: [master]
 
   test-docker:
     group: test
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - cp pillar/default.sls.sample pillar/default.sls
       - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=docker test/aws.json
     when:
-      event: [push]
+      event: [ push , pull_request ]
+      refspec: "*:master"
+      branch: [master]
 
   test-lamp:
     group: test
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - cp pillar/default.sls.sample pillar/default.sls
       - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=lamp test/aws.json
     when:
-      event: [push]
+      event: [ push , pull_request ]
+      refspec: "*:master"
+      branch: [master]
 
   create-deploy-production:
       image: fpfis/drone-plugin-github-deploy
@@ -50,3 +54,5 @@ pipeline:
       when:
         event: deployment
 
+event : [pull_request, push ]
+branches: master
