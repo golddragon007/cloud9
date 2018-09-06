@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+sudo yum -y install php56-mysqlnd #FPFISSUPP-2806
 LIB=$(dirname "$(readlink -f "$0")")
 CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d
