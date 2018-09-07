@@ -4,10 +4,6 @@
 
 {% set mysql_version = salt['pillar.get']('mysql:version','56') %}
 
-mysql-remove:
-  cmd.run:
-    - name: yum -y remove '*mysql*'
-
 # Add percona repo
 {% if grains['os_family'] == 'RedHat' %}
 {% set el_version = grains['osmajorrelease'][0] %}

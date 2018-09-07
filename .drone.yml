@@ -5,11 +5,9 @@ pipeline:
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - ls -la salt
       - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=default test/aws.json
     when:
       event: [ push , pull_request ]
-      refspec: "*:master"
       branch: [master]
 
   test-docker:
@@ -20,7 +18,6 @@ pipeline:
       - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=docker test/aws.json
     when:
       event: [ push , pull_request ]
-      refspec: "*:master"
       branch: [master]
 
   test-lamp:
@@ -31,7 +28,6 @@ pipeline:
       - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=lamp test/aws.json
     when:
       event: [ push , pull_request ]
-      refspec: "*:master"
       branch: [master]
 
   create-deploy-production:
