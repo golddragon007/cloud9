@@ -4,7 +4,8 @@ include:
   - docker
 
 phpmyadmin/phpmyadmin:
-  docker_image.present
+  docker_image.present:
+    - tag: latest
 
 PhpMyAdmin:
   docker_container.running:

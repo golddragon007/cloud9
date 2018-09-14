@@ -3,7 +3,8 @@ include:
   - docker
 
 djfarrelly/maildev:
-  docker_image.present
+  docker_image.present:
+    - tag: latest
 
 MailDev:
   docker_container.running:

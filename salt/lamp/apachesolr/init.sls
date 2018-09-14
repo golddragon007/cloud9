@@ -3,7 +3,8 @@ include:
   - docker
 
 fpfis/solr5:
-  docker_image.present
+  docker_image.present:
+    - tag: latest
 
 ApacheSolr:
   docker_container.running:
