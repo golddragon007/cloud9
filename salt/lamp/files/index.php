@@ -3,7 +3,7 @@
 
 <ul>
   <li><a href='./phpinfo.php'>PhpInfo</a></li>
-  <li><a href='./selenium/'>Selenium</a></li>
+  <li><a href='./selenium/static/resource/hub.html'>Selenium</a></li>
   <li><a href='./solr/'>ApacheSolr</a></li>
   <li><a href='./maildev/'>MailDev</a></li>
   <li><a href='./phpmyadmin/'>PhpMyAdmin</a></li>
