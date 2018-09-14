@@ -3,7 +3,8 @@ include:
   - docker
 
 selenium/standalone-chrome:
-  docker_image.present
+  docker_image.present:
+    - tag: latest
 
 Selenium:
   docker_container.running:
