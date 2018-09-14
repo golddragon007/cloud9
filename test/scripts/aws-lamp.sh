@@ -8,20 +8,23 @@ sudo salt-call state.apply profiles.lamp --local
 sudo service httpd status
 sudo service mysql status
 sudo service php-fpm status
-
 php --version
-
-# Check docker services
-for url in phpmyadmin maildev solr; do
-  if (( "$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1/$url/")" != "200" )); then exit 1; fi
-done
 
 # Check tools
 docker --version
+docker ps -a
+docker image ls -a
 drone --version
 drush --version
 composer --version
 c9 --help
+
+# Check docker services
+for url in "phpmyadmin/" "maildev/" "solr/" "selenium/static/resource/hub.html"; do
+  if (( "$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1/$url")" != "200" )); then
+    echo "Fail $url"; exit 76;
+  fi;
+done
 
 # Check files
 files=(
