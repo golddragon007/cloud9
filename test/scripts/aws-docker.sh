@@ -1,6 +1,8 @@
-#!/bin/sh -x
+#!/bin/sh
 
 source $HOME/.bash_profile
+
+set -x
 
 sudo salt-call state.apply profiles.docker --local
         
