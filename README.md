@@ -49,11 +49,12 @@ cd cloud9
 ### Usage
 Basically you have two options to CLONE (c) or to create a NEW (n) subsite with TOOLKIT:
 ```
-./cloud9.sh [ -h | -n | -c ]
+./cloud9.sh [ -h | -n | -c | -r ]
  ```
 
 * -n SUBSITE 	installs a new clean subsite using the new toolkit
 * -c SUBSITE 	clones an already existing subsite using the new toolkit
+* -r SUBSITE deletes a previously installed subsite
 
 ### Example
 
