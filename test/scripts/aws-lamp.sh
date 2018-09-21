@@ -36,8 +36,8 @@ source $HOME/.bashrc
 aliases="cloud9RestartApache cloud9RestartMysql cloud9RestartPhp cloud9RestartLamp"
 
 for alias in $aliases; do
-  if [ `alias | grep $alias | wc -l` != 0 ]; then
-    echo "Alias $alis not found";
+  if [ $(alias | grep $alias | wc -l) != "1" ]; then
+    echo "Alias $alias not found";
     exit 17
   fi
 done
