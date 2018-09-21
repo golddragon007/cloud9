@@ -3,27 +3,48 @@
 source $HOME/.bash_profile
 
 sudo salt-call state.apply profiles.lamp --local
-        
-# Check services
+
+##########################
+###   Check services   ###
+##########################
 sudo service httpd status
 sudo service mysql status
 sudo service php-fpm status
 
 php --version
 
-# Check docker services
+#################################
+###   Check docker services   ###
+#################################
 for url in phpmyadmin maildev solr; do
   if (( "$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1/$url/")" != "200" )); then exit 1; fi
 done
 
-# Check tools
+#######################
+###   Check tools   ###
+#######################
 docker --version
 drone --version
 drush --version
 composer --version
 c9 --help
 
-# Check files
+#########################
+###   Check aliases   ###
+#########################
+source $HOME/.bashrc
+aliases="cloud9RestartApache cloud9RestartMysql cloud9RestartPhp cloud9RestartLamp"
+
+for alias in $aliases; do
+  if [ `alias | grep $alias | wc -l` != 0 ]; then
+    echo "Alias $alis not found";
+    exit 17
+  fi
+done
+
+#######################
+###   Check files   ###
+#######################
 files=(
 "/home/ec2-user/.nvm/versions/node/$(node --version)/bin/c9"
 "/home/ec2-user/environment/.c9/runners/PHP XDebug (no web server).run")
@@ -35,7 +56,9 @@ if [ "$fail" == "true" ]; then
   exit 57
 fi
 
-# Test basic drupal 7 installation
+#######################################
+###   Test basic drupal 7 install   ###
+#######################################
 cd /home/ec2-user/environment
 drush dl drupal-7.x
 cd drupal-7.x-dev/
