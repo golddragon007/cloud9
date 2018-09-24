@@ -26,7 +26,8 @@ c9 --help
 # Check files
 files=(
 "/home/ec2-user/.nvm/versions/node/$(node --version)/bin/c9"
-"/home/ec2-user/environment/.c9/runners/PHP XDebug (no web server).run")
+"/home/ec2-user/environment/.c9/runners/PHP XDebug (no web server).run"
+"/home/ec2-user/environment/conf.d/phpmyadmin/config.user.inc.php")
 
 for file in "${files[@]}"; do
   if [ ! -f "$file" ]; then echo "File '$file' not found!" ; fail=true;fi
