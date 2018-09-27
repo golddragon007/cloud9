@@ -8,3 +8,5 @@
 
 $cfg['MaxNavigationItems'] = 300;
 $cfg['MaxTableList'] = 300;
+
+$_REQUEST['display_blob'] = true;
