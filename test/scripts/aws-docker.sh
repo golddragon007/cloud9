@@ -1,9 +1,11 @@
-#!/bin/sh -x
+#!/bin/sh -e
 
 source $HOME/.bash_profile
 
-sudo salt-call state.apply profiles.docker --local
-        
+set -x
+
+sudo salt-call --retcode-passthrough state.apply profiles.docker --local
+
 # Check tools
 docker-compose --version
 docker --version

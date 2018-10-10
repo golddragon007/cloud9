@@ -1,3 +1,15 @@
+# ==============================================================================
+# Pull request clone ===========================================================
+# ==============================================================================
+# Use plugin to checkout pull requests for caching issue:
+# https://github.com/drone/drone/issues/2390
+# ==============================================================================
+clone:
+  git:
+    image: plugins/git:next
+# ==============================================================================
+# pipeline =====================================================================
+# ==============================================================================
 
 pipeline:
   test-default:
@@ -5,7 +17,7 @@ pipeline:
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=default test/aws.json
+      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=default -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
     when:
       event: [ push , pull_request ]
       branch: [master]
@@ -15,7 +27,7 @@ pipeline:
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=docker test/aws.json
+      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=docker -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
     when:
       event: [ push , pull_request ]
       branch: [master]
@@ -25,7 +37,7 @@ pipeline:
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=lamp test/aws.json
+      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=lamp -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
     when:
       event: [ push , pull_request ]
       branch: [master]
