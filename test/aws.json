@@ -17,7 +17,10 @@
     "force_delete_snapshot": "true",
     "ami_name": "aws-cloud9-packer-build-{{user `profile`}}",
     "ami_description": "drone build {{user `Version`}}",
-    "security_group_id" : "sg-004f43eec5a463676"
+    "security_group_id" : "sg-004f43eec5a463676",
+    "run_tags": {
+      "Name": "packer-build-{{user `profile`}}"
+    }
   }],
   "provisioners": [
     {
@@ -38,7 +41,7 @@
     {
       "type": "shell",
       "inline": [
-        "/tmp/aws-install-salt.sh"
+        "/tmp/aws-install-salt.sh {{user `AWS_AKI`}} {{user `AWS_SAK`}}"
       ]
     },
     {

@@ -27,3 +27,17 @@ sudo service salt-minion restart
 # Start default commands
 sudo salt-call state.apply commands.expandFS --local
 sudo salt-call state.apply --local
+
+# Setup aws credentials for aws-cli usage
+mkdir -p ~/.aws
+rm -Rf ~/.aws/credentials
+
+FILE="/home/ec2-user/.aws/credentials"
+/bin/cat <<EOM >$FILE
+[default]
+aws_access_key_id=$1
+aws_secret_access_key=$2
+region=eu-west-1
+EOM
+
+

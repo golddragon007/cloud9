@@ -1,8 +1,10 @@
-#!/bin/sh -x
+#!/bin/sh -e
 
 source $HOME/.bash_profile
 
-sudo salt-call state.apply profiles.lamp --local
+set -x
+
+sudo salt-call --retcode-passthrough state.apply profiles.lamp --local
 
 ##########################
 ###   Check services   ###
@@ -47,7 +49,8 @@ done
 #######################
 files=(
 "/home/ec2-user/.nvm/versions/node/$(node --version)/bin/c9"
-"/home/ec2-user/environment/.c9/runners/PHP XDebug (no web server).run")
+"/home/ec2-user/environment/.c9/runners/PHP XDebug (no web server).run"
+"/home/ec2-user/environment/conf.d/phpmyadmin/config.user.inc.php")
 
 for file in "${files[@]}"; do
   if [ ! -f "$file" ]; then echo "File '$file' not found!" ; fail=true;fi
