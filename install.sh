@@ -17,7 +17,9 @@ sudo sed -i -e "s/$search/$replace/g" /etc/salt/minion
 sudo grep -q "service: rh_service" /etc/salt/minion || echo -e "providers:\n  service: rh_service" | sudo tee -a /etc/salt/minion
 
 # Set minion_id
-echo "$(curl http://169.254.169.254/latest/meta-data/security-groups | grep  -Po "(^aws-.*(?=-InstanceSecurityGroup))")-$(curl http://169.254.169.254/latest/meta-data/instance-id)" | sudo tee /etc/salt/minion_id
+AWS_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+INSTANCE_NAME=$(aws ec2 describe-tags --filters "Name=resource-id,Values=$AWS_INSTANCE_ID" "Name=key,Values=Name" --output text | cut -f5)
+echo "$INSTANCE_NAME-$AWS_INSTANCE_ID" | sudo tee /etc/salt/minion_id
 
 # Start on boot
 sudo chkconfig salt-minion --level 3456 on
