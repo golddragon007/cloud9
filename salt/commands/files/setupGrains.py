@@ -25,6 +25,9 @@ for file in glob.glob("/home/ec2-user/environment/.c9/salt/*.profile"):
   print ("Add profile '{0}'...".format(profile_name))
   grains_dict['salt-profile'].append(profile_name)
   
+if not grains_dict['salt-profile']:
+  grains_dict['salt-profile'].append("none")
+
 print ("grains_dict : {0}".format(grains_dict))
 
 print ("Write in grains file...")
