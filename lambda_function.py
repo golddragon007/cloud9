@@ -15,12 +15,11 @@ if "Account" in os.environ.keys():
     accountName = os.environ['Account']
     
 #List european zone
-eu_region = []
-regions = ec2_cli.describe_regions()["Regions"]
-for region in regions:
-    if ("eu-" in region["RegionName"]) :
-        eu_region.append(region["RegionName"])
+regions = []
+regions_cli = ec2_cli.describe_regions()["Regions"]
 
+for region in regions_cli:
+    regions.append(region["RegionName"])
 
 def lambda_handler(event, context):
     
@@ -31,7 +30,7 @@ def lambda_handler(event, context):
     start_date = datetime.datetime.today() - datetime.timedelta(days=60)
     print("Start " + start_date.strftime("%A %d. %B %Y"))
     
-    for region in eu_region :
+    for region in regions :
         
         ec2_res = boto3.resource('ec2', region_name = region)
         #####Get EC2
