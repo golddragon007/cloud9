@@ -60,7 +60,7 @@ def lambda_handler(event, context):
                 logger.info(instance_description)
                 regionReport = regionReport + instance_description
         if not regionReport == "":
-            message = "### " + region + " \n" + regionReport 
+            message = "### " + region + " \n" + regionReport + message
     
     if not message == "" :
         message = "These " + str(count) + " instances have been stopped since more than 2 month :\n" + message
@@ -69,9 +69,8 @@ def lambda_handler(event, context):
         print(message)
         logger.debug ("Message: {0}".format(message))
         logger.info ("Send slack message...")
-        #result = sendSlackMessage(message)
-        result = 200
-        
+        result = sendSlackMessage(message)
+
         if result == 200:
             logger.info ("Slack notification sent.")
         else:
