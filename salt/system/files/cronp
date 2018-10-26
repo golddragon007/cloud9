@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# nginx - this script starts and stops the nginx daemon
+#
+# chkconfig:   - 85 15
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \
+#               proxy and IMAP/POP3 proxy server
+# processname: sysSettings
+# pidfile:     /var/run/sysSettings.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+prog="cronp"
+cparam="/usr/sbin/cparam.jar"
+
+lockfile="/var/lock/subsys/${prog}"
+pidfile="/var/run/${prog}.pid"
+
+start() {
+    echo "Starting Cronp..."
+    java -jar $cparam  1>/dev/null 2>&1 &
+    echo $! > "$pidfile"
+    echo "Cronp started with pid $!"
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc -p $pidfile $cparam
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+restart() {
+    stop
+    start
+}
+
+rh_status() {
+    status $prog
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+case "$1" in
+    start)
+        rh_status_q && exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    status)
+        rh_$1
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart}"
+        exit 2
+esac
