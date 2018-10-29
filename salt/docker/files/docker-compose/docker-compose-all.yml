@@ -20,7 +20,7 @@ services:
     image: fpfis/solr5
 
   selenium:
-    image: selenium/standalone-chrome-debug
+    image: selenium/standalone-chrome-debug:3.0
     ports:
       - 4444:4444
       - 5900:5900
