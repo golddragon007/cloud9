@@ -6,6 +6,7 @@ include:
   - lamp.maildev
   - lamp.phpmyadmin
   - lamp.apachesolr
+  - lamp.selenium
   - lamp.bashrc
 
 /home/ec2-user/environment/index.php:

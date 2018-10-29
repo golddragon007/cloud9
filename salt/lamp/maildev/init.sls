@@ -9,7 +9,7 @@ djfarrelly/maildev:
 MailDev:
   docker_container.running:
     - image: djfarrelly/maildev
-    - port_bindings: {80 : 8081, 25: 1025}
+    - port_bindings: {80 : 8082, 25: 1025}
     - watch_action: SIGHUP
     - detach: True
     - force: True
