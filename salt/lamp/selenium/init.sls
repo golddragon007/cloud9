@@ -4,11 +4,11 @@ include:
 
 selenium/standalone-chrome-debug:
   docker_image.present:
-    - tag: 3.0
+    - tag: latest
 
 selenium:
   docker_container.running:
-    - image: selenium/standalone-chrome-debug:3.0
+    - image: selenium/standalone-chrome-debug
     - port_bindings:
       - 4444:4444
       - 5900:5900
