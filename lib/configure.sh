@@ -19,7 +19,7 @@ read -p "URL (default https://ec.europa.eu/$SITE) = " URL;
 	URL=${URL:-"https://ec.europa.eu/$SITE"};echo URL=$URL>>$CONF
 REP0=$([ $REPS = y ]&&echo reps-$SITE-reference||echo $SITE-reference);#read -p "REPO (default $REP0) = " REPO;
 	REPO=${REPO:-"$REP0"};echo REPO=$REPO>>$CONF
-#read -p "GITHUB REPO (https://github.com/ec-europa/$REPO.git change the default if necessary) = " HTTPS;
+read -p "GITHUB REPO (https://github.com/ec-europa/$REPO.git change the default if necessary) = " HTTPS;
 	HTTPS=${HTTPS:-"https://github.com/ec-europa/$REPO.git"};echo HTTPS=$HTTPS>>$CONF
 #read -p "BRANCH (toolkit/upgrade: change the default if necessary but be careful the branch has toolkit) = " BRANCH;
 	BRANCH=${BRANCH:-"toolkit/upgrade"};echo BRANCH=$BRANCH>>$CONF
