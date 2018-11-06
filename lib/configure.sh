@@ -5,14 +5,14 @@ CLOUD=$LIB/..;
 CONFD=$CLOUD/conf.d
 CONF=$CONFD/$1.conf
 DIR=$HOME/environment
-VERSION=2.5.62
+DEFVER=2.5
 if [ ! -f $CONF ];then
 #read -p "SITE (default name: $1) = " SITE;
 	SITE=${SITE:-"$1"};echo SITE=$SITE>>$CONF
 read -p "REPS (y/n) = " REPS;
 	REPS=${REPS:-n};echo REPS=$REPS>>$CONF
-read -p "VERSION (2.x.y: please change it if the default value $VERSION is not appropriate) = " VERSION;
-	echo VERSION=$VERSION>>$CONF
+read -p "VERSION (2.x.y: please change it if the default value $DEFVER is not appropriate) = " VERSION;
+	VERSION=${VERSION:-"$DEFVER"};echo VERSION=$VERSION 1>>$CONF
 read -p "ASDA (password: please leave it blank ONLY for a new subsite) = " ASDA;
 	ASDA=${ASDA:-NOPASSWORD};echo ASDA=$ASDA>>$CONF
 read -p "URL (default https://ec.europa.eu/$SITE) = " URL;
