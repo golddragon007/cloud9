@@ -5,6 +5,7 @@ include:
 djfarrelly/maildev:
   docker_image.present:
     - tag: latest
+    - force: True
 
 MailDev:
   docker_container.running:
