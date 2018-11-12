@@ -13,6 +13,7 @@ php-fpm:
     - bcmath
     - mcrypt
     - soap
+    - tidy
 
 mysql:
   version: 56
