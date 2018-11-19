@@ -5,6 +5,7 @@ include:
 selenium/standalone-chrome-debug:
   docker_image.present:
     - tag: latest
+    - force: True
 
 selenium:
   docker_container.running:
@@ -24,6 +25,7 @@ selenium:
 dougw/novnc:
   docker_image.present:
     - tag: latest
+    - force: True
 
 novnc:
   docker_container.running:

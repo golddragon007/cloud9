@@ -26,6 +26,7 @@ create_pma_config_dir:
 phpmyadmin/phpmyadmin:
   docker_image.present:
     - tag: latest
+    - force: True
 
 PhpMyAdmin:
   docker_container.running:
