@@ -43,7 +43,31 @@ percona-toolkit:
   require:
     - cmd: mysql-percona-repo
 
-# Config
+# Config folder
+create_mysql_conf_folder:
+  file.directory:
+    - name: '/etc/my.cnf.d'
+    - group: root
+    - user: root
+
+# Devops config file
+/etc/my.cnf.d/00-devops.cnf:
+  file.managed:
+    - source: salt://lamp/mysql/files/my.cnf.d/00-devops.cnf
+    - template: jinja
+    - replace: True
+    - show_changes: True
+    - listen_in:
+      - service: mysql
+
+# Init user config file
+/etc/my.cnf.d/01-user.cnf:
+  file.managed:
+    - source: salt://lamp/mysql/files/my.cnf.d/01-user.cnf
+    - template: jinja
+    - replace : false
+
+# Default mysql config file
 /etc/my.cnf:
   file.managed:
     - source: salt://lamp/mysql/files/my.cnf
