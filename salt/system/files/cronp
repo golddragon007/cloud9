@@ -19,7 +19,7 @@ pidfile="/var/run/${prog}.pid"
 
 start() {
     echo "Starting Cronp..."
-    java -jar $cparam  1>/dev/null 2>&1 &
+    java7 -jar $cparam  1>/dev/null 2>&1 &
     echo $! > "$pidfile"
     echo "Cronp started with pid $!"
     retval=$?
