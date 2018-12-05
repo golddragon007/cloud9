@@ -5,6 +5,7 @@ include:
 fpfis/solr5:
   docker_image.present:
     - tag: latest
+    - force: True
 
 ApacheSolr:
   docker_container.running:
