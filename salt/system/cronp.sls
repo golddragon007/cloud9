@@ -21,5 +21,5 @@ Add init script on start:
     - runas:  root
 Start cronp :
   cmd.run:
-    - name: service cronp start
+    - name: /etc/init.d/cronp start
     - runas: root
