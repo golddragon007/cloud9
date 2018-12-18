@@ -3,14 +3,15 @@ include:
   - lamp.mysql
   - docker
 
-create_matomo_config_dir:
+create_matomo_local_dir:
   file.directory:
     - name: '/home/ec2-user/environment/conf.d/matomo'
     - group: ec2-user
     - user: ec2-user
     - makedirs : true
-    
-    
+    - group: root
+    - user: ec2-user
+
 library/matomo:
   docker_image.present:
     - tag: latest
