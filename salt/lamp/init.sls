@@ -7,6 +7,7 @@ include:
   - lamp.phpmyadmin
   - lamp.apachesolr
   - lamp.selenium
+  - lamp.matomo
   - lamp.bashrc
 
 /home/ec2-user/environment/index.php:
