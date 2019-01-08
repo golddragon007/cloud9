@@ -38,13 +38,13 @@ git:
 ssh-keys:
   present:
     - gervasek
-    - gboddin
+    
     - Tiago-FM
     - anthosz
     - rvanhoudt
     - secobau
   absent:
-    - vojenfr
+    - gboddin
     - ivan-davidkov
 
 frp:
