@@ -25,6 +25,7 @@ drone --version
 drush --version
 composer --version
 c9 --help
+redis-cli --version
 
 #################################
 ###   Check docker services   ###

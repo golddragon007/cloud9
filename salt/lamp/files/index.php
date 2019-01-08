@@ -5,6 +5,7 @@
   <li><a href='./phpinfo.php'>PhpInfo</a></li>
   <li><a href='./selenium/vnc.html?port=8081&autoconnect=true'>Selenium</a></li>
   <li><a href='./solr/'>ApacheSolr</a></li>
+  <li><a href='./redis/'>Redis</a></li>
   <li><a href='./maildev/'>MailDev</a></li>
   <li><a href='./phpmyadmin/'>PhpMyAdmin</a></li>
   <?php

@@ -45,3 +45,8 @@ services:
       PHP_MAX_INPUT_VARS: 1G
     ports:
       - 8082:80
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379

@@ -21,5 +21,7 @@ bashrc.d:
     - source: salt://{{ file }}
     - replace: True
     - show_changes: True
+    - group: ec2-user
+    - user: ec2-user
 {% endfor %}
 

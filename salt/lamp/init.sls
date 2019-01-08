@@ -8,6 +8,7 @@ include:
   - lamp.apachesolr
   - lamp.selenium
   - lamp.bashrc
+  - lamp.redis
 
 /home/ec2-user/environment/index.php:
   file.managed:
