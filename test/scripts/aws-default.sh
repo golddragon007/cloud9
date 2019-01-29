@@ -34,8 +34,13 @@ node --version
 if ! sudo /etc/init.d/cronp status; then echo "Cronp status failed, exit..." ; exit 22; fi
 # Test replacement at service start
 sudo /etc/init.d/cronp stop
-sed -i -e 's/"@automaticShutdown".*:.*".*"/"@automaticShutdown":"66"/g' /home/ec2-user/environment/.c9/project.settings
+if ! egrep "@automaticShutdown" /home/ec2-user/environment/.c9/project.settings; then
+  sed -i '0,/{/s//{\n    "instance": { "@automaticShutdown": "66" }/' /home/ec2-user/environment/.c9/project.settings
+else
+  sed -i -e 's/"@automaticShutdown".*:.*".*"/"@automaticShutdown":"66"/g' /home/ec2-user/environment/.c9/project.settings
+fi
 sudo /etc/init.d/cronp start
+sleep 2
 if ! egrep '@automaticShutdown".*:.*"30"' /home/ec2-user/environment/.c9/project.settings; then echo "Change on project.settings fail, exit..." ; exit 23; fi
 # Test replacement on live
 sed -i -e 's/"@automaticShutdown".*:.*".*"/"@automaticShutdown":"66"/g' /home/ec2-user/environment/.c9/project.settings
