@@ -5,18 +5,26 @@
 {% set mysql_version = salt['pillar.get']('mysql:version','56') %}
 
 # Add percona repo
-{% if grains['os_family'] == 'RedHat' %}
-{% set el_version = grains['osmajorrelease'][0] %}
-mysql-percona-repo:
-  pkgrepo.managed:
-    - humanname: CentOS-$releasever - Percona official repo
-    - baseurl: http://repo.percona.com/centos/$releasever/os/$basearch/
-    - comments:
-        - 'http://mirror.centos.org/centos/$releasever/os/$basearch/'
-    - gpgcheck: 1
-    - gpgkey: https://www.percona.com/downloads/RPM-GPG-KEY-percona
-{% endif %}
+#{% if grains['os_family'] == 'RedHat' %}
+#{% set el_version = grains['osmajorrelease'][0] %}
+#mysql-percona-repo:
+#  pkgrepo.managed:
+#    - humanname: CentOS-$releasever - Percona official repo
+#    - baseurl: http://repo.percona.com/centos/$releasever/os/$basearch/
+#    - comments:
+#        - 'http://mirror.centos.org/centos/$releasever/os/$basearch/'
+#    - gpgcheck: 1
+#   - gpgkey: https://www.percona.com/downloads/RPM-GPG-KEY-percona
+#{% endif %}
 
+# Workaroung for GPG key
+# https://jira.percona.com/browse/PT-1685
+mysql-percona-repo:
+  cmd.run:
+    - name: |
+        yum install -y 'http://www.percona.com/downloads/percona-release/redhat/0.1-6/percona-release-0.1-6.noarch.rpm'
+        rpm --import /etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY
+    
 # Server
 percona-server-server:
   pkg:
