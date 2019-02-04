@@ -4,3 +4,4 @@ build.hwm
 build.pwd
 build.pwi
 pillar/default.sls
+scripts/config/config.local.cmd
