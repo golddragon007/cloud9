@@ -26,7 +26,7 @@ if not "%status_code%" == "0" if not "%status_code%" == "16" (
   echo Starting your instance...
   
   :statusLoop
-  timeout 1
+  timeout 1 /NOBREAK
   
   for /f "tokens=1,2 delims=	" %%i in ('aws ec2 describe-instances --instance-ids %instance_id% --query "Reservations[*].Instances[*].State" --output text') do (
     set status_code=%%i
@@ -48,7 +48,7 @@ echo New IP address was successfully set up
 if "%cold_start%" == "1" (
   echo Let's wait a few sec until the server will be available for us...
   :: Here the ping host -a would be better, but it's blocked...
-  timeout %wait_for_server%
+  timeout %wait_for_server% /NOBREAK
 )
 
 echo Starting PuTTY
