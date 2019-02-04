@@ -5,27 +5,43 @@ title Initialize local environment
 :: Setup environment variables/configs
 call %~dp0\config\config.cmd
 
+set error=0
 if "%ppk_private_key%" == "" (
   echo ppk_private_key should be set!
-  exit /b 4
+  set error=1
 )
 if "%proxy_username%" == "" (
   echo proxy_username should be set!
-  exit /b 4
+  set error=1
 )
 if "%proxy_hostname%" == "" (
   echo proxy_hostname should be set!
-  exit /b 4
+  set error=1
 )
 if "%proxy_port_dec%" == "" (
   echo proxy_port_dec should be set!
-  exit /b 4
+  set error=1
 )
 if "!proxy_password!" == "" (
   echo proxy_password should be set!
+  set error=1
+)
+if "%aws_access_key_id%" == "" (
+  echo aws_access_key_id should be set!
+  set error=1
+)
+if "%aws_secret_access_key%" == "" (
+  echo aws_secret_access_key should be set!
+  set error=1
+)
+
+:: If there's missing data terminate the script.
+if "%error%" == "1" (
+  pause
   exit /b 4
 )
 
+echo Setting up PROXY settings...
 :: Setting up proxy for aws-cli
 set proxy_string=http://%proxy_username%:!proxy_password!@%proxy_hostname%:%proxy_port_dec%
 
@@ -35,6 +51,19 @@ set HTTPS_PROXY="!proxy_string!"
 :: Set globaly
 setx HTTP_PROXY "!proxy_string!"
 setx HTTPS_PROXY "!proxy_string!"
+
+echo Setting up Amazon Console (aws cli)...
+:: Setup AWS CLI.
+if not exist "%userprofile%\.aws\" mkdir %userprofile%\.aws\
+
+:: Create the credentials file for AWS CLI.
+echo [default] > %userprofile%\.aws\credentials
+echo aws_access_key_id = %aws_access_key_id% >> %userprofile%\.aws\credentials
+echo aws_secret_access_key = %aws_secret_access_key% >> %userprofile%\.aws\credentials
+
+:: Create the config file for AWS CLI.
+echo [default] > %userprofile%\.aws\config
+echo region = %region% >> %userprofile%\.aws\config
 
 :: Setup PuTTY profile for later connection
 echo Generating import reg file
@@ -266,5 +295,6 @@ echo "SSHManualHostKeys"="" >> "%temp_regfile_name%"
 
 echo Importing PuTTY profile
 reg import %temp_regfile_name%
+echo Cleanup...
 del %temp_regfile_name%
 echo PuTTY profile was created successfully with %putty_profile% name.

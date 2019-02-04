@@ -5,6 +5,10 @@
 set proxy_password=
 :: Set your private ppk key here, it should be located in c:\Users\<your profile>\.ssh\ directory!
 set ppk_private_key=
+:: AWS access key. (https://console.aws.amazon.com/iam/home?region=eu-west-1#/users/{user-name}?section=security_credentials)
+set aws_access_key_id=
+:: AWS secret key (you can access only once this, when you generate it with access key).
+set aws_secret_access_key=
 :: Proxy username.
 set proxy_username=
 :: Proxy host name/domain/ip.
@@ -25,9 +29,12 @@ set wait_for_server=10
 set cold_start=0
 :: Temp name of the file which will be created, imported and deleted for PuTTY configs
 set temp_regfile_name=putty_profile_gen.reg
+:: AWS region.
+set region=
 
 :: Load local config as an override.
-call %~dp0\config.local.cmd
+if exist %~dp0\config.local.cmd call %~dp0\config.local.cmd
+if exist %~dp0\cache\config.%cloud9_username%.cmd call %~dp0\cache\config.%cloud9_username%.cmd
 
 :: Config ends (some automatic configs run from here)
 
@@ -57,5 +64,11 @@ if "%package_id%" == "" (
 :: Some checks
 if "%putty_profile%" == "" (
   echo putty_profile should be set!
+  pause
+  exit /b 4
+)
+if "%region%" == "" (
+  echo region should be set!
+  pause
   exit /b 4
 )
