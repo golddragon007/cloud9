@@ -5,3 +5,4 @@ build.pwd
 build.pwi
 pillar/default.sls
 scripts/config/config.local.cmd
+scripts/config/cache/*

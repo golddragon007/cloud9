@@ -11,8 +11,6 @@ if "%instance_id%" == "" (
   for /f "tokens=1-3,9 delims=	" %%i in ('aws ec2 describe-instances --filters "Name=tag:Name,Values=*%cloud9_username%*" --output text') do (
     if "%%i" == "INSTANCES" (
       set instance_id=%%l
-    ) else if "%%i" == "TAGS" if "%%j" == "aws:cloud9:environment" (
-      set environment_id=%%k
     )
   )
 )

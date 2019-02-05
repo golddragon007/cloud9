@@ -46,11 +46,11 @@ echo Setting up PROXY settings...
 set proxy_string=http://%proxy_username%:!proxy_password!@%proxy_hostname%:%proxy_port_dec%
 
 :: Set for the current session (only required for first run)
-set HTTP_PROXY="!proxy_string!"
-set HTTPS_PROXY="!proxy_string!"
+set HTTP_PROXY=!proxy_string!
+set HTTPS_PROXY=!proxy_string!
 :: Set globaly
-setx HTTP_PROXY "!proxy_string!"
-setx HTTPS_PROXY "!proxy_string!"
+setx HTTP_PROXY !proxy_string!
+setx HTTPS_PROXY !proxy_string!
 
 echo Setting up Amazon Console (aws cli)...
 :: Setup AWS CLI.
@@ -314,6 +314,6 @@ if not exist config\cache\config.%cloud9_username%.cmd (
   
   echo set package_id=%package_id% > config\cache\config.%cloud9_username%.cmd
   echo set user_sid=%user_sid% >> config\cache\config.%cloud9_username%.cmd
-  echo set instance_id=%instance_id% >> config\cache\config.%cloud9_username%.cmd
-  echo set environment_id=%environment_id% >> config\cache\config.%cloud9_username%.cmd
+  echo set instance_id=!instance_id! >> config\cache\config.%cloud9_username%.cmd
+  echo set environment_id=!environment_id! >> config\cache\config.%cloud9_username%.cmd
 )
