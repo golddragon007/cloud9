@@ -9,6 +9,10 @@ set ppk_private_key=
 set aws_access_key_id=
 :: AWS secret key (you can access only once this, when you generate it with access key).
 set aws_secret_access_key=
+:: Set your frp http access username.
+set frp_http_access_user=
+:: Set your frp http access password.
+set frp_http_access_pass=
 :: Proxy username.
 set proxy_username=
 :: Proxy host name/domain/ip.

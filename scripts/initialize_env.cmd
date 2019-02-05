@@ -298,3 +298,22 @@ reg import %temp_regfile_name%
 echo Cleanup...
 del %temp_regfile_name%
 echo PuTTY profile was created successfully with %putty_profile% name.
+
+if not exist config\cache\config.%cloud9_username%.cmd (
+  echo No cache file fount for this environment, cache generation started.
+  
+  if not exist "config\cache\" mkdir config\cache\
+  
+  for /f "tokens=1-3,9 delims=	" %%i in ('aws ec2 describe-instances --filters "Name=tag:Name,Values=*%cloud9_username%*" --output text') do (
+    if "%%i" == "INSTANCES" (
+      set instance_id=%%l
+    ) else if "%%i" == "TAGS" if "%%j" == "aws:cloud9:environment" (
+      set environment_id=%%k
+    )
+  )
+  
+  echo set package_id=%package_id% > config\cache\config.%cloud9_username%.cmd
+  echo set user_sid=%user_sid% >> config\cache\config.%cloud9_username%.cmd
+  echo set instance_id=%instance_id% >> config\cache\config.%cloud9_username%.cmd
+  echo set environment_id=%environment_id% >> config\cache\config.%cloud9_username%.cmd
+)
