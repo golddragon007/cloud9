@@ -312,8 +312,8 @@ if not exist config\cache\config.%cloud9_username%.cmd (
     )
   )
   
-  echo set package_id=%package_id% > config\cache\config.%cloud9_username%.cmd
-  echo set user_sid=%user_sid% >> config\cache\config.%cloud9_username%.cmd
-  echo set instance_id=!instance_id! >> config\cache\config.%cloud9_username%.cmd
-  echo set environment_id=!environment_id! >> config\cache\config.%cloud9_username%.cmd
+  echo set package_id=%package_id%> config\cache\config.%cloud9_username%.cmd
+  echo set user_sid=%user_sid%>> config\cache\config.%cloud9_username%.cmd
+  echo set instance_id=!instance_id!>> config\cache\config.%cloud9_username%.cmd
+  echo set environment_id=!environment_id!>> config\cache\config.%cloud9_username%.cmd
 )
