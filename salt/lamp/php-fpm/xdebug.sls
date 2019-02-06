@@ -1,4 +1,4 @@
-{% set php_version = salt['pillar.get']('php:version','56') %}
+{% set php_version = salt['pillar.get']('php-fpm:version','56') %}
 
 xdebug-installed:
   pkg.latest:
