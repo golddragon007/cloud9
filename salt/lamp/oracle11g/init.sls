@@ -1,3 +1,5 @@
+{% set php_version = salt['pillar.get']('php-fpm:version','56') %}
+
 include:
   - lamp.php-fpm
   - docker
@@ -10,8 +12,8 @@ wnameless/oracle-xe-11g:
 oracle11g:
   docker_container.running:
     - image: wnameless/oracle-xe-11g
-    - port_bindings: {8088 : 8080, 49161: 1521}
-     binds:
+    - port_bindings: { 8080 : 8088 , 1521 : 49161 }
+    - binds:
       - /home/ec2-user/environment/oracle_dump:/oracle_dump
     - environment:
       - ORACLE_ALLOW_REMOTE=true
@@ -24,7 +26,7 @@ instantclient-rpms:
   pkg.installed:
     - sources: 
       - instantclient_basic: salt://lamp/oracle11g/files/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-      - instantclient_basic: salt://lamp/oracle11g/files/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
+      - instantclient_devel: salt://lamp/oracle11g/files/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
 
 fpm-devel-extensions-installed:
   pkg.latest:
