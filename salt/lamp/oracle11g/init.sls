@@ -1,3 +1,7 @@
+include:
+  - lamp.php-fpm
+  - docker
+
 wnameless/oracle-xe-11g:
   docker_image.present:
     - tag: latest
@@ -45,6 +49,11 @@ install_php-oci8:
 /etc/php.d/50-oci8.ini:
   file.managed:
     - source: salt://lamp/oracle11g/files/50-oci8.ini
-    - check_cmd: pecl list oci8
+    - require:
+       - cmd: oci8-installed
     - listen_in:
       - service: php-fpm
+
+oci8-installed:
+  cmd.run:
+    - name: pecl list oci8
