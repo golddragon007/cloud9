@@ -25,8 +25,8 @@ oracle11g:
 instantclient-rpms:
   pkg.installed:
     - sources: 
-      - instantclient_basic: salt://lamp/oracle11g/files/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-      - instantclient_devel: salt://lamp/oracle11g/files/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
+      - oracle-instantclient11.2-basic: salt://lamp/oracle11g/files/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
+      - oracle-instantclient11.2-devel: salt://lamp/oracle11g/files/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
 
 fpm-devel-extensions-installed:
   pkg.latest:
