@@ -14,12 +14,19 @@ oracle11g:
     - image: wnameless/oracle-xe-11g
     - port_bindings: { 8080 : 8088 , 1521 : 49161 }
     - binds:
-      - /home/ec2-user/environment/oracle_dump:/oracle_dump
+      - /home/ec2-user/environment/oracle:/oracle
     - environment:
       - ORACLE_ALLOW_REMOTE=true
     - watch_action: SIGHUP
     - detach: True
     - force: True
+
+/home/ec2-user/environment/oracle:
+  file.directory:
+    - group: ec2-user
+    - user: ec2-user
+    - mode: 777
+    - makedirs: True
     
 # OR http://yum.oracle.com/getting-started.html ?
 instantclient-rpms:
