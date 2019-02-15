@@ -19,6 +19,7 @@ xdebug-installed:
 /etc/php.d/15-xdebug.ini:
   file.managed:
     - source: salt://lamp/php-fpm/files/15-xdebug.ini
+    - template: jinja
     - listen_in:
       - service: php-fpm
     - require:
