@@ -1,8 +1,7 @@
 php-fpm:
   version: 56
-  extensions:
+  extensions-common:
     - pecl-redis
-    - pecl-xdebug
     - gd
     - mysqlnd
     - xml
@@ -11,9 +10,12 @@ php-fpm:
     - opcache
     - ldap
     - bcmath
-    - mcrypt
     - soap
     - tidy
+  extensions-inf-71:
+    - mcrypt
+  extensions-sup-71:
+    - pecl-mcrypt
 
 mysql:
   version: 56

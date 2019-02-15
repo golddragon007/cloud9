@@ -1,22 +1,38 @@
 {% set php_version = salt['pillar.get']('php-fpm:version','56') %}
 
-fpm-stack-installed:
-  pkg.latest:
-    - name: php{{ php_version }}-fpm
-
-php-fpm:
-  service.running:
-    - enable: True
-    - require:
-      - pkg: php{{ php_version }}-fpm
-    
-fpm-extensions-installed:
+php{{ php_version }}-fpm:
   pkg.latest:
     - pkgs:
+      - php{{ php_version }}-fpm
       - php{{ php_version }}-cli
-{% for extension in  salt['pillar.get']('php-fpm:extensions', {}) %}
+
+# Install common php extensions
+php-extensions-common:
+  pkg.latest:
+    - pkgs:
+  {% for extension in  salt['pillar.get']('php-fpm:extensions-common', {}) %}
       - php{{ php_version }}-{{ extension }}
 {% endfor %}
+
+# Install php extensions for php <= 7.1
+{% if php_version|int <= 71  %}
+php-extensions-inf-71:
+  pkg.latest:
+    - pkgs:
+{% for extension in  salt['pillar.get']('php-fpm:extensions-inf-71', {}) %}
+      - php{{ php_version }}-{{ extension }}
+{% endfor %}
+{% endif %}
+
+# Install php extensions for php >= 7.1
+{% if php_version|int > 71  %}
+php-extensions-sup-71:
+  pkg.latest:
+    - pkgs:
+{% for extension in  salt['pillar.get']('php-fpm:extensions-sup-71', {}) %}
+      - php{{ php_version }}-{{ extension }}
+{% endfor %}
+{% endif %}
 
 /etc/php-fpm.d/www.conf:
   file.managed:
@@ -42,6 +58,12 @@ fpm-extensions-installed:
     - recurse:
       - user
       - group
+
+php-fpm:
+  service.running:
+    - enable: True
+    - require:
+      - pkg: php{{ php_version }}-fpm
 
 create_php_log_dir:
   file.directory:
