@@ -12,7 +12,6 @@ https://github.com/drush-ops/drush.git:
     - onchanges:
         - git: https://github.com/drush-ops/drush.git
 
-
 # Execute once to make sure requisites are installed
 run-drush:
   cmd.run:
@@ -34,12 +33,11 @@ run-drush:
     - replace: True
     - user:  ec2-user
     - show_changes: True
-    
-# Get drush registry rebuild command
-install_registry_rebuild:
-  cmd.run:
-    - name: /opt/drush/drush pm-download -y registry_rebuild-7.x
-    - cwd: /
-    - onlyif: test -f /opt/drush/drush
-    - runas:  ec2-user
+
+# Get drush registry rebuild from github
+https://git.drupal.org/project/registry_rebuild.git:
+  git.latest:
+    - rev: 7.x-2.x
+    - target: /home/ec2-user/.drush/registry_rebuild
+    - force_reset: True
     
