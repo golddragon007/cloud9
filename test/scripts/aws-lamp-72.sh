@@ -2,9 +2,7 @@
 
 source $HOME/.bash_profile
 
-set -x
-
-sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{"php-fpm":{"version":"72"}}'
+sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{"php-fpm":{"version":"72"}, "drush":{"version":"9.5.2"}}'
 
 ##########################
 ###   Check services   ###
@@ -68,12 +66,26 @@ fi
 ###   Test basic drupal 7 install   ###
 #######################################
 cd /home/ec2-user/environment
-drush dl drupal-7.x
-cd drupal-7.x-dev/
+
+echo "Y" | composer create-project drupal-composer/drupal-project:7.x-dev drupal7
+cd drupal7/web
 drush site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal7 --site-name=Drupal7Test --yes
-if ( curl -s -L http://127.0.0.1:8080/drupal-7.x-dev | grep -qs "Welcome to Drupal7Test" ); then
-  echo "The website is working fine";
+if ( curl -s -L http://127.0.0.1:8080/drupal7/web | grep -qs "Welcome to Drupal7Test" ); then
+  echo "The website Drupal7 is working fine";
 else
   echo "Error";
   exit 66;
+fi
+#######################################
+###   Test basic drupal 8 install   ###
+#######################################
+cd /home/ec2-user/environment
+echo "Y" | composer create-project drupal-composer/drupal-project:8.x-dev drupal8
+cd drupal8/web
+drush site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal8 --site-name=Drupal8Test --yes
+if ( curl -s -L http://127.0.0.1:8080/drupal8/web | grep -qs "Welcome to Drupal8Test" ); then
+  echo "The website Drupal8 is working fine";
+else
+  echo "Error";
+  exit 67;
 fi

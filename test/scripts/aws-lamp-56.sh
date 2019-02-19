@@ -2,8 +2,6 @@
 
 source $HOME/.bash_profile
 
-set -x
-
 sudo salt-call --retcode-passthrough state.apply profiles.lamp --local
 
 ##########################

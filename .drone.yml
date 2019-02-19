@@ -47,13 +47,13 @@ pipeline:
     when:
       event: [ push , pull_request ]
       branch: [master]
-      
+
   test-lamp-71:
     group: test
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=lamp-71 -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
+      - packer build -var Version=${DRONE_BUILD_NUMBER} -var instance=medium -var profile=lamp-71 -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
     when:
       event: [ push , pull_request ]
       branch: [master]
@@ -63,7 +63,7 @@ pipeline:
     image: fpfis/drone-plugin-packer
     secrets: [ AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - packer build -var Version=${DRONE_BUILD_NUMBER} -var profile=lamp-72 -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
+      - packer build -var Version=${DRONE_BUILD_NUMBER} -var instance=medium -var profile=lamp-72 -var AWS_AKI=$AWS_ACCESS_KEY_ID -var AWS_SAK=$AWS_SECRET_ACCESS_KEY test/aws.json
     when:
       event: [ push , pull_request ]
       branch: [master]

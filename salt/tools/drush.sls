@@ -5,12 +5,23 @@ https://github.com/drush-ops/drush.git:
     - target: /opt/drush
     - force_reset: True
 
+chown_drush_dir:
+  file.directory:
+    - name: '/opt/drush'
+    - group: root
+    - user: ec2-user
+    - recurse:
+      - user
+      - group
+
 /opt/drush:
   composer.installed:
     - composer: /usr/bin/composer
     - php: /usr/bin/php
     - onchanges:
         - git: https://github.com/drush-ops/drush.git
+    - composer_home: /home/ec2-user/.composer
+    - user: ec2-user
 
 # Execute once to make sure requisites are installed
 run-drush:
