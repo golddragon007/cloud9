@@ -84,6 +84,12 @@ if "%putty_path%" == "" (
 )
 
 :: Some checks
+where aws >nul 2>nul
+IF %ERRORLEVEL% NEQ 0 (
+  echo AWS cli is not available, if you already installed, make sure it's system wide available!
+  pause
+  exit /b 4
+)
 if "%putty_profile%" == "" (
   echo putty_profile should be set!
   pause
