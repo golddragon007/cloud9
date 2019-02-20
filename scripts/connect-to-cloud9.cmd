@@ -45,7 +45,13 @@ echo Getting public ip...
 for /f %%i in ('aws ec2 describe-instances --instance-ids %instance_id% --query "Reservations[*].Instances[*].PublicIpAddress" --output text') do set public_ip=%%i
 echo Your public address is: %public_ip%
 
-reg add "HKEY_USERS\%user_sid%\SOFTWARE\Microsoft\AppV\Client\Packages\%package_id%\REGISTRY\USER\%user_sid%\Software\SimonTatham\PuTTY\Sessions\%putty_profile%" /v HostName /t REG_SZ /d %public_ip% /f
+:: If we still don't have a package id in this place, than probably the user using a locally installed non virtualized version.
+if "%package_id%" == "" (
+  reg add "HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\%putty_profile%" /v HostName /t REG_SZ /d %public_ip% /f
+) else (
+  ::reg add "HKEY_USERS\%user_sid%\SOFTWARE\Microsoft\AppV\Client\Packages\%package_id%\REGISTRY\USER\%user_sid%\Software\SimonTatham\PuTTY\Sessions\%putty_profile%" /v HostName /t REG_SZ /d %public_ip% /f
+  reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\AppV\Client\Packages\%package_id%\REGISTRY\USER\%user_sid%\Software\SimonTatham\PuTTY\Sessions\%putty_profile%" /v HostName /t REG_SZ /d %public_ip% /f
+)
 echo New IP address was successfully set up
 
 if "%cold_start%" == "1" (
@@ -54,5 +60,10 @@ if "%cold_start%" == "1" (
   timeout %wait_for_server% /NOBREAK
 )
 
+if "%accept_fingerprint%" == "1" (
+  echo Accepting fingerprint automatically...
+  echo y | %putty_path%plink.exe -load "%putty_profile%" exit
+)
+
 echo Starting PuTTY
-start %LOCALAPPDATA%\Microsoft\AppV\Client\Integration\%package_id%\Root\VFS\ProgramFilesX86\PuTTY\putty.exe plink -ssh -load %putty_profile%
+start %putty_path%putty.exe -load "%putty_profile%"

@@ -72,7 +72,13 @@ call %~dp0\helpers\string2hex.cmd %ppk_private_key%
 
 echo Windows Registry Editor Version 5.00 > "%temp_regfile_name%"
 echo. >> "%temp_regfile_name%"
-echo [HKEY_USERS\%user_sid%\SOFTWARE\Microsoft\AppV\Client\Packages\%package_id%\REGISTRY\USER\%user_sid%\Software\SimonTatham\PuTTY\Sessions\%putty_profile%] >> "%temp_regfile_name%"
+:: If we still don't have a package id in this place, than probably the user using a locally installed non virtualized version.
+if "%package_id%" == "" (
+  echo [HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\%putty_profile%] >> "%temp_regfile_name%"
+) else (
+  ::echo [HKEY_USERS\%user_sid%\SOFTWARE\Microsoft\AppV\Client\Packages\%package_id%\REGISTRY\USER\%user_sid%\Software\SimonTatham\PuTTY\Sessions\%putty_profile%] >> "%temp_regfile_name%"
+  echo [HKEY_CURRENT_USER\SOFTWARE\Microsoft\AppV\Client\Packages\%package_id%\REGISTRY\USER\%user_sid%\Software\SimonTatham\PuTTY\Sessions\%putty_profile%] >> "%temp_regfile_name%"
+)
 echo @=hex(40000): >> "%temp_regfile_name%"
 echo "Present"=dword:00000001 >> "%temp_regfile_name%"
 echo "HostName"="" >> "%temp_regfile_name%"

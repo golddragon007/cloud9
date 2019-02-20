@@ -31,10 +31,14 @@ set user_sid=
 set wait_for_server=10
 :: This determinate if your cloud 9 currently running or not, it can change by the runtime.
 set cold_start=0
-:: Temp name of the file which will be created, imported and deleted for PuTTY configs
+:: Temp name of the file which will be created, imported and deleted for PuTTY configs.
 set temp_regfile_name=putty_profile_gen.reg
 :: AWS region.
 set region=
+:: Full/Absolute path of the putty (without the exe) if you don't use virtualized one. I.e.: c:\Program Files X86\PuTTY\
+set putty_path=
+:: Accept automatically host's fingerprint if it's prompted.
+set accept_fingerprint=0
 
 :: Load local config as an override.
 if exist %~dp0\config.local.cmd call %~dp0\config.local.cmd
@@ -63,6 +67,20 @@ if "%package_id%" == "" (
   for /f "tokens=10 delims=\" %%A in (%ValueValue%) do (
     set package_id=%%A
   )
+  
+  if "%package_id%" == "" (
+    echo PuTTY's package id wasn't fount, script assumes locally installed non virtualized version.
+	
+	if "%putty_path%" == "" (
+	  echo If package_id variable is empty and the script can't find the virtualized PuTTY, you need to set the locally installed PuTTY with putty_path variable.
+      pause
+      exit /b 4
+	)
+  )
+)
+
+if "%putty_path%" == "" (
+  set putty_path=%LOCALAPPDATA%\Microsoft\AppV\Client\Integration\%package_id%\Root\VFS\ProgramFilesX86\PuTTY\
 )
 
 :: Some checks
