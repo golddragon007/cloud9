@@ -49,7 +49,7 @@ mysql-root-user:
   cmd.run:
     - name: |
         mysql -u root -e "CREATE USER 'root'@'172.0.0.0/255.0.0.0';"
-        mysql -u root -e "GRANT ALL ON *.* TO 'root'@'172.0.0.0/255.0.0.0';"
+        mysql -u root -e "GRANT ALL ON *.* TO 'root'@'172.0.0.0/255.0.0.0' WITH GRANT OPTION;"
     - runas:  ec2-user
 
 /etc/httpd/conf.d/phpmyadmin.conf:
