@@ -57,7 +57,7 @@ if "%user_sid%" == "" (
   for /f "tokens=2" %%i in ('whoami /user /fo table /nh') do set user_sid=%%i
 )
 if "%package_id%" == "" (
-  for /f "tokens=1-3" %%A in ('reg query HKEY_USERS\%user_sid%\SOFTWARE\Classes\Applications\putty.exe\shell\open\command /t REG_SZ') do (
+  for /f "tokens=1-3" %%A in ('reg query HKEY_USERS\%user_sid%\SOFTWARE\Classes\Applications\putty.exe\shell\open\command /t REG_SZ 2^> nul') do (
     set ValueName=%%A
     set ValueType=%%B
     set ValueValue=%%C
@@ -84,12 +84,6 @@ if "%putty_path%" == "" (
 )
 
 :: Some checks
-where aws >nul 2>nul
-IF %ERRORLEVEL% NEQ 0 (
-  echo AWS cli is not available, if you already installed, make sure it's system wide available!
-  pause
-  exit /b 4
-)
 if "%putty_profile%" == "" (
   echo putty_profile should be set!
   pause

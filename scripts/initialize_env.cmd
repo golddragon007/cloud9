@@ -14,15 +14,11 @@ if "%proxy_username%" == "" (
   echo proxy_username should be set!
   set error=1
 )
-if "%proxy_hostname%" == "" (
-  echo proxy_hostname should be set!
-  set error=1
-)
 if "%proxy_port_dec%" == "" (
   echo proxy_port_dec should be set!
   set error=1
 )
-if "!proxy_password!" == "" (
+if "!proxy_password!" == "" if not "%proxy_hostname%" == "" (
   echo proxy_password should be set!
   set error=1
 )
@@ -42,15 +38,25 @@ if "%error%" == "1" (
 )
 
 echo Setting up PROXY settings...
-:: Setting up proxy for aws-cli
-set proxy_string=http://%proxy_username%:!proxy_password!@%proxy_hostname%:%proxy_port_dec%
+if not "%proxy_hostname%" == "" (
+  :: Setting up proxy for aws-cli
+  set proxy_string=http://%proxy_username%:!proxy_password!@%proxy_hostname%:%proxy_port_dec%
+  :: Set for the current session (only required for first run)
+  set HTTP_PROXY=!proxy_string!
+  set HTTPS_PROXY=!proxy_string!
+  :: Set globaly
+  setx HTTP_PROXY !proxy_string!
+  setx HTTPS_PROXY !proxy_string!
+) else (
+  set proxy_string=
+  :: Set for the current session (only required for first run)
+  set HTTP_PROXY=!proxy_string!
+  set HTTPS_PROXY=!proxy_string!
+  :: Set globaly
+  REG delete HKCU\Environment /F /V HTTP_PROXY 2> nul
+  REG delete HKCU\Environment /F /V HTTPS_PROXY 2> nul
+)
 
-:: Set for the current session (only required for first run)
-set HTTP_PROXY=!proxy_string!
-set HTTPS_PROXY=!proxy_string!
-:: Set globaly
-setx HTTP_PROXY !proxy_string!
-setx HTTPS_PROXY !proxy_string!
 
 echo Setting up Amazon Console (aws cli)...
 :: Setup AWS CLI.
@@ -103,7 +109,13 @@ echo "AddressFamily"=dword:00000000 >> "%temp_regfile_name%"
 echo "ProxyExcludeList"="" >> "%temp_regfile_name%"
 echo "ProxyDNS"=dword:00000001 >> "%temp_regfile_name%"
 echo "ProxyLocalhost"=dword:00000000 >> "%temp_regfile_name%"
-echo "ProxyMethod"=dword:00000003 >> "%temp_regfile_name%"
+if "%proxy_hostname%" == "" (
+  :: Proxy none.
+  echo "ProxyMethod"=dword:00000000 >> "%temp_regfile_name%"
+) else (
+  :: HTTP proxy.
+  echo "ProxyMethod"=dword:00000003 >> "%temp_regfile_name%"
+)
 echo "ProxyHost"="%proxy_hostname%" >> "%temp_regfile_name%"
 echo "ProxyPort"=dword:%proxy_port% >> "%temp_regfile_name%"
 echo "ProxyUsername"="%proxy_username%" >> "%temp_regfile_name%"
