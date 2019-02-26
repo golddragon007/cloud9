@@ -1,7 +1,9 @@
+{% set drush_version = salt['pillar.get']('drush:version', '8.x') %}
+
 # Grab the repo, branch from pillar. Default to 8.x.
 https://github.com/drush-ops/drush.git:
   git.latest:
-    - rev: {{ salt['pillar.get']('drush:version', '8.x') }}
+    - rev: {{ drush_version }}
     - target: /opt/drush
     - force_reset: True
 
@@ -30,6 +32,15 @@ run-drush:
     - require:
        - file: /usr/local/bin/drush
     - unless: test -f /opt/drush/testrun
+
+# Drush init
+{% if salt['pkg.version_cmp'](drush_version,'9') == -1 %}
+init-drush:
+  cmd.run:
+    - name: /usr/local/bin/drush init -n
+    - onlyif: test -f /usr/local/bin/drush 
+    - success_retcodes: 75
+{% endif %}
 
 # Drop a symlink for users' paths
 /usr/local/bin/drush:
