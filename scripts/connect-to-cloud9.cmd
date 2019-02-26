@@ -60,6 +60,13 @@ if "%cold_start%" == "1" (
   timeout %wait_for_server% /NOBREAK
 )
 
+if exist H:\_CI_APPDATA\Putty_WinSCP\Putty.reg (
+  :: Clean AppV registry cache.
+  echo Renaming AppV registry cache/backup.
+  del /Q "H:\_CI_APPDATA\Putty_WinSCP\Putty_original.reg"
+  ren "H:\_CI_APPDATA\Putty_WinSCP\Putty.reg" "Putty_original.reg"
+)
+
 if "%accept_fingerprint%" == "1" (
   echo Accepting fingerprint automatically...
   echo y | %putty_path%plink.exe -load "%putty_profile%" exit
