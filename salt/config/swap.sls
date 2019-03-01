@@ -1,6 +1,6 @@
 create_swap_file:
   cmd.run:
-  - name: 'dd if=/dev/zero of=/memory.swap bs=1048576 count=4 && chmod 0600 /memory.swap'
+  - name: 'dd if=/dev/zero of=/memory.swap bs=1048576 count=4096 && chmod 0600 /memory.swap'
   - creates: /memory.swap
 set_swap_file:
   cmd.wait:
