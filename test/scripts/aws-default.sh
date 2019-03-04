@@ -20,6 +20,8 @@ sudo salt-call --retcode-passthrough state.apply frp --local
 
 sudo salt-call --retcode-passthrough state.apply tools.varnish-mock --local
 
+sudo salt-call --retcode-passthrough state.apply config.swap --local
+
 # Check 
 git st || if (( "$?" == 1));then exit 1;fi
 source ~/.bashrc
