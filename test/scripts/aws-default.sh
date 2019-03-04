@@ -26,3 +26,6 @@ source ~/.bashrc
 cdenv
 node --version
 command -v varnish-mock || exit 34
+
+#Check swap
+if (( `free -m |grep Swap |awk '{print $2}'` < 4000 )); then exit 1;fi
