@@ -1,19 +1,23 @@
+{%- if salt['file.file_exists' ]('/var/swapfile') %}
+disable_swap_file:
+  cmd.run:
+    - name: 'swapoff /var/swapfile'
+{%- endif %}
 create_swap_file:
   cmd.run:
-  - name: 'dd if=/dev/zero of=/memory.swap bs=1048576 count=4096 && chmod 0600 /memory.swap'
-  - creates: /memory.swap
+  - name: 'fallocate -l 5G /var/swapfile'
 set_swap_file:
   cmd.wait:
-  - name: 'mkswap /memory.swap'
+  - name: 'mkswap /var/swapfile'
   - watch:
     - cmd: create_swap_file
 set_swap_file_status:
   cmd.run:
-  - name: 'swapon /memory.swap'
-  - unless: grep /memory.swap /proc/swaps
+  - name: 'swapon /var/swapfile'
+  - unless: grep /var/swapfile /proc/swaps
   - require:
     - cmd: set_swap_file
-/memory.swap:
+/var/swapfile:
   mount.swap:
   - persist: True
   - require:
