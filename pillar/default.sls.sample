@@ -50,7 +50,7 @@ ssh-keys:
     - ivan-davidkov
 
 frp:
-  version: frp_version
+  version: 0.21.0
   host: frps_host
   port: frps_port
   token: frps_token
