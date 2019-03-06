@@ -60,16 +60,12 @@ if not "%proxy_hostname%" == "" (
 
 echo Setting up Amazon Console (aws cli)...
 :: Setup AWS CLI.
-if not exist "%userprofile%\.aws\" mkdir %userprofile%\.aws\
-
-:: Create the credentials file for AWS CLI.
-echo [default] > %userprofile%\.aws\credentials
-echo aws_access_key_id = %aws_access_key_id% >> %userprofile%\.aws\credentials
-echo aws_secret_access_key = %aws_secret_access_key% >> %userprofile%\.aws\credentials
-
-:: Create the config file for AWS CLI.
-echo [default] > %userprofile%\.aws\config
-echo region = %region% >> %userprofile%\.aws\config
+(
+  echo %aws_access_key_id%
+  echo %aws_secret_access_key%
+  echo %region%
+  echo.
+) | aws configure
 
 :: Setup PuTTY profile for later connection
 echo Generating import reg file

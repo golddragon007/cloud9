@@ -16,8 +16,12 @@ if "%environment_id%" == "" (
   )
 )
 
-echo Give the site dir which you want to open (if empty root dir will be opened)
-set /P site_dir=
+if "%1" == "" (
+  echo Give the site dir which you want to open (if empty apache root dir will be opened^)
+  set /P site_dir=
+) else (
+  set site_dir=%1
+)
 
 if not "%site_dir%" == "" (
   start https://%environment_id%.vfs.cloud9.%region%.amazonaws.com/%site_dir%/build/

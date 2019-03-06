@@ -8,8 +8,12 @@ call %~dp0\config\config.cmd
 :: Start making connection
 echo Your cloud 9 username is %cloud9_username%
 
-echo Give the site dir which you want to open (if empty root dir will be opened)
-set /P site_dir=
+if "%1" == "" (
+  echo Give the site dir which you want to open (if empty apache root dir will be opened^)
+  set /P site_dir=
+) else (
+  set site_dir=%1
+)
 
 :: Check if there's any credentials set.
 set http_access=%frp_http_access_user%:%frp_http_access_pass%@

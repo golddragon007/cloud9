@@ -3,9 +3,9 @@
 
 :: Set here your proxy password, in plain text. If you using ! character, then you need to escape it with ^^^ (^^^!). You may need to use for other special characters too.
 set proxy_password=
-:: Set your private ppk key here, it should be located in c:\Users\<your profile>\.ssh\ directory!
+:: Set your private ppk key file name here, it should be located in c:\Users\<your profile>\.ssh\ directory! i.e.: my.ppk
 set ppk_private_key=
-:: AWS access key. (https://console.aws.amazon.com/iam/home?region=eu-west-1#/users/{user-name}?section=security_credentials)
+:: AWS access key. (you can get one from here: https://console.aws.amazon.com/iam/home?region=eu-west-1#/users/{user-name}?section=security_credentials)
 set aws_access_key_id=
 :: AWS secret key (you can access only once this, when you generate it with access key).
 set aws_secret_access_key=
@@ -52,11 +52,12 @@ if not "%proxy_port_dec%" == "" (
   set proxy_port=%Hexnum%
 )
 
-echo Looking for SID and Package id
 if "%user_sid%" == "" (
+  echo Looking for SID
   for /f "tokens=2" %%i in ('whoami /user /fo table /nh') do set user_sid=%%i
 )
 if "%package_id%" == "" (
+  echo Looking for Package id
   for /f "tokens=1-3" %%A in ('reg query HKEY_USERS\%user_sid%\SOFTWARE\Classes\Applications\putty.exe\shell\open\command /t REG_SZ 2^> nul') do (
     set ValueName=%%A
     set ValueType=%%B
@@ -81,6 +82,13 @@ if "%package_id%" == "" (
 
 if "%putty_path%" == "" (
   set putty_path=%LOCALAPPDATA%\Microsoft\AppV\Client\Integration\%package_id%\Root\VFS\ProgramFilesX86\PuTTY\
+)
+
+WHERE aws >nul 2>nul
+IF %ERRORLEVEL% NEQ 0 (
+  echo Install Amazon CLI from the EC store first!
+  pause
+  exit /b 4
 )
 
 :: Some checks
