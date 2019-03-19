@@ -23,7 +23,7 @@ disable_swap_file:
     - onlyif: grep swapfile /proc/swaps
 create_swap_file:
   cmd.run:
-    - name: 'fallocate -l 2G /var/swapfile && chmod 600 /var/swapfile'
+    - name: 'fallocate -l 4G /var/swapfile && chmod 600 /var/swapfile'
 set_swap_file:
   cmd.wait:
     - name: 'mkswap /var/swapfile'
