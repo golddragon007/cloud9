@@ -27,7 +27,7 @@ docker:
   version : ""
   docker-compose:
     version : ""
-  mysql_version : "56"
+  mysql_version : "5.6"
   php_version : "5.6"
 
 drush:
