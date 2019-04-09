@@ -1,5 +1,6 @@
 php-fpm:
-  version: 56
+  version-default :
+    - 56
   extensions-common:
     - pecl-redis
     - gd

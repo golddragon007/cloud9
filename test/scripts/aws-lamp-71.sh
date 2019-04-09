@@ -2,16 +2,17 @@
 
 source $HOME/.bash_profile
 
-sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{"php-fpm":{"version":"71"}, "drush":{"version":"9.5.2"}}'
+sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{"php-fpm":{"version":["71"]}, "drush":{"version":"9.5.2"}}'
 
 ##########################
 ###   Check services   ###
 ##########################
 sudo service httpd status
 sudo service mysql status
-sudo service php-fpm status
+sudo service php71-php-fpm status
 
 php --version
+php71 --version
 
 #######################
 ###   Check tools   ###
@@ -41,7 +42,7 @@ source $HOME/.bashrc
 aliases="cloud9RestartApache cloud9RestartMysql cloud9RestartPhp cloud9RestartLamp"
 
 for alias in $aliases; do
-  if [ $(alias | grep $alias | wc -l) != "1" ]; then
+  if [ $(alias | grep -w $alias | wc -l) != "1" ]; then
     echo "Alias $alias not found";
     exit 17
   fi

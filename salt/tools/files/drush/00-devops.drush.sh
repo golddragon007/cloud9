@@ -20,3 +20,7 @@ fi
 
 # https://github.com/drush-ops/drush/issues/2065#issuecomment-452549400
 unset module
+
+{% for php_version in php_versions %}
+alias drush{{ php_version }}="DRUSH_PHP=/usr/bin/php{{ php_version}} /usr/local/bin/drush"
+{% endfor %}

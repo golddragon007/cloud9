@@ -28,11 +28,6 @@ alias dcdown='dc down --volumes --remove-orphans'
 # fast find
 alias ff='find . -name $1'
 
-# COMPOSER co
-alias co='composer'
-alias coi='composer install'
-alias cou='composer update'
-
 # change directories easily
 alias cdenv="cd ~/environment/"
 alias ..='cd ..'

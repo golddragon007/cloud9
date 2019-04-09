@@ -1,26 +1,26 @@
-{% set php_version = salt['pillar.get']('php-fpm:version','56') %}
+# Get php version in grain, or in version-default on pillar
+{% set php_versions = salt['grains.get']('php-fpm:version', salt['pillar.get']('php-fpm:version-default',[ 56 ])) %}
 
-{% if php_version|int <= 71 %}
-    {% set php_xdebug = 'php' + php_version|string + '-pecl-xdebug' %}
-{% elif php_version|int > 71 %}
-    {% set php_xdebug = 'php' + php_version|string + '-php-pecl-xdebug' %}
-# Add remi repo => needed for php-pecl-xdebug extension
-remi-repo-rpms:
-  pkg.installed:
-    - sources:
-      - remi-release: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-{% endif %}
+# Override by pillar if defined (so by cli pillar value)
+{% set php_versions_pillar = salt['pillar.get']('php-fpm:version') %}
+{%- if php_versions_pillar != "" %}
+    {% set php_versions = php_versions_pillar %}
+{%- endif %}
 
-xdebug-installed:
+{% for php_version in php_versions %}
+xdebug{{ php_version }}-installed:
   pkg.latest:
-    - name: {{ php_xdebug }}
+    - name: php{{ php_version }}-php-pecl-xdebug
 
 
-/etc/php.d/15-xdebug.ini:
+/etc/opt/remi/php{{ php_version }}/php.d/15-xdebug.ini:
   file.managed:
     - source: salt://lamp/php-fpm/files/15-xdebug.ini
     - template: jinja
     - listen_in:
-      - service: php-fpm
+      - service: php{{ php_version }}-php-fpm
     - require:
-      - pkg: {{ php_xdebug }}
+      - pkg: php{{ php_version }}-php-pecl-xdebug
+    - context:
+       php_version: {{ php_version }}
+{% endfor %}

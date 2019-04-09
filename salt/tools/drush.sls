@@ -1,3 +1,12 @@
+# Get php version in grain, or in version-default on pillar
+{% set php_versions = salt['grains.get']('php-fpm:version', salt['pillar.get']('php-fpm:version-default',[ 56 ])) %}
+
+# Override by pillar if defined (so by cli pillar value)
+{% set php_versions_pillar = salt['pillar.get']('php-fpm:version') %}
+{%- if php_versions_pillar != "" %}
+    {% set php_versions = php_versions_pillar %}
+{%- endif %}
+
 {% set drush_version = salt['pillar.get']('drush:version', '8.x') %}
 
 # Grab the repo, branch from pillar. Default to 8.x.
@@ -63,3 +72,14 @@ https://git.drupal.org/project/registry_rebuild.git:
     - target: /home/ec2-user/.drush/registry_rebuild
     - force_reset: True
     
+/home/ec2-user/.bashrc.d/00-devops.drush.sh:
+  file.managed:
+    - template: jinja
+    - source: salt://tools/files/drush/00-devops.drush.sh
+    - replace: True
+    - show_changes: True
+    - group: ec2-user
+    - user: ec2-user
+    - context:
+      php_versions: {{ php_versions | json }}
+  
