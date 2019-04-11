@@ -5,18 +5,27 @@
 {% set mysql_version = salt['pillar.get']('mysql:version','56') %}
 
 # Add percona repo
-{% if grains['os_family'] == 'RedHat' %}
-{% set el_version = grains['osmajorrelease'][0] %}
-mysql-percona-repo:
-  pkgrepo.managed:
-    - humanname: CentOS-$releasever - Percona official repo
-    - baseurl: http://repo.percona.com/centos/$releasever/os/$basearch/
-    - comments:
-        - 'http://mirror.centos.org/centos/$releasever/os/$basearch/'
-    - gpgcheck: 1
-    - gpgkey: https://www.percona.com/downloads/RPM-GPG-KEY-percona
-{% endif %}
+#{% if grains['os_family'] == 'RedHat' %}
+#{% set el_version = grains['osmajorrelease'][0] %}
+#mysql-percona-repo:
+#  pkgrepo.managed:
+#    - humanname: CentOS-$releasever - Percona official repo
+#    - baseurl: http://repo.percona.com/centos/$releasever/os/$basearch/
+#    - comments:
+#        - 'http://mirror.centos.org/centos/$releasever/os/$basearch/'
+#    - gpgcheck: 1
+#   - gpgkey: https://www.percona.com/downloads/RPM-GPG-KEY-percona
+#{% endif %}
 
+# Workaroung for GPG key
+# https://jira.percona.com/browse/PT-1685
+mysql-percona-repo:
+  cmd.run:
+    - name: |
+        yum install -y 'http://www.percona.com/downloads/percona-release/redhat/0.1-6/percona-release-0.1-6.noarch.rpm'
+        rpm --import /etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY
+    - pkg : lamp-remove
+    
 # Server
 percona-server-server:
   pkg:
@@ -24,7 +33,9 @@ percona-server-server:
     - refresh: true
     - name: Percona-Server-server-{{ mysql_version }}
   require:
-    - pkgrepo: mysql-percona-repo
+    #- pkgrepo: mysql-percona-repo
+    - cmd: mysql-percona-repo
+    
 
 # Workaround for percona init scripts
 # https://github.com/saltstack/salt/issues/16153
@@ -47,8 +58,34 @@ percona-toolkit:
 create_mysql_conf_folder:
   file.directory:
     - name: '/etc/my.cnf.d'
-    - group: root
+    - group: ec2-user
     - user: root
+    
+# Log folder
+create_mysql_log_folder:
+  file.directory:
+    - name: '/var/log/mysql'
+    - group: ec2-user
+    - user: mysql
+    - dir_mode: 2755
+  require:
+    - cmd: mysql-percona-repo
+    
+#Symlink conf folder
+/home/ec2-user/environment/conf.d/my.cnf.d:
+  file.symlink:
+    - target: /etc/my.cnf.d
+    - group: ec2-user
+    - user: ec2-user
+    - makedirs : true
+    
+#Symlink log folder
+/home/ec2-user/environment/log/mysql:
+  file.symlink:
+    - target: /var/log/mysql
+    - group: ec2-user
+    - user: ec2-user
+    - makedirs : true
 
 # Devops config file
 /etc/my.cnf.d/00-devops.cnf:
@@ -66,6 +103,8 @@ create_mysql_conf_folder:
     - source: salt://lamp/mysql/files/my.cnf.d/01-user.cnf
     - template: jinja
     - replace : false
+    - group: root
+    - user: ec2-user
 
 # Default mysql config file
 /etc/my.cnf:
