@@ -15,9 +15,13 @@ services:
 
   mysql:
     image: fpfis/mysql{{ salt['pillar.get']('docker:mysql_version','5.6') }}
+    ports:
+      - 3306:3306
 
   solr:
     image: fpfis/solr5
+    ports:
+      - 8983:8983
 
   selenium:
     image: selenium/standalone-chrome-debug
