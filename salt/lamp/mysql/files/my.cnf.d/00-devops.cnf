@@ -10,6 +10,8 @@ user        = mysql
 datadir     = /var/lib/mysql
 user        = mysql
 
+log-error   = /var/log/mysql/mysql_error.log
+
 ## network
 max_allowed_packet       = 1G
 

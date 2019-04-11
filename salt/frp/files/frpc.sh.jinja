@@ -33,7 +33,7 @@ subdomain = '${INSTANCE_NAME} > /opt/frp/frpc.ini
     # Install supervisord
     yum install supervisor -y
     if [[ $? -ne 0 ]]; then exit 1; fi
-    pip install supervisor
+    pip install supervisor==3.*
     if [[ $? -ne 0 ]]; then exit 1; fi
 
     # Generate frp config for supervisord

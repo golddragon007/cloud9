@@ -1,8 +1,8 @@
 php-fpm:
-  version: 56
-  extensions:
+  version-default :
+    - 56
+  extensions-common:
     - pecl-redis
-    - pecl-xdebug
     - gd
     - mysqlnd
     - xml
@@ -11,9 +11,12 @@ php-fpm:
     - opcache
     - ldap
     - bcmath
-    - mcrypt
     - soap
     - tidy
+  extensions-inf-71:
+    - mcrypt
+  extensions-sup-71:
+    - pecl-mcrypt
 
 mysql:
   version: 56
@@ -25,7 +28,7 @@ docker:
   version : ""
   docker-compose:
     version : ""
-  mysql_version : "56"
+  mysql_version : "5.6"
   php_version : "5.6"
 
 drush:
@@ -48,7 +51,7 @@ ssh-keys:
     - ivan-davidkov
 
 frp:
-  version: frp_version
+  version: 0.21.0
   host: frps_host
   port: frps_port
   token: frps_token
