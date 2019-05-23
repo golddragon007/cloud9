@@ -32,7 +32,7 @@ docker:
   php_version : "5.6"
 
 drush:
-  version: "8.1.15"
+  version-default: "8.1.15"
 
 git:
   username : ""

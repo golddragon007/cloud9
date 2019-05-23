@@ -68,7 +68,7 @@ fi
 #######################################
 cd /home/ec2-user/environment
 
-echo "Y" | composer create-project drupal-composer/drupal-project:7.x-dev drupal7
+composer create-project drupal-composer/drupal-project:7.x-dev drupal7 --no-interaction
 cd drupal7/web
 drush site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal7 --site-name=Drupal7Test --yes
 if ( curl -s -L http://127.0.0.1:8080/drupal7/web | grep -qs "Welcome to Drupal7Test" ); then
@@ -81,7 +81,7 @@ fi
 ###   Test basic drupal 8 install   ###
 #######################################
 cd /home/ec2-user/environment
-echo "Y" | composer create-project drupal-composer/drupal-project:8.x-dev drupal8
+composer create-project drupal-composer/drupal-project:8.x-dev drupal8 --no-interaction
 cd drupal8/web
 drush site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal8 --site-name=Drupal8Test --yes
 if ( curl -s -L http://127.0.0.1:8080/drupal8/web | grep -qs "Welcome to Drupal8Test" ); then

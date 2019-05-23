@@ -7,7 +7,14 @@
     {% set php_versions = php_versions_pillar %}
 {%- endif %}
 
-{% set drush_version = salt['pillar.get']('drush:version', '8.x') %}
+# Get drush version in grain, or in drush:version-default on pillar
+{% set drush_version = salt['grains.get']('drush:version', salt['pillar.get']('drush:version-default', '8.1.15')) %}
+
+# Override by pillar if defined (so by cli pillar value)
+{% set drush_version_pillar = salt['pillar.get']('drush:version') %}
+{%- if php_versions_pillar != "" %}
+    {% set drush_version = drush_version_pillar %}
+{%- endif %}
 
 # Grab the repo, branch from pillar. Default to 8.x.
 https://github.com/drush-ops/drush.git:
@@ -82,4 +89,15 @@ https://git.drupal.org/project/registry_rebuild.git:
     - user: ec2-user
     - context:
       php_versions: {{ php_versions | json }}
-  
+
+grain-drush-version:
+  file:
+    - serialize
+    - dataset:
+        drush:
+          - version: {{ drush_version }}
+    - name: /etc/salt/grains
+    - formatter: yaml
+    - serializer_opts:
+      - indent: 2
+    - merge_if_exists: True
