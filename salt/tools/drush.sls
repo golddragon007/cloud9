@@ -12,7 +12,7 @@
 
 # Override by pillar if defined (so by cli pillar value)
 {% set drush_version_pillar = salt['pillar.get']('drush:version') %}
-{%- if php_versions_pillar != "" %}
+{%- if drush_version_pillar != "" %}
     {% set drush_version = drush_version_pillar %}
 {%- endif %}
 
