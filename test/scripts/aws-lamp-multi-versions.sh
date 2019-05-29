@@ -9,9 +9,19 @@ sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{
 ##########################
 sudo service httpd status
 sudo service mysql status
+sudo service php56-php-fpm status
+sudo service php71-php-fpm status
 sudo service php72-php-fpm status
 
 php --version
+
+for php_module in "pdo_mysql" "mysqlnd" "mbstring" "opcache" "ldap" "mcrypt"; do
+  if ( php56 -m | grep -iqs "$php_module" ); then
+    echo "PHP module '$php_module' present.";
+  else
+   echo "PHP module '$php_module' not found.";
+  fi
+done
 
 #######################
 ###   Check tools   ###

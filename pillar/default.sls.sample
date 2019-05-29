@@ -2,7 +2,7 @@ php-fpm:
   version-default :
     - 56
   extensions-common:
-    - pecl-redis
+    - pecl-redis4
     - gd
     - mysqlnd
     - xml

@@ -11,8 +11,18 @@ sudo service httpd status
 sudo service mysql status
 sudo service php56-php-fpm status
 
+
 php --version
 php56 --version
+
+for php_module in "pdo_mysql" "mysqlnd" "mbstring" "opcache" "ldap" "mcrypt" "tidy"; do
+  if ( php56 -m | grep -iqs "$php_module" ); then
+    echo "PHP module '$php_module' is present."
+  else
+    echo "PHP module '$php_module' is not found."
+    exit 71
+  fi
+done
 
 #######################
 ###   Check tools   ###
