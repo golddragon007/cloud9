@@ -38,6 +38,11 @@
     },
     {
       "type": "file",
+      "source": "./test/conf",
+      "destination": "/home/ec2-user/conf"
+    },
+    {
+      "type": "file",
       "source": "./test/aws-install-salt.sh",
       "destination": "/tmp/aws-install-salt.sh"
     },
