@@ -9,6 +9,7 @@ include:
   - docker
   - tools.drone
   - frp
+  - config.setSaltMinionID
 
 /home/ec2-user/environment/.c9/salt/:
   file.directory:
