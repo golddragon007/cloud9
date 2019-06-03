@@ -67,7 +67,7 @@ fi
 #######################################
 cd /home/ec2-user/environment
 
-echo "Y" | composer create-project drupal-composer/drupal-project:7.x-dev drupal7
+composer create-project drupal-composer/drupal-project:7.x-dev drupal7 --no-interaction
 cd /home/ec2-user/environment/drupal7/web
 drush56 site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal7 --site-name=Drupal7Test --yes
 echo -e "<?php\nphpinfo();" > /home/ec2-user/environment/drupal7/phpinfo.php
@@ -105,9 +105,10 @@ fi
 ###   Test basic drupal 8 install   ###
 #######################################
 cd /home/ec2-user/environment
-echo "Y" | composer create-project drupal-composer/drupal-project:8.x-dev drupal8
+composer create-project drupal-composer/drupal-project:8.x-dev drupal8 --no-interaction
 cd /home/ec2-user/environment/drupal8/web
-drush71 site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal8 --site-name=Drupal8Test --yes
+# If we use global drush, RedispatchToSiteLocal will call local drush with default php version (56). Use local drush with specified php version.
+/usr/bin/php71 ../vendor/bin/drush  site-install standard --db-url=mysql://root:@127.0.0.1:3306/drupal8 --site-name=Drupal8Test --yes
 echo -e "<?php\nphpinfo();" > /home/ec2-user/environment/drupal8/phpinfo.php
 #### Test drupal 8 and PHP 7.1
 echo "Test Drupal 8 and PHP 7.1"

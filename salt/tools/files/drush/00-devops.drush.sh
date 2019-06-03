@@ -22,5 +22,5 @@ fi
 unset module
 
 {% for php_version in php_versions %}
-alias drush{{ php_version }}="DRUSH_PHP=/usr/bin/php{{ php_version}} /usr/local/bin/drush"
+alias drush{{ php_version }}="DRUSH_PHP=/usr/bin/php{{ php_version}} /usr/bin/php{{ php_version}} /usr/local/bin/drush"
 {% endfor %}
