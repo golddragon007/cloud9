@@ -1,6 +1,6 @@
 @echo off
 Setlocal EnableDelayedExpansion
-title Connect with PuTTY to Cloud 9
+title Create new Solr core
 
 :: Setup environment variables/configs
 call %~dp0\config\config.cmd
@@ -43,4 +43,6 @@ if "%solr_core%" == "" (
 echo. | %putty_path%plink.exe -load "%putty_profile%" "docker exec ApacheSolr /opt/solr/bin/solr create_core -c %solr_core% -d /opt/solr/server/solr/d7_search_api/conf/ && exit"
 
 echo Your new Solr core is ready to use with the endpoint: /solr/%solr_core%.
-pause
+if "%1" == "" (
+  pause
+)
