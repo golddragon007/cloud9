@@ -61,7 +61,7 @@ create_frp_user:
   file.directory:
     - user: frp
     - group: frp
-    - mode: 754 # some permission    
+    - mode: 755 # some permission
     - recurse:
       - user
       - group
