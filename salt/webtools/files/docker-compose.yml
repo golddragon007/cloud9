@@ -1,0 +1,47 @@
+version: '3'
+services:
+  # Elasticsearch cluster
+  elasticsearch:
+    image: elasticsearch:{{ salt['pillar.get']('webtools:elasticsearch_version','latest') }}
+    container_name: elasticsearch1
+    environment:
+      - cluster.name=webtools-dev-cluster
+      - node.name=webtools-node1
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - elasticsearch-log:/var/log/elasticsearch
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      
+  cerebro:
+    image: yannart/cerebro:latest
+    container_name: cerebro
+    ports:
+      - 9000:9000
+
+  #Mysql 
+  mysql:
+    image: mysql:{{ salt['pillar.get']('webtools:mysql_version','latest') }}
+    container_name: mysql{{ salt['pillar.get']('webtools:mysql_version','latest') }}
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - mysql-data:/var/lib/mysql
+    
+volumes:
+  elasticsearch-log:
+  elasticsearch-data:
+  mysql-data:
+
+      

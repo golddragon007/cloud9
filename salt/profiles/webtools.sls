@@ -4,3 +4,6 @@
 include:
   - profiles.common
   - tools.nodejs
+  - docker.docker-compose
+  - docker.bashrc
+  - webtools

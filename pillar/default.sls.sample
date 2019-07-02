@@ -55,3 +55,7 @@ frp:
   host: frps_host
   port: frps_port
   token: frps_token
+  
+webtools:
+  mysql_version: "5.7"
+  elasticsearch_version: "7.1.1"
