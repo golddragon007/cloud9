@@ -62,3 +62,4 @@ Basically you have two options to CLONE (c) or to create a NEW (n) subsite with 
 ./cloud9.sh -c NAMEOFTHESUBSITE
 ./cloud9.sh -n NAMEOFTHESUBSITE
 ```
+

@@ -2,21 +2,21 @@
 
 source $HOME/.bash_profile
 
-sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{"php-fpm":{"version":["72"]}, "drush":{"version":"9.5.2"}}'
+sudo salt-call --retcode-passthrough state.apply profiles.lamp --local pillar='{"php-fpm":{"version":["73"]}, "drush":{"version":"9.5.2"}}'
 
 ##########################
 ###   Check services   ###
 ##########################
 sudo service httpd status
 sudo service mysql status
-sudo service php72-php-fpm status
+sudo service php73-php-fpm status
 
 php --version
-php72 --version
+php73 --version
 
 for php_module in "pdo_mysql" "mysqlnd" "mbstring" "opcache" "ldap" "mcrypt" "tidy"; do
-  if ( php72 -m | grep -iqs "$php_module" ); then
-    echo "PHP module '$php_module' is present."
+  if ( php73 -m | grep -iqs "$php_module" ); then
+    echo "PHP module '$php_module' is present.";
   else
     echo "PHP module '$php_module' is not found."
     exit 71

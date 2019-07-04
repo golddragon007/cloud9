@@ -122,6 +122,14 @@ php{{ php_version }}-fpm:
     - require:
       - pkg: php{{ php_version }}-php-fpm
 
+# Add php command in alternatives
+php{{ php_version }}-alternatives:
+  cmd.run:
+    - name: |
+        alternatives --install /usr/bin/php php /usr/bin/php{{ php_version }} 0
+    - require:
+      - pkg: php{{ php_version }}-php-fpm
+
 ##############
 # CONF LINKS #
 ##############
@@ -140,8 +148,18 @@ chown_phpd{{ php_version }}_dir:
     - recurse:
       - user
       - group
+      
+#>>>>> endfor <<<<<#
 {% endfor %}
 
+cp_switch_script:
+  file.managed:
+    - name: /usr/bin/phpSwitchVersion
+    - source: salt://lamp/php-fpm/files/phpSwitchVersion.py
+    - replace: True
+    - show_changes: True
+    - mode: 755
+    
 ##############
 # LOGS LINKS #
 ##############

@@ -2,7 +2,7 @@ php-fpm:
   version-default :
     - 56
   extensions-common:
-    - pecl-redis
+    - pecl-redis4
     - gd
     - mysqlnd
     - xml
@@ -31,6 +31,9 @@ docker:
   mysql_version : "5.6"
   php_version : "5.6"
 
+drone:
+  version : 0.8.6
+
 drush:
   version-default: "8.1.15"
 
@@ -55,3 +58,7 @@ frp:
   host: frps_host
   port: frps_port
   token: frps_token
+  
+webtools:
+  mysql_version: "5.7"
+  elasticsearch_version: "7.1.1"

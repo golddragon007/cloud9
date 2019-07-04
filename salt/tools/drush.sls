@@ -12,7 +12,7 @@
 
 # Override by pillar if defined (so by cli pillar value)
 {% set drush_version_pillar = salt['pillar.get']('drush:version') %}
-{%- if php_versions_pillar != "" %}
+{%- if drush_version_pillar != "" %}
     {% set drush_version = drush_version_pillar %}
 {%- endif %}
 
@@ -78,6 +78,7 @@ https://git.drupal.org/project/registry_rebuild.git:
     - rev: 7.x-2.x
     - target: /home/ec2-user/.drush/registry_rebuild
     - force_reset: True
+    - force_clone: True
     
 /home/ec2-user/.bashrc.d/00-devops.drush.sh:
   file.managed:

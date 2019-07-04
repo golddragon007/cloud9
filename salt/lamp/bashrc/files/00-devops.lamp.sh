@@ -13,3 +13,4 @@ alias cloud9RestartPhp='all_phpfpm_restart'
 alias cloud9RestartPhp{{ php_version }}="sudo service php{{ php_version }}-php-fpm restart"
 {% endfor %}
 alias cloud9RestartLamp="sudo service httpd restart;sudo service mysql restart;all_phpfpm_restart"
+alias cloud9PhpSwitchVersion="phpSwitchVersion"
